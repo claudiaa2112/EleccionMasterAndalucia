@@ -9,8 +9,6 @@ Para saber si tengo opciones en un máster, los únicos datos que tengo que apor
 titulación, mi nota media y mis certificados de idiomas u otros méritos, si los tengo. Todo lo
 demás está publicado en la web del DUA.
 
-![Tarjeta Cliente](img/tarjeta_cliente.jpeg)
-
 ## Fuentes de datos
 
 Todos los datos los saco del portal del Distrito Único Andaluz (DUA), la web oficial de la
@@ -43,5 +41,5 @@ contenidos del portal de la Junta de Andalucía, del que forma parte el DUA, se 
 reutilizar con licencia Creative Commons Reconocimiento 3.0, indicando que la información se
 ha obtenido del Portal de la Junta de Andalucía.
 
-## Configuración del repositorio
-[Configuración SSH y perfil](docs/configuracion/)
+## Documentación de los objetivos
+- [Objetivo 0: tarjeta del juego de rol y configuración del repositorio](docs/objetivos/objetivo-0/objetivo-0.md)
