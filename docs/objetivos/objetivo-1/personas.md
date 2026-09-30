@@ -4,8 +4,7 @@
 
 - Quién es: estudiante de último curso del Grado en Ingeniería Informática en la
   Universidad de Granada, en la especialidad de Tecnologías de la Información.
-- Su situación: tiene una nota media de 7,061, que considera normal, y está terminando de
-  sacarse el título B2 de inglés.
+- Su situación: tiene una nota media de 7,061, que considera normal, y el B2 de inglés.
 - Qué busca: un máster relacionado con su mención, Tecnologías de la Información, que
   la capacita para diseñar, desplegar, integrar y administrar redes, sistemas y
   aplicaciones basadas en tecnologías de internet y hardware. Le gustaría cursarlo en

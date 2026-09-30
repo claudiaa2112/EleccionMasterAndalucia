@@ -3,8 +3,7 @@
 ## [HU001] Claudia no sabe en qué másteres tiene posibilidades objetivas de entrar
 
 Claudia está en el último curso del Grado en Ingeniería Informática, en la mención de
-Tecnologías de la Información, tiene una nota media de 7,061 y está terminando de sacarse
-el B2 de inglés. Ella misma elige qué másteres están relacionados con su mención, y
+Tecnologías de la Información, tiene una nota media de 7,061 y el B2 de inglés. Ella misma elige qué másteres están relacionados con su mención, y
 prefiere los de Granada y Sevilla, aunque le importa más la relación con su mención que
 la ciudad. Lo que no sabe es en cuáles de esos másteres tiene
 [posibilidades objetivas](user-journeys.md#qué-tiene-en-cuenta-para-saber-si-tiene-opciones-en-un-máster)
