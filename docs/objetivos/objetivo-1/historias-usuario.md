@@ -18,21 +18,22 @@ directamente con la nota de corte, y tampoco sabe si su B2 le sumará algo en ca
 
 - Persona: [Claudia](personas.md#claudia)
 
-## [HU002] Julia no sabe si su grado le da opciones en los másteres de fiscalidad de Granada
+## [HU002] Julia no sabe cuánto margen tiene para entrar en los másteres de fiscalidad de Granada
 
 Julia está en el último curso del Grado en Administración y Dirección de Empresas, sin
 ninguna especialidad, tiene una nota media de 6,53 y el B1 de inglés. Ella misma elige
-qué másteres de Granada están relacionados con la fiscalidad. Lo que no sabe es si en
-ellos tiene
+qué másteres de Granada están relacionados con la fiscalidad. No le basta con saber si en
+cada uno tiene
 [posibilidades objetivas](user-journeys.md#qué-tiene-en-cuenta-para-saber-si-tiene-opciones-en-un-máster)
-de entrar, porque, al ser su grado ADE sin especialidad, no sabe qué prioridad tiene en
-cada uno ni si le exigen algún requisito adicional. Además, compara su 6,53 directamente
-con la nota de corte, aunque cada máster puntúa de forma distinta y su B1 podría contar
-o no.
+de entrar: necesita saber cuánto
+[margen](user-journeys.md#qué-entiende-por-margen) tiene. Hoy intenta calcularlo a mano
+comparando su 6,53 con la nota de corte, aunque cada máster puntúa de forma distinta, su
+B1 podría contar o no, y ni siquiera sabe qué prioridad tiene su grado en cada uno.
 
-Necesita saberlo cuanto antes, porque si no tiene opciones tendría que empezar a buscar
-academia para preparar las oposiciones de inspectora de Hacienda en Granada. La
-información que necesita está repartida en las páginas del DUA que se explican en
+Con ese margen decidiría si merece la pena seguir con el máster o empezar a buscar
+academia para preparar las oposiciones de inspectora de Hacienda en Granada, y necesita
+saberlo cuanto antes. La información que necesita está repartida en las páginas del DUA
+que se explican en
 [su journey](user-journeys.md#julia-no-sabe-si-insistir-con-el-máster-o-empezar-a-preparar-la-oposición).
 
 - Persona: [Julia](personas.md#julia)

@@ -86,6 +86,16 @@ de la última adjudicación, según se explica en
 compara directamente su 6,53 con la nota de corte, aunque según cómo puntúe el máster su
 B1 podría contar o no.
 
+### Qué entiende por margen
+
+A Julia no le basta con saber si entraría: necesita saber qué margen tiene en cada
+máster, es decir, cuántos puntos le sobran o le faltan respecto al último estudiante que
+entró con su misma prioridad. Si su prioridad es mayor que la de ese estudiante, entraría
+sin importar la puntuación, y si es menor, no entraría, así que el margen en puntos solo
+tiene sentido cuando la prioridad es la misma. En los másteres que puntúan méritos cuyo
+valor no se puede saber de antemano, quiere conocer el margen si esos méritos no le
+sumaran nada y el margen si se los valoraran al máximo.
+
 ### Qué le frustra
 
 - La incertidumbre y el tiempo que pierde cada fin de semana.
