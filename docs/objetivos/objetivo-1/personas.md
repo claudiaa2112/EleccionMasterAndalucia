@@ -32,14 +32,3 @@
   sobre academias y sobre cómo preparar la oposición en Granada.
 - Qué necesita para quedarse tranquila: saber cuántas posibilidades tiene de entrar en el
   máster, para decidir a tiempo si empieza a moverse con la oposición.
-
-## Rosa
-
-- Quién es: estudiante de último curso del Grado en Educación Infantil en la Universidad
-  de Granada, sin ninguna mención.
-- Su situación: tiene una nota media de 8,716.
-- Qué busca: cualquier máster afín a su grado. Prefiere quedarse en Granada o irse a
-  Sevilla.
-- Qué le preocupa: no sabe qué opciones tiene de entrar en los másteres donde quiere.
-- Qué se juega: si no entra, haría otra carrera, Educación Primaria.
-- Qué necesita para quedarse tranquila: saber qué opciones tiene de entrar donde quiere.
