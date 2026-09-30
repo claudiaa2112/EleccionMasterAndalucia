@@ -9,7 +9,8 @@ Persona: [Claudia](personas.md#claudia)
 Claudia empieza a informarse desde el inicio de su último curso, mucho antes de que se abra
 el plazo de solicitud, porque no sabe nada del tema y no quiere que se le eche el tiempo
 encima. Lo va mirando en sus ratos libres a lo largo de varias semanas, siempre desde su
-portátil.
+portátil. Necesita tener una respuesta antes de que empiece el segundo cuatrimestre, para
+tener margen de reacción y que no le pille el toro.
 
 ### Qué hace hoy
 
