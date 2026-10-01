@@ -1,20 +1,21 @@
 # Historias de usuario
 
-## [HU001] Claudia no sabe en qué másteres tiene posibilidades objetivas de entrar
+## [HU001] No sé en qué másteres tengo posibilidades objetivas de entrar
 
-Claudia está en el último curso del Grado en Ingeniería Informática, en la mención de
-Tecnologías de la Información, tiene una nota media de 7,061 y el B2 de inglés. Ella misma elige qué másteres están relacionados con su mención, y
-prefiere los de Granada y Sevilla, aunque le importa más la relación con su mención que
-la ciudad. Lo que no sabe es en cuáles de esos másteres tiene
+Soy Claudia, estoy en el último curso del Grado en Ingeniería Informática, en la mención
+de Tecnologías de la Información, y tengo una nota media de 7,061 y el B2 de inglés. Hay
+varios másteres que me interesan porque están relacionados con mi mención, sobre todo en
+Granada y Sevilla, aunque me importa más la relación con mi mención que la ciudad. Lo que
+no sé es en cuáles de ellos tengo
 [posibilidades objetivas](user-journeys.md#qué-tiene-en-cuenta-para-saber-si-tiene-opciones-en-un-máster)
 de entrar.
 
-Para saberlo necesita, de cada máster, la prioridad que tiene su grado y si hay algún
+Para saberlo necesito, de cada máster, la prioridad que tiene mi grado y si hay algún
 requisito adicional, cómo puntúa el máster a cada estudiante y la nota de corte de la
 última adjudicación. Esa información está repartida en tres páginas del DUA, que se
-explican en [su journey](user-journeys.md#claudia-busca-en-qué-másteres-tiene-opciones-de-entrar).
-Como cada máster puntúa de forma distinta, su nota media no se puede comparar
-directamente con la nota de corte, y tampoco sabe si su B2 le sumará algo en cada uno.
+explican en [mi journey](user-journeys.md#claudia-busca-en-qué-másteres-tiene-opciones-de-entrar).
+Como cada máster puntúa de forma distinta, mi nota media no se puede comparar
+directamente con la nota de corte, y tampoco sé si mi B2 me sumará algo en cada uno.
 
 - Persona: [Claudia](personas.md#claudia)
 

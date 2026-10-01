@@ -3,7 +3,7 @@
 ## Milestone 0: modelado del problema de la HU001
 
 Es un milestone interno, que corresponde al objetivo 2 de la asignatura, y trabaja solo
-con la [HU001](historias-usuario.md#hu001-claudia-no-sabe-en-qué-másteres-tiene-posibilidades-objetivas-de-entrar).
+con la [HU001](historias-usuario.md#hu001-no-sé-en-qué-másteres-tengo-posibilidades-objetivas-de-entrar).
 
 ### Qué se entrega
 
@@ -37,7 +37,7 @@ Design) a partir de la HU001. Claudia lo comprobará en el pull request viendo q
 
 Es un milestone interno, que corresponde al objetivo 4 de la asignatura. Parte de lo
 entregado en el milestone 0 y sigue trabajando sobre el problema de la
-[HU001](historias-usuario.md#hu001-claudia-no-sabe-en-qué-másteres-tiene-posibilidades-objetivas-de-entrar).
+[HU001](historias-usuario.md#hu001-no-sé-en-qué-másteres-tengo-posibilidades-objetivas-de-entrar).
 
 ### Qué se entrega
 
