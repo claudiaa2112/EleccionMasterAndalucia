@@ -30,5 +30,5 @@
 - Qué se juega: si no entra, buscaría otro máster o empezaría a preparar las oposiciones
   de inspectora de Hacienda mientras trabaja. Para eso tendría que empezar a informarse
   sobre academias y sobre cómo preparar la oposición en Granada.
-- Qué necesita para quedarse tranquila: saber cuántas posibilidades tiene de entrar en el
-  máster, para decidir a tiempo si empieza a moverse con la oposición.
+- Qué necesita para quedarse tranquila: saber qué margen tiene para entrar en cada
+  máster, para decidir antes de marzo si empieza a moverse con la oposición.
