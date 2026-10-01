@@ -64,7 +64,8 @@ Persona: [Julia](personas.md#julia)
 
 Julia empieza a mirarlo a principios de curso, pero solo de vez en cuando, algún fin de
 semana en que se acuerda o le entra la preocupación. Lo consulta siempre desde su
-portátil.
+portátil. Necesita tener una respuesta antes de marzo, porque es el plazo que tiene para
+apuntarse a una academia y empezar a preparar la oposición en septiembre.
 
 ### Qué hace hoy
 

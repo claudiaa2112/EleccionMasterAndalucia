@@ -32,7 +32,7 @@ B1 podría contar o no, y ni siquiera sabe qué prioridad tiene su grado en cada
 
 Con ese margen decidiría si merece la pena seguir con el máster o empezar a buscar
 academia para preparar las oposiciones de inspectora de Hacienda en Granada, y necesita
-saberlo cuanto antes. La información que necesita está repartida en las páginas del DUA
+saberlo antes de marzo. La información que necesita está repartida en las páginas del DUA
 que se explican en
 [su journey](user-journeys.md#julia-no-sabe-si-insistir-con-el-máster-o-empezar-a-preparar-la-oposición).
 
