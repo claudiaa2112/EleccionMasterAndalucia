@@ -4,6 +4,8 @@
 
 Es un milestone interno, que corresponde al objetivo 2 de la asignatura, y trabaja solo
 con la [HU001](historias-usuario.md#hu001-no-sé-en-qué-másteres-tengo-posibilidades-objetivas-de-entrar).
+Para analizar su problema se sigue la metodología de diseño dirigido por el dominio
+(Domain Driven Design).
 
 ### Qué se entrega
 
@@ -20,8 +22,7 @@ contiene:
 
 ### Cómo se sabe que es válido
 
-Es válido si se ha seguido la metodología de diseño dirigido por el dominio (Domain Driven
-Design) a partir de la HU001. Claudia lo comprobará en el pull request viendo que:
+Es válido si se ha seguido esa metodología. Claudia lo comprobará viendo que:
 
 - los issues salen de la HU001 y de lo que enlaza (su journey y la definición de
   posibilidades objetivas) y plantean problemas, no tareas;
@@ -37,7 +38,9 @@ Design) a partir de la HU001. Claudia lo comprobará en el pull request viendo q
 
 Es un milestone interno, que corresponde al objetivo 4 de la asignatura. Parte de lo
 entregado en el milestone 0 y sigue trabajando sobre el problema de la
-[HU001](historias-usuario.md#hu001-no-sé-en-qué-másteres-tengo-posibilidades-objetivas-de-entrar).
+[HU001](historias-usuario.md#hu001-no-sé-en-qué-másteres-tengo-posibilidades-objetivas-de-entrar)
+con la misma metodología, dividiéndolo en problemas más simples cuya solución se pueda
+comprobar con un test.
 
 ### Qué se entrega
 
