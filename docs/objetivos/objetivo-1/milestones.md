@@ -9,16 +9,8 @@ Para analizar su problema se sigue la metodología de diseño dirigido por el do
 
 ### Qué se entrega
 
-Un pull request a la rama principal del repositorio, asignado a este milestone, que
-contiene:
-
-- los issues que analizan el problema de la HU001, cada uno planteado como un problema y
-  enlazado a ella;
-- el código en el lenguaje de programación elegido, todavía sin lógica, organizado según
-  las buenas prácticas de ese lenguaje en cuanto a directorios y nombres de ficheros y
-  clases;
-- el fichero `iv.yaml`, con la clave `entidad` apuntando al fichero donde está la entidad,
-  y la justificación del lenguaje elegido.
+El código, todavía sin lógica, en el que cada objeto valor, entidad y agregado sale de un
+issue en el que se ha aplicado esa metodología a la HU001.
 
 ### Cómo se sabe que es válido
 
@@ -44,17 +36,9 @@ comprobar con un test.
 
 ### Qué se entrega
 
-Un pull request a la rama principal del repositorio, asignado a este milestone, que
-contiene:
-
-- los issues que dividen el problema de la HU001 en problemas más simples, cuya solución
-  se pueda comprobar con un test, cada uno enlazado a ella;
-- el código con la lógica de negocio, construido sobre el del milestone 0;
-- los tests de esa lógica, incluidos los de los errores que puedan darse;
-- la elección documentada de la biblioteca de aserciones y del ejecutor de tests, con los
-  criterios fijados antes de elegirlos;
-- la clave `test` en el fichero `iv.yaml` y el README actualizado explicando cómo se
-  ejecutan los tests.
+El código del milestone 0 con la lógica que resuelve el problema de la HU001, junto con
+los tests que la comprueban, incluidos los de los errores que puedan darse, y que se
+ejecutan con una sola orden.
 
 ### Cómo se sabe que es válido
 
