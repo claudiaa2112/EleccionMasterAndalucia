@@ -1,0 +1,11 @@
+[project]
+name = "eleccion-master-andalucia"
+version = "0.3.0"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.scripts]
+check = "python -m compileall -q master"
