@@ -28,7 +28,7 @@ Es válido si se ha seguido esa metodología. Claudia lo comprobará viendo que:
 
 ## Milestone 1: lógica del problema de la HU001 comprobada con tests
 
-Es un milestone interno, que corresponde al objetivo 4 de la asignatura. Parte de lo
+Es un milestone interno, que corresponde a los objetivos 3 y 4 de la asignatura. Parte de lo
 entregado en el milestone 0 y sigue trabajando sobre el problema de la
 [HU001](historias-usuario.md#hu001-no-sé-en-qué-másteres-tengo-posibilidades-objetivas-de-entrar)
 con la misma metodología, dividiéndolo en problemas más simples cuya solución se pueda
@@ -37,8 +37,9 @@ comprobar con un test.
 ### Qué se entrega
 
 El código del milestone 0 con la lógica que resuelve el problema de la HU001, junto con
-los tests que la comprueban, incluidos los de los errores que puedan darse, y que se
-ejecutan con una sola orden.
+los tests que la comprueban, incluidos los de los errores que puedan darse, y las
+herramientas que permiten preparar el proyecto, comprobar que el código es correcto y
+ejecutar esos tests, cada cosa con una sola orden.
 
 ### Cómo se sabe que es válido
 
@@ -51,4 +52,6 @@ Claudia lo comprobará además viendo que:
 - cada test responde a un issue, y cada issue a la HU001;
 - los tests siguen los principios F.I.R.S.T. (rápidos, independientes, repetibles, que
   validan por sí mismos y hechos a tiempo);
+- la herramienta que automatiza esas tareas se ha elegido con criterios objetivos y la
+  elección está justificada;
 - cada commit cierra o referencia un issue.
