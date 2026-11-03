@@ -56,6 +56,10 @@ de Make, que se instala con el sistema.
   ([documentación](https://pdm-project.org/latest/usage/scripts/)), así que no hace falta
   otra herramienta. Se instala en 28,05 s y ocupa 59 MB; prepara el proyecto en 3,98 s y
   comprueba la sintaxis con su propia tarea en 1,76 s ([captura](capturas/pdm.png)).
+- Hatch: sigue el estándar pyproject.toml y tiene tareas, pero no tiene fichero que fije
+  las versiones (la petición [#749](https://github.com/pypa/hatch/issues/749) sigue
+  abierta). Se instala en 35,93 s y ocupa 111 MB; prepara el proyecto en 1,79 s y comprueba
+  la sintaxis en 0,68 s ([captura](capturas/hatch.png)).
 
 ## Gestores de tareas
 
