@@ -65,8 +65,9 @@ pdm install   # crea el entorno del proyecto e instala lo que necesita
 pdm check     # comprueba que la sintaxis del código es correcta
 ```
 
-pdm check compila todos los ficheros de la carpeta master y avisa si alguno tiene un error
-de sintaxis, indicando el fichero y la línea. No revisa el estilo ni los tipos.
+pdm check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
+sintaxis, indicando el fichero y la línea, sin escribir nada en disco. No revisa el estilo
+ni los tipos.
 
 ## Por qué PDM
 

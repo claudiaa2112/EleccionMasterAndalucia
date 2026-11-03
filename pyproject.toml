@@ -8,4 +8,4 @@ dependencies = []
 distribution = false
 
 [tool.pdm.scripts]
-check = "python -m compileall -q master"
+check = "python -c \"import ast, pathlib; [ast.parse(f.read_text(), str(f)) for f in pathlib.Path('master').rglob('*.py')]\""
