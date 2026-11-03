@@ -69,52 +69,7 @@ pdm check lee todos los ficheros de la carpeta master y avisa si alguno tiene un
 sintaxis, indicando el fichero y la línea, sin escribir nada en disco. No revisa el estilo
 ni los tipos.
 
-## Por qué PDM
-
-Hacía falta una forma común de preparar el proyecto y comprobar el código
-([issue #23](https://github.com/claudiaa2112/EleccionMasterAndalucia/issues/23)). Para
-elegir la herramienta he partido de esto:
-
-- Python define en un estándar cómo se describe un proyecto y sus dependencias: el fichero
-  pyproject.toml ([PEP 621](https://peps.python.org/pep-0621/)), los grupos de dependencias
-  para quien desarrolla ([PEP 735](https://peps.python.org/pep-0735/)) y el fichero que fija
-  las versiones instaladas ([PEP 751](https://peps.python.org/pep-0751/)). Pero no dice qué
-  programa tiene que usarlos.
-- El código solo usa lo que trae Python, sin dependencias externas, así que la rapidez
-  instalando muchas dependencias no es un criterio que pese aquí.
-- La versión de Python ya la gestiona pyenv, así que no hace falta que la herramienta
-  también instale Python.
-- Se prefiere una sola herramienta para dependencias y tareas, para no añadir otra más.
-- Que esté bien mantenida, para no acumular deuda técnica.
-
-Las opciones que he mirado, con datos de GitHub del 31-10-2026:
-
-- uv sigue el estándar y está muy activo, pero no tiene tareas con nombre (la petición
-  [#5903](https://github.com/astral-sh/uv/issues/5903) sigue abierta), así que haría falta
-  otra herramienta para ellas. Además instala versiones de Python, lo que se solapa con
-  pyenv. Tiene más de 3000 issues y PR abiertos.
-- Poetry sigue el estándar, pero tampoco tiene tareas sin añadir un plugin. Tiene unos 620
-  issues y PR abiertos.
-- Hatch tiene tareas, pero no tiene fichero que fije las versiones
-  ([#749](https://github.com/pypa/hatch/issues/749) sigue abierta) e instala versiones de
-  Python. Tiene unos 450 issues y PR abiertos.
-- Pipenv usa su propio fichero, Pipfile, en lugar del estándar pyproject.toml.
-- pip con venv viene con Python, pero no fija versiones ni tiene tareas, y haría falta
-  añadir otra herramienta como Make.
-- PDM sigue el estándar, fija las versiones en pdm.lock y permite definir las tareas dentro
-  de pyproject.toml ([documentación](https://pdm-project.org/latest/usage/scripts/)). Usa el
-  Python que ya hay instalado. Sacó su última versión el 30-10-2026 y tiene 45 issues y PR
-  abiertos.
-
-He elegido PDM porque es la única que cumple todo con una sola herramienta. Sus puntos
-débiles son que su comunidad es más pequeña que la de uv o Poetry y que el formato estándar
-de fichero de versiones, pylock.toml, todavía es experimental en PDM, por eso se usa el suyo
-propio, pdm.lock.
-
-Para la tarea check uso el compilador que trae Python (compileall), porque se pide comprobar
-solo la sintaxis. Herramientas como Ruff o mypy revisan además estilo y tipos, que es más de
-lo que se pide.
-
 ## Documentación de los objetivos
 - [Objetivo 0: tarjeta del juego de rol y configuración del repositorio](docs/objetivos/objetivo-0/objetivo-0.md)
 - Objetivo 1: [personas](docs/objetivos/objetivo-1/personas.md), [user journeys](docs/objetivos/objetivo-1/user-journeys.md), [historias de usuario](docs/objetivos/objetivo-1/historias-usuario.md) y [milestones](docs/objetivos/objetivo-1/milestones.md)
+- [Objetivo 3: elección de las herramientas para automatizar tareas](docs/objetivos/objetivo-3/automatizacion.md)
