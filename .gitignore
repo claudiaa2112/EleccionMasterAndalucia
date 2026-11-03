@@ -145,5 +145,4 @@ datos/
 docs/fuentes-datos/
 
 # Python y PDM
-__pycache__/
 .pdm-python
