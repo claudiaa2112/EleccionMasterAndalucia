@@ -51,6 +51,11 @@ de Make, que se instala con el sistema.
 - Poetry: sigue el estándar pyproject.toml, pero no tiene tareas sin añadir un plugin. Se
   instala en 32,38 s y ocupa 92 MB; prepara el proyecto en 3,08 s y comprueba la sintaxis
   en 1,43 s ([captura](capturas/poetry.png)).
+- PDM: sigue el estándar pyproject.toml, fija las versiones en pdm.lock y permite definir
+  las tareas dentro de pyproject.toml
+  ([documentación](https://pdm-project.org/latest/usage/scripts/)), así que no hace falta
+  otra herramienta. Se instala en 28,05 s y ocupa 59 MB; prepara el proyecto en 3,98 s y
+  comprueba la sintaxis con su propia tarea en 1,76 s ([captura](capturas/pdm.png)).
 
 ## Gestores de tareas
 
