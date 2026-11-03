@@ -66,6 +66,9 @@ de Make, que se instala con el sistema.
 - Make: no depende de Python, pero no viene en la imagen y se instala con el sistema. Se
   instala en 15,07 s y ocupa 272 KB; comprueba la sintaxis en 0,31 s
   ([captura](capturas/make.png)).
+- just: es un programa independiente. Se instala en 11,60 s y ocupa 20 MB, contando el
+  entorno en el que se instala; comprueba la sintaxis en 0,12 s
+  ([captura](capturas/just.png)).
 
 ## La tarea check
 
