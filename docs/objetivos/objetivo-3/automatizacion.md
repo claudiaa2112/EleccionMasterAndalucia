@@ -63,6 +63,10 @@ de Make, que se instala con el sistema.
 
 ## Gestores de tareas
 
+- Make: no depende de Python, pero no viene en la imagen y se instala con el sistema. Se
+  instala en 15,07 s y ocupa 272 KB; comprueba la sintaxis en 0,31 s
+  ([captura](capturas/make.png)).
+
 ## La tarea check
 
 Se usa [ast.parse](https://docs.python.org/3/library/ast.html#ast.parse), que viene con
