@@ -12,9 +12,3 @@ class EstadoCorte(Enum):
 class CorteNumerico:
     prioridad: PrioridadCarrera
     puntuacion: Decimal
-
-    def __post_init__(self) -> None:
-        if not isinstance(self.prioridad, PrioridadCarrera):
-            raise ValueError("El corte numérico necesita una prioridad de carrera válida.")
-        if not isinstance(self.puntuacion, Decimal) or self.puntuacion < Decimal("0"):
-            raise ValueError("La puntuación de corte debe ser Decimal no negativa.")
