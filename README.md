@@ -75,3 +75,4 @@ ni los tipos.
 - [Objetivo 0: tarjeta del juego de rol y configuración del repositorio](docs/objetivos/objetivo-0/objetivo-0.md)
 - Objetivo 1: [personas](docs/objetivos/objetivo-1/personas.md), [user journeys](docs/objetivos/objetivo-1/user-journeys.md), [historias de usuario](docs/objetivos/objetivo-1/historias-usuario.md) y [milestones](docs/objetivos/objetivo-1/milestones.md)
 - [Objetivo 3: elección de las herramientas para automatizar tareas](docs/objetivos/objetivo-3/automatizacion.md)
+- [Objetivo 4: elección de las herramientas para los tests](docs/objetivos/objetivo-4/tests.md)
