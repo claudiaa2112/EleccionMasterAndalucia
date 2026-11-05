@@ -57,12 +57,14 @@ depende de la valoración de la comisión o si no entra ni con la máxima puntua
 
 ## Cómo preparar el proyecto y comprobar el código
 
-Hace falta tener Python 3.14 y [PDM](https://pdm-project.org/latest/#installation).
+Hace falta tener [pyenv](https://github.com/pyenv/pyenv#installation), que instala la
+versión de Python del proyecto, y [PDM](https://pdm-project.org/latest/#installation).
 Desde la carpeta del proyecto:
 
 ```bash
-pdm install   # crea el entorno del proyecto e instala lo que necesita
-pdm check     # comprueba que la sintaxis del código es correcta
+pyenv install 3.14   # instala Python 3.14
+pdm install          # crea el entorno del proyecto con ese Python e instala lo que necesita
+pdm check            # comprueba que la sintaxis del código es correcta
 ```
 
 pdm check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
