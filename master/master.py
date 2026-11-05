@@ -12,7 +12,7 @@ class RequisitoAdicional:
 @dataclass(frozen=True)
 class Acceso:
     prioridad: PrioridadCarrera
-    codigos_requisitos: frozenset[str]
+    con_requisito_adicional: bool
 
 @dataclass(eq=False)
 class Master:
