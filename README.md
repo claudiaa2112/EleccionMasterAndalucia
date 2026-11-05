@@ -46,7 +46,8 @@ ha obtenido del Portal de la Junta de Andalucía.
 La clase Master, en [master/master.py](master/master.py), reúne lo que el DUA publica sobre
 un máster y que hace falta para saber si tengo opciones de entrar:
 
-- con qué prioridad admite cada titulación y qué requisitos adicionales le pide;
+- con qué prioridad admite cada titulación y si esa prioridad depende de cumplir un
+  requisito adicional, junto con el texto de esos requisitos;
 - cuánto pesa la nota media en la puntuación; el resto de criterios (currículum,
   experiencia, idiomas...) depende de la comisión, porque el DUA no publica cuánto vale
   cada uno;
