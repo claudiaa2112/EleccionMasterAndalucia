@@ -5,7 +5,7 @@ from .corte import CorteNumerico, EstadoCorte
 from .prioridad_carreras import PrioridadCarrera
 
 @dataclass(frozen=True)
-class Requisito:
+class RequisitoAdicional:
     descripcion: str
     obligatorio: bool
 
@@ -18,5 +18,5 @@ class Acceso:
 class Master:
     accesos: Mapping[str, Acceso]
     ponderacion_nota_media: int
-    requisitos: Mapping[str, Requisito]
+    requisitos_adicionales: Mapping[str, RequisitoAdicional]
     corte: CorteNumerico | EstadoCorte
