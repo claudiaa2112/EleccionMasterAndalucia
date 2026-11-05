@@ -47,12 +47,13 @@ La clase Master, en [master/master.py](master/master.py), reúne lo que el DUA p
 un máster y que hace falta para saber si tengo opciones de entrar:
 
 - con qué prioridad admite cada titulación y qué requisitos adicionales le pide;
-- qué criterios usa para puntuar y cuánto pesa cada uno, distinguiendo los que puedo
-  calcular yo de los que dependen de la comisión;
+- cuánto pesa la nota media en la puntuación; el resto de criterios (currículum,
+  experiencia, idiomas...) depende de la comisión, porque el DUA no publica cuánto vale
+  cada uno;
 - la nota de corte de la última adjudicación.
 
-En el servicio web que se desplegará más adelante, cuando alguien indique su titulación, su
-nota media y sus méritos, se comparará con cada máster para decirle si entra seguro, si
+En el servicio web que se desplegará más adelante, cuando alguien indique su titulación y
+su nota media, se comparará con cada máster para decirle si entra seguro, si
 depende de la valoración de la comisión o si no entra ni con la máxima puntuación.
 
 ## Cómo preparar el proyecto y comprobar el código
