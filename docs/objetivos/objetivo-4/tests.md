@@ -79,8 +79,46 @@ Para todas las opciones que hay que instalar:
 
 ## Cómo se mide
 
-Cada opción se prueba en un contenedor limpio con la imagen oficial python:3.14-slim, para
-partir siempre de cero, igual que en el [objetivo 3](../objetivo-3/automatizacion.md). Se
-mide con el test del
+Cada opción se prueba a mano en un contenedor limpio con la imagen oficial python:3.14-slim,
+para partir siempre de cero, con el test del
 [issue #32](https://github.com/claudiaa2112/EleccionMasterAndalucia/issues/32) (el código
-de un máster tiene seis cifras), escrito con cada opción.
+de un máster tiene seis cifras) escrito con cada opción en la carpeta [pruebas](pruebas).
+Como esa validación todavía no está programada, en todas las opciones un test pasa y falla
+el que comprueba que se rechaza un código de cinco cifras, y así se ve el mensaje de fallo
+y el código de salida.
+
+Desde la carpeta del repositorio:
+
+    docker run --rm -it -v "$PWD":/src:ro python:3.14-slim bash
+
+y dentro del contenedor:
+
+    cp -r /src /proyecto && cd /proyecto
+    export PIP_ROOT_USER_ACTION=ignore PIP_DISABLE_PIP_VERSION_CHECK=1
+    du -sh --exclude=pip /usr/local/lib/python3.14/site-packages
+    pip freeze | wc -l
+    touch /tmp/marca
+    time pip install -q <paquetes>
+    du -sh --exclude=pip /usr/local/lib/python3.14/site-packages
+    pip freeze | wc -l
+    time <orden que ejecuta los tests>
+    echo "código de salida: $?"
+    find . -newer /tmp/marca -not -path './.git*'
+
+- Lo que ocupa una opción es lo que crece la carpeta de paquetes al instalarla, sin contar
+  la de pip: la imagen trae pip sin compilar y, al usarlo, Python genera unos 5 MB de
+  ficheros suyos que no son de la herramienta. Antes de instalar nada, la carpeta ocupa
+  siempre 124 KB y no hay ningún paquete.
+- Las dependencias son los paquetes que aparecen además de la propia herramienta.
+- El tiempo de instalación depende de la red, porque lo que no es tiempo de CPU es espera
+  de descarga, así que se compara junto con el tamaño y las dependencias, que no cambian.
+- Los ficheros que deja son los que aparecen nuevos en la carpeta del proyecto después de
+  ejecutar los tests.
+- Todas las opciones se ejecutan con una orden normal, así que todas se pueden lanzar como
+  tarea de PDM.
+- Los dobles de prueba no se pueden probar con el test del #32, porque esa validación no
+  depende de nada externo: de ellos se mide la instalación y se comprueba que funcionan con
+  Python 3.14, y el resto de criterios se toma de su documentación.
+
+\* Cuando una captura no cabía entera en la pantalla, se indica en su opción qué parte no
+aparece.
