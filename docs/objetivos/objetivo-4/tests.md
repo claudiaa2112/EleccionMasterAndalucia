@@ -232,3 +232,10 @@ No encajan en este proyecto:
   (comprobado en el mismo contenedor) ([captura 1](capturas/hypothesis.png)\* y
   [2](capturas/hypothesis1.png): no cabía el principio; el tamaño de partida es el de
   siempre, 124 KB y ningún paquete).
+
+## Dobles de prueba
+
+- unittest.mock: viene con Python y funciona con cualquier test runner. Sustituye objetos
+  con Mock o patch y comprueba con qué datos se han llamado con assert_called_with
+  ([documentación](https://docs.python.org/3/library/unittest.mock.html))
+  ([captura](capturas/unittest-mock.png)).
