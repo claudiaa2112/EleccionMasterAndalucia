@@ -167,3 +167,10 @@ No encajan en este proyecto:
   y los datos compartidos se preparan en setUp o setUpClass. Se ejecuta con python -m
   unittest en 0,34 s, termina con código 1 y solo deja los __pycache__ que crea Python, que
   se evitan con PYTHONDONTWRITEBYTECODE=1 ([captura](capturas/unittest.png)).
+- doctest: viene con Python, así que no se instala ni ocupa nada. Los tests son ejemplos de
+  una sesión de Python escritos en texto, así que no permite repetir un test con varios
+  casos ni preparar datos compartidos, y cuenta como test cada línea (6 en vez de 2). Al
+  fallar muestra lo esperado y lo obtenido. Se ejecuta con python -m doctest en 0,81 s,
+  termina con código 1 y solo deja __pycache__ ([captura 1](capturas/doctest.png) y
+  [2](capturas/doctest1.png)\*: no se muestra la preparación del contenedor porque no se
+  instala nada y no cabía).

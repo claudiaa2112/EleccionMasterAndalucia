@@ -1,0 +1,10 @@
+>>> from master.convocatoria_master import ConvocatoriaMaster
+>>> from master.corte import EstadoCorte
+>>> from master.master import Master
+>>> master = Master(accesos={}, ponderacion_nota_media=100, requisitos_adicionales={}, corte=EstadoCorte.SIN_ADJUDICACION)
+>>> list(ConvocatoriaMaster("2026-2027", {"492700": master}).masters)
+['492700']
+>>> ConvocatoriaMaster("2026-2027", {"49270": master})
+Traceback (most recent call last):
+...
+ValueError: El código del máster debe tener seis cifras.
