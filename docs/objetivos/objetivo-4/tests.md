@@ -163,6 +163,15 @@ No encajan en este proyecto:
   ([documentación](https://docs.pytest.org/en/stable/how-to/assert.html)). Para comprobar
   un error necesita pytest.raises, que al fallar dice "DID NOT RAISE ValueError"
   ([captura](capturas/pytest.png)).
+- assertpy 2.36.0: escribe las comprobaciones como una frase encadenada, por ejemplo
+  assert_that(x).is_equal_to(y). Al fallar, el error incluye el valor obtenido, el esperado
+  y la diferencia, y comprueba los errores con raises(...).when_called_with(...)
+  ([documentación](https://assertpy.github.io/assertpy/guides/errors/)); en este caso da el
+  mensaje más completo de todos, con los datos con los que se llamó. Se usa con pytest: los
+  dos juntos se instalan en 7,38 s, ocupan 21 MB (unos 5 MB más que pytest solo) y son 6
+  paquetes. Ejecuta los tests en 2,70 s y termina con código 1
+  ([captura](capturas/assertpy.png)\*: el final del find no cabía; se ejecuta con pytest y
+  deja lo mismo que él).
 
 ## Test runners y órdenes para ejecutar los tests
 
