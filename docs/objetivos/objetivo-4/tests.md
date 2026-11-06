@@ -243,3 +243,8 @@ No encajan en este proyecto:
   pytest ([documentación](https://pytest-mock.readthedocs.io/)). Se instala en 7,24 s,
   ocupa 16 MB y son 6 paquetes, porque trae pytest con él
   ([captura](capturas/pytest-mock.png)).
+- flexmock 0.13.0: funciona con unittest y con pytest, y comprueba las llamadas con
+  should_receive(...).with_args(...) seguido de once() o times()
+  ([documentación](https://flexmock.readthedocs.io/en/latest/usage/call_count/)). Se
+  instala en 7,41 s (1,88 s de CPU, el resto es descarga), ocupa 360 KB y no tiene
+  dependencias ([captura](capturas/flexmock.png)).
