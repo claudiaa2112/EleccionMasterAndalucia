@@ -158,6 +158,11 @@ No encajan en este proyecto:
   [documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)),
   y assertRaisesRegex comprueba el error y su mensaje; al fallar dice "ValueError not
   raised" ([captura](capturas/unittest.png)).
+- assert de Python: viene con Python. Por sí solo, al fallar solo dice AssertionError; el
+  valor obtenido y el esperado los muestra pytest, que reescribe los assert para ello
+  ([documentación](https://docs.pytest.org/en/stable/how-to/assert.html)). Para comprobar
+  un error necesita pytest.raises, que al fallar dice "DID NOT RAISE ValueError"
+  ([captura](capturas/pytest.png)).
 
 ## Test runners y órdenes para ejecutar los tests
 
@@ -174,3 +179,14 @@ No encajan en este proyecto:
   termina con código 1 y solo deja __pycache__ ([captura 1](capturas/doctest.png) y
   [2](capturas/doctest1.png)\*: no se muestra la preparación del contenedor porque no se
   instala nada y no cabía).
+- pytest 9.2.0: test runner y orden. Repite un test con varios casos con parametrize
+  ([documentación](https://docs.pytest.org/en/stable/how-to/parametrize.html)) y prepara
+  los datos compartidos con fixtures
+  ([documentación](https://docs.pytest.org/en/stable/how-to/fixtures.html)), las dos cosas
+  de serie. Se instala en 6,33 s, ocupa 16 MB y son 5 paquetes (pytest, iniconfig,
+  packaging, pluggy y pygments). Ejecuta los tests con python -m pytest en 1,29 s (0,18 s
+  los tests y el resto en arrancar) y termina con código 1. Además de __pycache__, deja la
+  carpeta .pytest_cache, que se evita con -p no:cacheprovider
+  ([documentación](https://docs.pytest.org/en/stable/how-to/plugins.html#deactivating-unregistering-a-plugin-by-name))
+  ([captura](capturas/pytest.png)\*: no cabía el principio; el tamaño de partida es el de
+  siempre, 124 KB y ningún paquete).
