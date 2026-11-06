@@ -2,11 +2,9 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 
 from .corte import CorteNumerico
-from .master import Master
+from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Master
 
 CIFRAS_CODIGO_MASTER = 6
-PESO_MAXIMO_NOTA_MEDIA = 100
-PUNTUACION_MAXIMA = 10
 
 
 @dataclass(eq=False)
