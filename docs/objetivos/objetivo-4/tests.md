@@ -195,3 +195,10 @@ No encajan en este proyecto:
   ([documentación](https://docs.nose2.io/en/latest/params.html)). Se instala en 2,86 s,
   ocupa 3,7 MB y no tiene dependencias. Ejecuta los tests con python -m nose2 en 0,74 s,
   termina con código 1 y solo deja __pycache__ ([captura](capturas/nose2.png)).
+- zope.testrunner 8.3: ejecuta los tests escritos con unittest, con sus mismas aserciones,
+  y prepara datos compartidos por capas (layers)
+  ([documentación](https://zopetestrunner.readthedocs.io/en/latest/testrunner-layers-api.html));
+  para repetir un test con varios casos usa subTest, como unittest. Se instala en 5,88 s,
+  ocupa 13 MB y son 4 paquetes. Ejecuta los tests con python -m zope.testrunner en 0,42 s,
+  termina con código 1 y solo deja __pycache__ ([captura 1](capturas/zope-testrunner.png)
+  y [2](capturas/zope-testrunner1.png)).
