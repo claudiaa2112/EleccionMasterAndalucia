@@ -19,3 +19,20 @@ class TestCodigoMaster(unittest.TestCase):
     def test_rechaza_un_codigo_que_no_tiene_seis_cifras(self, codigo):
         with self.assertRaisesRegex(ValueError, "6 cifras"):
             ConvocatoriaMaster("2026-2027", {codigo: MASTER})
+
+
+def master_con_peso(peso):
+    return Master(accesos={}, ponderacion_nota_media=peso, requisitos_adicionales={},
+                  corte=EstadoCorte.SIN_ADJUDICACION)
+
+
+class TestPesoNotaMedia(unittest.TestCase):
+    @params(0, 100)
+    def test_acepta_un_peso_en_los_limites(self, peso):
+        convocatoria = ConvocatoriaMaster("2026-2027", {"492700": master_con_peso(peso)})
+        self.assertIn("492700", convocatoria.masters)
+
+    @params(-1, 101)
+    def test_rechaza_un_peso_fuera_de_0_a_100(self, peso):
+        with self.assertRaisesRegex(ValueError, "entre 0 y 100"):
+            ConvocatoriaMaster("2026-2027", {"492700": master_con_peso(peso)})
