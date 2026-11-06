@@ -218,3 +218,17 @@ No encajan en este proyecto:
   ocupa 13 MB y son 4 paquetes. Ejecuta los tests con python -m zope.testrunner en 0,42 s,
   termina con código 1 y solo deja __pycache__ ([captura 1](capturas/zope-testrunner.png)
   y [2](capturas/zope-testrunner1.png)).
+- Hypothesis 6.170.14: no es un test runner, sino un complemento que, dentro de un test de
+  pytest o de unittest, genera muchos casos automáticamente y, si alguno falla, lo reduce
+  al más sencillo (aquí, el código vacío). Con pytest se instala en 8,52 s, ocupa 23 MB
+  (unos 7 MB más que pytest) y son 7 paquetes. Es la más lenta, 4,02 s, porque prueba
+  muchos casos, y termina con código 1. Además de lo que deja pytest, crea la carpeta
+  .hypothesis. Configurándolo sin base de datos (database=None,
+  [documentación](https://hypothesis.readthedocs.io/en/latest/reference/api.html#hypothesis.settings.database))
+  deja de guardar los ejemplos, pero la carpeta se sigue creando con otros datos; lo que
+  la lleva entera fuera del proyecto es la variable HYPOTHESIS_STORAGE_DIRECTORY, que no
+  aparece en esa página pero sí en su
+  [código](https://github.com/HypothesisWorks/hypothesis/blob/master/hypothesis/src/hypothesis/configuration.py)
+  (comprobado en el mismo contenedor) ([captura 1](capturas/hypothesis.png)\* y
+  [2](capturas/hypothesis1.png): no cabía el principio; el tamaño de partida es el de
+  siempre, 124 KB y ningún paquete).
