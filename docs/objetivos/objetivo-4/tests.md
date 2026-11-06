@@ -190,3 +190,8 @@ No encajan en este proyecto:
   ([documentación](https://docs.pytest.org/en/stable/how-to/plugins.html#deactivating-unregistering-a-plugin-by-name))
   ([captura](capturas/pytest.png)\*: no cabía el principio; el tamaño de partida es el de
   siempre, 124 KB y ningún paquete).
+- nose2 0.16.0: ejecuta los tests escritos con unittest, con sus mismas aserciones, y
+  repite un test con varios casos con su decorador params
+  ([documentación](https://docs.nose2.io/en/latest/params.html)). Se instala en 2,86 s,
+  ocupa 3,7 MB y no tiene dependencias. Ejecuta los tests con python -m nose2 en 0,74 s,
+  termina con código 1 y solo deja __pycache__ ([captura](capturas/nose2.png)).
