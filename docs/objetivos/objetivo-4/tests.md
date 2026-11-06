@@ -122,3 +122,31 @@ y dentro del contenedor:
 
 \* Cuando una captura no cabía entera en la pantalla, se indica en su opción qué parte no
 aparece.
+
+## Opciones que quedan fuera
+
+Según la encuesta de desarrolladores de Python de 2024
+([resultados](https://lp.jetbrains.com/python-developers-survey-2024/)), para tests
+unitarios se usan sobre todo pytest (53 %) y unittest (23 %), y después mock (11 %),
+doctest (6 %), tox (5 %), Hypothesis (4 %) y nose (2 %).
+
+No tienen ninguna versión publicada desde noviembre de 2024, según PyPI:
+
+- Aserciones: PyHamcrest (octubre de 2023), sure (febrero de 2023), grappa (2020) y
+  expects (2018).
+- Test runners: green (abril de 2024), ward (diciembre de 2023, y solo en beta), testify
+  (2023) y nose (2015; nose2 es su sucesor).
+- Dobles de prueba: doublex (febrero de 2023) y pretend (2018).
+
+No son de la categoría:
+
+- mock: es la copia de unittest.mock para versiones antiguas de Python, y en Python 3.14 no
+  aporta nada.
+- tox: prepara entornos para ejecutar los tests en varias versiones de Python, pero no los
+  ejecuta por sí mismo.
+
+No encajan en este proyecto:
+
+- behave: los tests se escriben como frases en ficheros aparte (estilo BDD), lo que
+  obligaría a mantener dos ficheros por cada comprobación para un proyecto en el que quien
+  escribe los tests es la misma persona que escribe el código.
