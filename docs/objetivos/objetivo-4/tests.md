@@ -239,3 +239,7 @@ No encajan en este proyecto:
   con Mock o patch y comprueba con qué datos se han llamado con assert_called_with
   ([documentación](https://docs.python.org/3/library/unittest.mock.html))
   ([captura](capturas/unittest-mock.png)).
+- pytest-mock 3.17.0: envuelve unittest.mock en la fixture mocker, así que solo sirve con
+  pytest ([documentación](https://pytest-mock.readthedocs.io/)). Se instala en 7,24 s,
+  ocupa 16 MB y son 6 paquetes, porque trae pytest con él
+  ([captura](capturas/pytest-mock.png)).
