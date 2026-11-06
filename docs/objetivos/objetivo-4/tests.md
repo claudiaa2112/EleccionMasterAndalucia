@@ -261,3 +261,27 @@ No encajan en este proyecto:
   ([documentación](https://mockito-python.readthedocs.io/en/latest/walk-through.html)). Se
   instala en 2,53 s, ocupa 620 KB y no tiene dependencias. PyPI no dice que funcione con
   Python 3.14, pero funciona ([captura](capturas/mockito.png)).
+
+## Elección
+
+- Biblioteca de aserciones: los métodos assert de unittest. Cumplen los dos criterios
+  (muestran el valor obtenido y el esperado, y comprueban un error y su mensaje) sin
+  instalar nada. assertpy da mensajes aún más completos, pero añade un paquete y unos 5 MB y
+  se usa con pytest; el assert de Python solo da buenos mensajes con pytest; y dirty-equals
+  no sirve para comprobar errores.
+- Test runner y orden para ejecutar los tests: nose2, con python -m nose2. Junto con pytest
+  es el único que cumple los tres criterios: repite un test con varios casos con params,
+  prepara los datos compartidos en setUp y solo deja __pycache__, que se evita con
+  PYTHONDONTWRITEBYTECODE=1. Frente a pytest, ocupa 3,7 MB en vez de 16, no tiene
+  dependencias en vez de 4 y ejecuta los tests en 0,74 s en vez de 1,29 s, y eso cuenta en
+  el contenedor y en la integración continua, donde se instala cada vez. unittest y
+  zope.testrunner no tienen nada propio para repetir un test con varios casos, y doctest no
+  permite ni eso ni preparar datos compartidos.
+- Complementos: ninguno. Los límites de los issues #33 a #35 se comprueban repitiendo el
+  test con los valores frontera mediante params, sin los 7 MB de más de Hypothesis, que
+  además tarda el triple y deja su propia carpeta.
+- Dobles de prueba: unittest.mock. Viene con Python, funciona con nose2 y comprueba con qué
+  datos se ha llamado al objeto sustituido. flexmock y mockito también funcionan con nose2 y
+  son pequeños, pero no aportan nada que haga falta y serían una dependencia más, y
+  pytest-mock solo sirve con pytest. Como hoy la lógica no depende de nada externo, se usará
+  cuando haya que sustituir la lectura de los datos del DUA.
