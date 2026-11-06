@@ -248,3 +248,8 @@ No encajan en este proyecto:
   ([documentación](https://flexmock.readthedocs.io/en/latest/usage/call_count/)). Se
   instala en 7,41 s (1,88 s de CPU, el resto es descarga), ocupa 360 KB y no tiene
   dependencias ([captura](capturas/flexmock.png)).
+- mockito 2.0.4: funciona con cualquier test runner, y comprueba las llamadas con
+  verify(objeto).metodo(datos)
+  ([documentación](https://mockito-python.readthedocs.io/en/latest/walk-through.html)). Se
+  instala en 2,53 s, ocupa 620 KB y no tiene dependencias. PyPI no dice que funcione con
+  Python 3.14, pero funciona ([captura](capturas/mockito.png)).
