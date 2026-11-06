@@ -6,8 +6,8 @@ issues del milestone 1
 
 ## De qué parto
 
-- La lógica de la HU001 está dividida en issues (del #26 al #35) y cada uno tiene que tener
-  sus tests, incluidos los que comprueban que se rechazan los datos incorrectos (del #32 al
+- La lógica de la HU001 está dividida en issues (el #16, el #17 y del #26 al #35) y cada
+  uno tiene que tener sus tests, incluidos los que comprueban que se rechazan los datos incorrectos (del #32 al
   #35).
 - El código solo usa lo que trae Python 3.14, sin dependencias externas.
 - Las tareas del proyecto se lanzan con PDM
@@ -42,6 +42,7 @@ cuál cubre.
 - Entran en la comparación las que se pueden instalar desde PyPI o vienen con Python,
   funcionan con Python 3.14 y tienen alguna versión publicada en los dos últimos años. Las
   que no cumplen esto se nombran igualmente, con el motivo por el que se descartan.
+- La búsqueda se hizo el 5 de noviembre de 2026.
 
 ## Criterios de elección
 
@@ -83,9 +84,9 @@ Cada opción se prueba a mano en un contenedor limpio con la imagen oficial pyth
 para partir siempre de cero, con el test del
 [issue #32](https://github.com/claudiaa2112/EleccionMasterAndalucia/issues/32) (el código
 de un máster tiene seis cifras) escrito con cada opción en la carpeta [pruebas](pruebas).
-Como esa validación todavía no está programada, en todas las opciones un test pasa y falla
-el que comprueba que se rechaza un código de cinco cifras, y así se ve el mensaje de fallo
-y el código de salida.
+Como esa validación todavía no está programada, en todas las opciones falla el test que
+comprueba que se rechaza un código de cinco cifras, y así se ve el mensaje de fallo y el
+código de salida.
 
 Desde la carpeta del repositorio:
 
@@ -187,12 +188,15 @@ No encajan en este proyecto:
   ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)),
   y los datos compartidos se preparan en setUp o setUpClass. Se ejecuta con python -m
   unittest en 0,34 s, termina con código 1 y solo deja los __pycache__ que crea Python, que
-  se evitan con PYTHONDONTWRITEBYTECODE=1 ([captura](capturas/unittest.png)).
+  se evitan con PYTHONDONTWRITEBYTECODE=1
+  ([documentación](https://docs.python.org/3/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE))
+  ([captura](capturas/unittest.png)).
 - doctest: viene con Python, así que no se instala ni ocupa nada. Los tests son ejemplos de
   una sesión de Python escritos en texto, así que no permite repetir un test con varios
-  casos ni preparar datos compartidos, y cuenta como test cada línea (6 en vez de 2). Al
+  casos ni preparar datos compartidos, y cuenta como test cada ejemplo (6 en vez de 2). Al
   fallar muestra lo esperado y lo obtenido. Se ejecuta con python -m doctest en 0,81 s,
-  termina con código 1 y solo deja __pycache__ ([captura 1](capturas/doctest.png) y
+  termina con código 1 y solo deja __pycache__, que se evita igual que en unittest
+  ([captura 1](capturas/doctest.png) y
   [2](capturas/doctest1.png)\*: no se muestra la preparación del contenedor porque no se
   instala nada y no cabía).
 - pytest 9.2.0: test runner y orden. Repite un test con varios casos con parametrize
@@ -210,14 +214,18 @@ No encajan en este proyecto:
   repite un test con varios casos con su decorador params
   ([documentación](https://docs.nose2.io/en/latest/params.html)). Se instala en 2,86 s,
   ocupa 3,7 MB y no tiene dependencias. Ejecuta los tests con python -m nose2 en 0,74 s,
-  termina con código 1 y solo deja __pycache__ ([captura](capturas/nose2.png)).
+  termina con código 1 y solo deja __pycache__, que se evita igual que en unittest
+  ([captura](capturas/nose2.png)).
 - zope.testrunner 8.3: ejecuta los tests escritos con unittest, con sus mismas aserciones,
   y prepara datos compartidos por capas (layers)
   ([documentación](https://zopetestrunner.readthedocs.io/en/latest/testrunner-layers-api.html));
-  para repetir un test con varios casos usa subTest, como unittest. Se instala en 5,88 s,
+  no tiene nada propio para repetir un test con varios casos. Se instala en 5,88 s,
   ocupa 13 MB y son 4 paquetes. Ejecuta los tests con python -m zope.testrunner en 0,42 s,
-  termina con código 1 y solo deja __pycache__ ([captura 1](capturas/zope-testrunner.png)
-  y [2](capturas/zope-testrunner1.png)).
+  termina con código 1 y solo deja __pycache__, que se evita igual que en unittest
+  ([captura 1](capturas/zope-testrunner.png) y [2](capturas/zope-testrunner1.png)).
+
+## Complementos
+
 - Hypothesis 6.170.14: no es un test runner, sino un complemento que, dentro de un test de
   pytest o de unittest, genera muchos casos automáticamente y, si alguno falla, lo reduce
   al más sencillo (aquí, el código vacío). Con pytest se instala en 8,52 s, ocupa 23 MB
@@ -229,7 +237,7 @@ No encajan en este proyecto:
   la lleva entera fuera del proyecto es la variable HYPOTHESIS_STORAGE_DIRECTORY, que no
   aparece en esa página pero sí en su
   [código](https://github.com/HypothesisWorks/hypothesis/blob/master/hypothesis/src/hypothesis/configuration.py)
-  (comprobado en el mismo contenedor) ([captura 1](capturas/hypothesis.png)\* y
+  (comprobado aparte en un contenedor igual, sin captura) ([captura 1](capturas/hypothesis.png)\* y
   [2](capturas/hypothesis1.png): no cabía el principio; el tamaño de partida es el de
   siempre, 124 KB y ningún paquete).
 
