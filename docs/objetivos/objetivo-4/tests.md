@@ -150,3 +150,20 @@ No encajan en este proyecto:
 - behave: los tests se escriben como frases en ficheros aparte (estilo BDD), lo que
   obligaría a mantener dos ficheros por cada comprobación para un proyecto en el que quien
   escribe los tests es la misma persona que escribe el código.
+
+## Bibliotecas de aserciones
+
+- Métodos assert de unittest: vienen con Python. assertEqual muestra los dos valores cuando
+  no coinciden, como se ve en el ejemplo de su documentación ("AssertionError: 1 != 0",
+  [documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)),
+  y assertRaisesRegex comprueba el error y su mensaje; al fallar dice "ValueError not
+  raised" ([captura](capturas/unittest.png)).
+
+## Test runners y órdenes para ejecutar los tests
+
+- unittest: viene con Python, así que no se instala ni ocupa nada. Un mismo test solo se
+  puede repetir con varios casos dentro de él, con subTest
+  ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)),
+  y los datos compartidos se preparan en setUp o setUpClass. Se ejecuta con python -m
+  unittest en 0,34 s, termina con código 1 y solo deja los __pycache__ que crea Python, que
+  se evitan con PYTHONDONTWRITEBYTECODE=1 ([captura](capturas/unittest.png)).
