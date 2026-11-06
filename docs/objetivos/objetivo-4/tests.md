@@ -172,6 +172,13 @@ No encajan en este proyecto:
   paquetes. Ejecuta los tests en 2,70 s y termina con código 1
   ([captura](capturas/assertpy.png)\*: el final del find no cabía; se ejecuta con pytest y
   deja lo mismo que él).
+- dirty-equals 0.11: no es una biblioteca de aserciones completa, sino comparadores para
+  usar con assert, como IsStr(regex=...) para comprobar que un texto sigue un patrón. El
+  mensaje al fallar lo da pytest y no tiene nada propio para comprobar errores, así que
+  necesita pytest.raises. Con pytest se instala en 6,48 s, ocupa 16 MB (casi nada más que
+  pytest) y son 6 paquetes. Ejecuta los tests en 1,29 s y termina con código 1
+  ([captura](capturas/dirty-equals.png)\*: no cabía el principio; el tamaño de partida es
+  el de siempre, 124 KB y ningún paquete).
 
 ## Test runners y órdenes para ejecutar los tests
 
