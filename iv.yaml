@@ -3,3 +3,4 @@ entidad: master/master.py
 automatizar:
   fichero: pyproject.toml
   orden: pdm
+test: tests/test_convocatoria_master.py
