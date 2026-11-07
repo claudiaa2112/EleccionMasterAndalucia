@@ -106,6 +106,25 @@ y dentro del contenedor:
     echo "código de salida: $?"
     find . -newer /tmp/marca -not -path './.git*'
 
+La forma de medir la preparé con ayuda de una IA, que me recomendó probar cada opción en un
+contenedor que se borra al terminar, en vez de instalarlas en mi ordenador, como la opción
+más limpia: no deja nada instalado en mi ordenador y cada opción parte de cero. En concreto,
+me ayudó con estas órdenes:
+
+- docker run --rm -it -v "$PWD":/src:ro python:3.14-slim bash, que abre el contenedor con
+  el repositorio en solo lectura, y cp -r /src /proyecto, que lo copia dentro para trabajar
+  sobre la copia.
+- export PIP_ROOT_USER_ACTION=ignore PIP_DISABLE_PIP_VERSION_CHECK=1, que quita los avisos
+  de pip de la salida.
+- du -sh --exclude=pip /usr/local/lib/python3.14/site-packages, que mide lo que ocupan los
+  paquetes sin contar pip, y pip freeze | wc -l, que cuenta los paquetes instalados.
+- touch /tmp/marca y find . -newer /tmp/marca -not -path './.git*', que muestran los
+  ficheros nuevos que deja cada opción en la carpeta del proyecto.
+- time delante de la instalación y de la orden de los tests, que mide lo que tardan, y
+  echo "código de salida: $?", que muestra el código con el que termina.
+
+Las medidas y las capturas las hice yo.
+
 - Lo que ocupa una opción es lo que crece la carpeta de paquetes al instalarla, sin contar
   la de pip: la imagen trae pip sin compilar y, al usarlo, Python genera unos 5 MB de
   ficheros suyos que no son de la herramienta. Antes de instalar nada, la carpeta ocupa
