@@ -17,9 +17,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - uv: no tiene tareas con nombre, así que hacen falta dos herramientas en total. Tiene
   lockfile, uv.lock. Se instala en 5,40 s, instala las dependencias en 0,16 s y ejecuta la
   comprobación con uv run en 0,25 s ([captura](capturas/uv.png)).
-- Poetry: sigue el estándar pyproject.toml, pero no tiene tareas sin añadir un plugin. Se
-  instala en 32,38 s y ocupa 92 MB; prepara el proyecto en 3,08 s y comprueba la sintaxis
-  en 1,43 s ([captura](capturas/poetry.png)).
+- Poetry: no tiene tareas sin añadir un plugin, así que hacen falta dos herramientas en
+  total. Tiene lockfile, poetry.lock. Se instala en 17,52 s, instala las dependencias en
+  2,71 s y ejecuta la comprobación con poetry run en 1,42 s ([captura](capturas/poetry.png)).
 - PDM: sigue el estándar pyproject.toml, fija las versiones en pdm.lock y permite definir
   las tareas dentro de pyproject.toml
   ([documentación](https://pdm-project.org/latest/usage/scripts/)), así que no hace falta
