@@ -7,6 +7,7 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 - Cuántas herramientas hacen falta en total para gestionar las dependencias y ejecutar las
   tareas.
+- Que tenga lockfile, para que todo el mundo instale las mismas versiones.
 - Lo que tarda en instalarse la herramienta.
 - Lo que tarda en instalar las dependencias.
 - Lo que tarda en ejecutar las tareas.
