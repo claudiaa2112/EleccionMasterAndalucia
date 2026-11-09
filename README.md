@@ -41,20 +41,6 @@ contenidos del portal de la Junta de Andalucía, del que forma parte el DUA, se 
 reutilizar con licencia Creative Commons Reconocimiento 3.0, indicando que la información se
 ha obtenido del Portal de la Junta de Andalucía.
 
-## La clase Master
-
-La clase Master, en [master/master.py](master/master.py), reúne lo que el DUA publica sobre
-un máster y que hace falta para saber si tengo opciones de entrar:
-
-- con qué prioridad admite cada titulación y qué requisitos adicionales le pide;
-- qué criterios usa para puntuar y cuánto pesa cada uno, distinguiendo los que puedo
-  calcular yo de los que dependen de la comisión;
-- la nota de corte de la última adjudicación.
-
-En el servicio web que se desplegará más adelante, cuando alguien indique su titulación, su
-nota media y sus méritos, se comparará con cada máster para decirle si entra seguro, si
-depende de la valoración de la comisión o si no entra ni con la máxima puntuación.
-
 ## Cómo preparar el proyecto y comprobar el código
 
 Hace falta tener [pyenv](https://github.com/pyenv/pyenv#installation), que instala la
