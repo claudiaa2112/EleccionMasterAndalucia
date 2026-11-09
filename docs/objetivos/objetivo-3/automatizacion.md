@@ -89,6 +89,3 @@ Por eso elijo PDM, sabiendo que tiene estas desventajas:
 - Cada medida es de una sola ejecución y los tiempos de instalación dependen de la
   velocidad de descarga, así que las diferencias pequeñas entre herramientas no son
   concluyentes.
-
-Si en los objetivos siguientes la velocidad llegara a ser un problema, la alternativa sería
-uv con un gestor de tareas.
