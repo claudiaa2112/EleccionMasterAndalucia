@@ -23,10 +23,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - PDM: define las tareas en pyproject.toml, así que basta con una herramienta. Tiene
   lockfile, pdm.lock. Se instala en 19,56 s, instala las dependencias en 5,19 s y ejecuta la
   tarea check en 1,24 s ([captura](capturas/pdm.png)).
-- Hatch: sigue el estándar pyproject.toml y tiene tareas, pero no tiene fichero que fije
-  las versiones (la petición [#749](https://github.com/pypa/hatch/issues/749) sigue
-  abierta). Se instala en 35,93 s y ocupa 111 MB; prepara el proyecto en 1,79 s y comprueba
-  la sintaxis en 0,68 s ([captura](capturas/hatch.png)).
+- Hatch: define las tareas en pyproject.toml, así que basta con una herramienta, pero no
+  tiene lockfile. Se instala en 25,08 s, instala las dependencias en 1,55 s y ejecuta la
+  comprobación con hatch run en 0,57 s ([captura](capturas/hatch.png)).
 
 ## Gestores de tareas
 
