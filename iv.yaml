@@ -1,5 +1,5 @@
 lenguaje: python
 entidad: master/master.py
 automatizar:
-  fichero: pyproject.toml
-  orden: pdm
+  fichero: Makefile
+  orden: make
