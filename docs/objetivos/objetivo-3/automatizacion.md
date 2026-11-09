@@ -26,10 +26,6 @@ Hacía falta una forma común de preparar el proyecto y comprobar el código
 
 ## Gestores de dependencias
 
-- pip con venv: vienen con Python, así que no hay que instalar nada. Crear el entorno
-  (python -m venv .venv) tarda 10,95 s, porque copia pip dentro del entorno, y comprobar la
-  sintaxis tarda 0,11 s. No fija las versiones instaladas ni define tareas, así que haría
-  falta otra herramienta para ellas ([captura](capturas/pip.png)).
 - uv: sigue el estándar pyproject.toml, pero no tiene tareas con nombre (la petición
   [#5903](https://github.com/astral-sh/uv/issues/5903) sigue abierta), así que haría falta
   otra herramienta para ellas. Se instala en 15,31 s y ocupa 51 MB; prepara el proyecto
