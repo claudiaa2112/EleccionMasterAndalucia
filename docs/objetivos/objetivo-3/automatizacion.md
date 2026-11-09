@@ -24,18 +24,6 @@ Hacía falta una forma común de preparar el proyecto y comprobar el código
 - Lo que tarda en preparar el proyecto.
 - Lo que tarda en comprobar la sintaxis.
 
-## Cómo se mide
-
-Cada herramienta se prueba en un contenedor limpio con la imagen oficial python:3.14-slim,
-para partir siempre de cero, con el script [medir.sh](medir.sh), desde la carpeta del
-repositorio:
-
-    docker run --rm -v "$PWD":/src:ro python:3.14-slim bash /src/docs/objetivos/objetivo-3/medir.sh <herramienta>
-
-Las herramientas que se instalan con pip se miden junto con el entorno en el que se
-instalan, que ya incluye pip, así que su tamaño no se puede comparar directamente con el
-de Make, que se instala con el sistema.
-
 ## Gestores de dependencias
 
 - Pipenv: no se mide porque usa su propio fichero, Pipfile, en lugar del estándar
