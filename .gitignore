@@ -143,6 +143,3 @@ vite.config.ts.timestamp-*
 .vite/
 datos/
 docs/fuentes-datos/
-
-# Python y PDM
-.pdm-python
