@@ -5,6 +5,7 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 ## Criterios
 
+- Que el gestor de dependencias siga el estándar pyproject.toml.
 - Cuántas herramientas hacen falta en total para gestionar las dependencias y ejecutar las
   tareas.
 - Que tenga lockfile, para que todo el mundo instale las mismas versiones.
@@ -14,18 +15,21 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 ## Gestores de dependencias
 
-- uv: no tiene tareas con nombre, así que hacen falta dos herramientas en total. Tiene
-  lockfile, uv.lock. Se instala en 5,40 s, instala las dependencias en 0,16 s y ejecuta la
-  comprobación con uv run en 0,25 s ([captura](capturas/uv.png)).
-- Poetry: no tiene tareas sin añadir un plugin, así que hacen falta dos herramientas en
-  total. Tiene lockfile, poetry.lock. Se instala en 17,52 s, instala las dependencias en
-  2,71 s y ejecuta la comprobación con poetry run en 1,42 s ([captura](capturas/poetry.png)).
-- PDM: define las tareas en pyproject.toml, así que basta con una herramienta. Tiene
-  lockfile, pdm.lock. Se instala en 19,56 s, instala las dependencias en 5,19 s y ejecuta la
-  tarea check en 1,24 s ([captura](capturas/pdm.png)).
-- Hatch: define las tareas en pyproject.toml, así que basta con una herramienta, pero no
-  tiene lockfile. Se instala en 25,08 s, instala las dependencias en 1,55 s y ejecuta la
-  comprobación con hatch run en 0,57 s ([captura](capturas/hatch.png)).
+- uv: sigue el estándar pyproject.toml. No tiene tareas con nombre, así que hacen falta dos
+  herramientas en total. Tiene lockfile, uv.lock. Se instala en 5,40 s, instala las
+  dependencias en 0,16 s y ejecuta la comprobación con uv run en 0,25 s
+  ([captura](capturas/uv.png)).
+- Poetry: sigue el estándar pyproject.toml. No tiene tareas sin añadir un plugin, así que
+  hacen falta dos herramientas en total. Tiene lockfile, poetry.lock. Se instala en 17,52
+  s, instala las dependencias en 2,71 s y ejecuta la comprobación con poetry run en 1,42 s
+  ([captura](capturas/poetry.png)).
+- PDM: sigue el estándar pyproject.toml. Define las tareas en pyproject.toml, así que basta
+  con una herramienta. Tiene lockfile, pdm.lock. Se instala en 19,56 s, instala las
+  dependencias en 5,19 s y ejecuta la tarea check en 1,24 s ([captura](capturas/pdm.png)).
+- Hatch: sigue el estándar pyproject.toml. Define las tareas en pyproject.toml, así que
+  basta con una herramienta, pero no tiene lockfile. Se instala en 25,08 s, instala las
+  dependencias en 1,55 s y ejecuta la comprobación con hatch run en 0,57 s
+  ([captura](capturas/hatch.png)).
 
 ## Gestores de tareas
 
