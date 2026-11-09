@@ -22,7 +22,7 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - Que sirva para dependencias y tareas a la vez, o cuántas herramientas hacen falta en total.
 - Lo que tarda en instalarse la herramienta.
 - Lo que tarda en instalar las dependencias.
-- Lo que tarda en comprobar la sintaxis.
+- Lo que tarda en ejecutar las tareas.
 
 ## Gestores de dependencias
 
