@@ -20,11 +20,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - Poetry: no tiene tareas sin añadir un plugin, así que hacen falta dos herramientas en
   total. Tiene lockfile, poetry.lock. Se instala en 17,52 s, instala las dependencias en
   2,71 s y ejecuta la comprobación con poetry run en 1,42 s ([captura](capturas/poetry.png)).
-- PDM: sigue el estándar pyproject.toml, fija las versiones en pdm.lock y permite definir
-  las tareas dentro de pyproject.toml
-  ([documentación](https://pdm-project.org/latest/usage/scripts/)), así que no hace falta
-  otra herramienta. Se instala en 28,05 s y ocupa 59 MB; prepara el proyecto en 3,98 s y
-  comprueba la sintaxis con su propia tarea en 1,76 s ([captura](capturas/pdm.png)).
+- PDM: define las tareas en pyproject.toml, así que basta con una herramienta. Tiene
+  lockfile, pdm.lock. Se instala en 19,56 s, instala las dependencias en 5,19 s y ejecuta la
+  tarea check en 1,24 s ([captura](capturas/pdm.png)).
 - Hatch: sigue el estándar pyproject.toml y tiene tareas, pero no tiene fichero que fije
   las versiones (la petición [#749](https://github.com/pypa/hatch/issues/749) sigue
   abierta). Se instala en 35,93 s y ocupa 111 MB; prepara el proyecto en 1,79 s y comprueba
