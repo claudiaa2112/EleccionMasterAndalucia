@@ -19,7 +19,8 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 ## Criterios
 
 - Que siga el estándar pyproject.toml.
-- Que sirva para dependencias y tareas a la vez, o cuántas herramientas hacen falta en total.
+- Cuántas herramientas hacen falta en total para gestionar las dependencias y ejecutar las
+  tareas.
 - Lo que tarda en instalarse la herramienta.
 - Lo que tarda en instalar las dependencias.
 - Lo que tarda en ejecutar las tareas.
