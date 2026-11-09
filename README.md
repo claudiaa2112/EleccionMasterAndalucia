@@ -43,17 +43,16 @@ ha obtenido del Portal de la Junta de Andalucía.
 
 ## Cómo preparar el proyecto y comprobar el código
 
-Hace falta tener [pyenv](https://github.com/pyenv/pyenv#installation), que instala la
-versión de Python del proyecto, y [PDM](https://pdm-project.org/latest/#installation).
-Desde la carpeta del proyecto:
+Hace falta tener [uv](https://docs.astral.sh/uv/getting-started/installation/), que
+instala Python 3.14 si no está y las dependencias del proyecto, y Make. Desde la carpeta
+del proyecto:
 
 ```bash
-pyenv install 3.14   # instala Python 3.14
-pdm install          # crea el entorno del proyecto con ese Python e instala lo que necesita
-pdm check            # comprueba que la sintaxis del código es correcta
+make install   # instala Python 3.14 si hace falta y las dependencias del proyecto
+make check     # comprueba que la sintaxis del código es correcta
 ```
 
-pdm check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
+make check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
 sintaxis, indicando el fichero y la línea, sin escribir nada en disco. No revisa el estilo
 ni los tipos.
 
