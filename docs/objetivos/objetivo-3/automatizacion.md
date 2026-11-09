@@ -55,16 +55,6 @@ Hacía falta una forma común de preparar el proyecto y comprobar el código
   19 MB, contando el entorno en el que se instala; comprueba la sintaxis en 0,60 s
   ([captura](capturas/poethepoet.png)).
 
-## La tarea check
-
-Se usa [ast.parse](https://docs.python.org/3/library/ast.html#ast.parse), que viene con
-Python: lee cada fichero y comprueba que su sintaxis es correcta sin escribir nada en
-disco. Se ha descartado
-[compileall](https://docs.python.org/3/library/compileall.html), porque guarda el código
-compilado en carpetas \_\_pycache\_\_, y comprobar la sintaxis no debe tener efectos
-secundarios, como señaló el profesor en una
-[revisión de este mismo objetivo](https://github.com/manuusnchz/gestor-ciclismo/pull/25).
-
 ## Decisión
 
 Solo dos de las herramientas medidas gestionan a la vez las dependencias y las tareas, que
