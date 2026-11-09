@@ -40,6 +40,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
   gestiona, así que hacen falta dos herramientas en total y el lockfile depende del gestor
   de dependencias que se use con él. Se instala en 2,93 s y ejecuta la tarea check en 0,43 s
   ([captura](capturas/poethepoet.png)).
+- uv con Make: dos herramientas en total, con el lockfile de uv, uv.lock. Make ya estaba
+  instalado. make install descarga Python 3.14 e instala las dependencias en 6,78 s y make
+  check ejecuta la tarea en 0,95 s ([captura](capturas/make-uv.png)).
 
 ## Decisión
 
