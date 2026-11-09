@@ -14,10 +14,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 ## Gestores de dependencias
 
-- uv: sigue el estándar pyproject.toml, pero no tiene tareas con nombre (la petición
-  [#5903](https://github.com/astral-sh/uv/issues/5903) sigue abierta), así que haría falta
-  otra herramienta para ellas. Se instala en 15,31 s y ocupa 51 MB; prepara el proyecto
-  en 0,60 s y comprueba la sintaxis en 0,25 s ([captura](capturas/uv.png)).
+- uv: no tiene tareas con nombre, así que hacen falta dos herramientas en total. Tiene
+  lockfile, uv.lock. Se instala en 5,40 s, instala las dependencias en 0,16 s y ejecuta la
+  comprobación con uv run en 0,25 s ([captura](capturas/uv.png)).
 - Poetry: sigue el estándar pyproject.toml, pero no tiene tareas sin añadir un plugin. Se
   instala en 32,38 s y ocupa 92 MB; prepara el proyecto en 3,08 s y comprueba la sintaxis
   en 1,43 s ([captura](capturas/poetry.png)).
