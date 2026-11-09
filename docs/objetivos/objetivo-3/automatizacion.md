@@ -3,19 +3,6 @@
 Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 ([issue #23](https://github.com/claudiaa2112/EleccionMasterAndalucia/issues/23)).
 
-## De qué parto
-
-- Python define en un estándar cómo se describe un proyecto y sus dependencias: el fichero
-  pyproject.toml ([PEP 621](https://peps.python.org/pep-0621/)), los grupos de dependencias
-  para quien desarrolla ([PEP 735](https://peps.python.org/pep-0735/)) y el fichero que fija
-  las versiones instaladas ([PEP 751](https://peps.python.org/pep-0751/)). Pero no dice qué
-  programa tiene que usarlos.
-- El código solo usa lo que trae Python, sin dependencias externas.
-- La versión de Python ya la gestiona pyenv.
-- Lo que se elija se usará después en contenedores y en integración continua, donde cada
-  vez se parte de cero, así que importa cuánto tarda en instalarse, cuánto ocupa y cuánto
-  tarda en preparar el proyecto y en comprobar el código.
-
 ## Criterios
 
 - Cuántas herramientas hacen falta en total para gestionar las dependencias y ejecutar las
