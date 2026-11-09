@@ -33,17 +33,17 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 ## Gestores de tareas
 
-- Make: no gestiona dependencias, así que hacen falta dos herramientas en total y el
-  lockfile depende del gestor de dependencias que se use con él. Ya estaba instalado en el
-  sistema, así que no hay tiempo de instalación, y ejecuta la tarea check en 0,09 s
+Se usan junto con un gestor de dependencias, así que con cualquiera de ellos hacen falta
+dos herramientas en total.
+
+- Make: las tareas se definen en un Makefile. Ya estaba instalado en el sistema, así que
+  no hay tiempo de instalación, y ejecuta la tarea check en 0,09 s
   ([captura](capturas/make.png)).
-- just: no gestiona dependencias, así que hacen falta dos herramientas en total y el
-  lockfile depende del gestor de dependencias que se use con él. Se instala en 3,14 s y
-  ejecuta la tarea check en 0,10 s ([captura](capturas/just.png)).
-- poethepoet: funciona sin Poetry, con cualquier gestor de dependencias, pero no las
-  gestiona, así que hacen falta dos herramientas en total y el lockfile depende del gestor
-  de dependencias que se use con él. Se instala en 2,93 s y ejecuta la tarea check en 0,43 s
-  ([captura](capturas/poethepoet.png)).
+- just: las tareas se definen en un justfile. Se instala en 3,14 s y ejecuta la tarea check
+  en 0,10 s ([captura](capturas/just.png)).
+- poethepoet: las tareas se definen dentro de pyproject.toml, y funciona con cualquier
+  gestor de dependencias, no solo con Poetry. Se instala en 2,93 s y ejecuta la tarea check
+  en 0,43 s ([captura](capturas/poethepoet.png)).
 - uv con Make: dos herramientas en total, con el lockfile de uv, uv.lock. Make ya estaba
   instalado. make install descarga Python 3.14 e instala las dependencias en 6,78 s y make
   check ejecuta la tarea en 0,95 s ([captura](capturas/make-uv.png)).
