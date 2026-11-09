@@ -36,8 +36,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - just: no gestiona dependencias, así que hacen falta dos herramientas en total y el
   lockfile depende del gestor de dependencias que se use con él. Se instala en 3,14 s y
   ejecuta la tarea check en 0,10 s ([captura](capturas/just.png)).
-- poethepoet: define las tareas dentro de pyproject.toml. Se instala en 11,17 s y ocupa
-  19 MB, contando el entorno en el que se instala; comprueba la sintaxis en 0,60 s
+- poethepoet: funciona sin Poetry, con cualquier gestor de dependencias, pero no las
+  gestiona, así que hacen falta dos herramientas en total y el lockfile depende del gestor
+  de dependencias que se use con él. Se instala en 2,93 s y ejecuta la tarea check en 0,43 s
   ([captura](capturas/poethepoet.png)).
 
 ## Decisión
