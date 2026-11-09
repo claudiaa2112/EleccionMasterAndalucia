@@ -33,9 +33,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
   lockfile depende del gestor de dependencias que se use con él. Ya estaba instalado en el
   sistema, así que no hay tiempo de instalación, y ejecuta la tarea check en 0,09 s
   ([captura](capturas/make.png)).
-- just: es un programa independiente. Se instala en 11,60 s y ocupa 20 MB, contando el
-  entorno en el que se instala; comprueba la sintaxis en 0,12 s
-  ([captura](capturas/just.png)).
+- just: no gestiona dependencias, así que hacen falta dos herramientas en total y el
+  lockfile depende del gestor de dependencias que se use con él. Se instala en 3,14 s y
+  ejecuta la tarea check en 0,10 s ([captura](capturas/just.png)).
 - poethepoet: define las tareas dentro de pyproject.toml. Se instala en 11,17 s y ocupa
   19 MB, contando el entorno en el que se instala; comprueba la sintaxis en 0,60 s
   ([captura](capturas/poethepoet.png)).
