@@ -1,7 +1,7 @@
 [project]
 name = "eleccion-master-andalucia"
 version = "0.3.0"
-requires-python = ">=3.14"
+requires-python = "==3.14.*"
 dependencies = []
 
 [tool.pdm]
