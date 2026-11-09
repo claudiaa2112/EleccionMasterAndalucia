@@ -26,8 +26,6 @@ Hacía falta una forma común de preparar el proyecto y comprobar el código
 
 ## Gestores de dependencias
 
-- Pipenv: no se mide porque usa su propio fichero, Pipfile, en lugar del estándar
-  pyproject.toml.
 - pip con venv: vienen con Python, así que no hay que instalar nada. Crear el entorno
   (python -m venv .venv) tarda 10,95 s, porque copia pip dentro del entorno, y comprobar la
   sintaxis tarda 0,11 s. No fija las versiones instaladas ni define tareas, así que haría
