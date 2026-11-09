@@ -46,35 +46,21 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 ## Decisión
 
-Solo dos de las herramientas medidas gestionan a la vez las dependencias y las tareas, que
-es lo que se buscaba para no tener que instalar y mantener una segunda herramienta: PDM y
-Hatch. Hatch prepara el proyecto y comprueba la sintaxis más rápido que PDM, pero tarda
-más en instalarse, ocupa casi el doble y no tiene fichero que fije las versiones
-instaladas, así que no resuelve el problema de que cada persona acabe con versiones
-distintas. PDM es la única que cumple todos los criterios con una sola herramienta.
+PDM y Hatch son las únicas que gestionan las dependencias y ejecutan las tareas con una
+sola herramienta, pero Hatch no tiene lockfile, así que con una sola herramienta la opción
+sería PDM.
 
-uv es más rápido que PDM en todas las medidas, pero necesita otra herramienta para las
-tareas. Sumando lo que cuesta instalar la herramienta, preparar el proyecto y comprobar la
-sintaxis en un contenedor recién creado, PDM tarda unos 34 s y uv con just unos 28 s. La
-comprobación de uv con just no se ha medido junta, así que su tiempo es una estimación a
-partir de las dos medidas por separado. La diferencia es de unos 6 s, y la mayor parte
-está en instalar la herramienta, que en un contenedor se hace una sola vez al construir la
-imagen. Lo que se repite en cada uso, preparar el proyecto y comprobar la sintaxis, cuesta
-unos 4 o 5 s más con PDM.
+Con dos herramientas, uv tiene lockfile y es el gestor de dependencias más rápido en todas
+las medidas. De los gestores de tareas, Make es el que menos tarda en ejecutar la tarea
+check y ya estaba instalado en el sistema, así que no añade tiempo de instalación.
 
-A cambio de esos segundos, con PDM hay una sola herramienta que instalar, actualizar y
-mantener, y las dependencias y las tareas quedan en un único fichero, pyproject.toml, en
-lugar de repartirse entre pyproject.toml y un fichero de tareas aparte. Como el proyecto no
-tiene dependencias externas, una diferencia de segundos no compensa añadir una segunda
-herramienta, que es más deuda técnica.
+Comparando PDM con uv y Make medidos juntos:
 
-Por eso elijo PDM, sabiendo que tiene estas desventajas:
+- Instalar la herramienta: PDM tarda 19,56 s y uv 5,40 s.
+- Instalar las dependencias: PDM tarda 5,19 s y uv con Make 6,78 s, porque además descarga
+  Python 3.14; con Python ya instalado, uv tarda 0,16 s.
+- Ejecutar la tarea check: PDM tarda 1,24 s y uv con Make 0,95 s.
 
-- Tarda casi 2 s en lanzar cualquier tarea, porque es un programa de Python que tiene que
-  arrancar cada vez, así que si en integración continua se encadenan muchas tareas el
-  tiempo se acumula.
-- Su formato de fichero de versiones es el suyo propio, pdm.lock, porque el estándar
-  pylock.toml todavía es experimental en PDM.
-- Cada medida es de una sola ejecución y los tiempos de instalación dependen de la
-  velocidad de descarga, así que las diferencias pequeñas entre herramientas no son
-  concluyentes.
+En total, PDM tarda unos 26 s y uv con Make unos 13 s, la mitad aunque incluya la descarga
+de Python. Por eso elijo uv con Make: la única ventaja de PDM es necesitar una sola
+herramienta, y Make no añade nada que instalar.
