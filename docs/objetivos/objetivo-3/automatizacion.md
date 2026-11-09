@@ -20,7 +20,7 @@ Hacía falta una forma común de preparar el proyecto y comprobar el código
 
 - Que siga el estándar pyproject.toml.
 - Que sirva para dependencias y tareas a la vez, o cuántas herramientas hacen falta en total.
-- Lo que tarda en instalarse la herramienta y lo que ocupa.
+- Lo que tarda en instalarse la herramienta.
 - Lo que tarda en preparar el proyecto.
 - Lo que tarda en comprobar la sintaxis.
 
