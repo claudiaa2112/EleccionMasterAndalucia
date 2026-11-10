@@ -31,8 +31,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - Make: las tareas se definen en un Makefile. Ya estaba instalado en el sistema, así que
   no hay tiempo de instalación, y ejecuta la tarea check en 0,09 s
   ([captura](capturas/make.png)).
-- just: las tareas se definen en un justfile. Se instala en 3,14 s y ejecuta la tarea check
-  en 0,10 s ([captura](capturas/just.png)).
+- just: las tareas se definen en un justfile. Se instala en 1,96 s
+  ([captura](capturas/just.png)) y ejecuta la tarea check en 0,12 s
+  ([captura](capturas/just1.png)).
 - poethepoet: las tareas se definen dentro de pyproject.toml, y funciona con cualquier
   gestor de dependencias, no solo con Poetry. Se instala en 2,93 s y ejecuta la tarea check
   en 0,43 s ([captura](capturas/poethepoet.png)).
