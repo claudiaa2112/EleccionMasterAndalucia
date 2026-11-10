@@ -15,7 +15,7 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - uv: sigue el estándar pyproject.toml. Se instala en 3,35 s ([captura](capturas/uv.png)).
 - Poetry: sigue el estándar pyproject.toml. Se instala en 34,40 s
   ([captura](capturas/poetry.png)).
-- PDM: sigue el estándar pyproject.toml. Se instala en 19,56 s ([captura](capturas/pdm.png)).
+- PDM: sigue el estándar pyproject.toml. Se instala en 22,60 s ([captura](capturas/pdm.png)).
 - Hatch: sigue el estándar pyproject.toml. Se instala en 25,08 s
   ([captura](capturas/hatch.png)).
 
@@ -36,3 +36,6 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - poethepoet: las tareas se definen dentro de pyproject.toml, y funciona con cualquier
   gestor de dependencias, no solo con Poetry. Se instala en 2,93 s y ejecuta la tarea check
   en 0,43 s ([captura](capturas/poethepoet.png)).
+- PDM: las tareas se definen dentro de pyproject.toml. Se instala en 22,60 s
+  ([captura](capturas/pdm.png)) y ejecuta la tarea check en 1,28 s
+  ([captura](capturas/pdm1.png)).
