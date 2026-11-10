@@ -28,9 +28,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 ### Opciones
 
-- Make: las tareas se definen en un Makefile. Ya estaba instalado en el sistema, así que
-  no hay tiempo de instalación, y ejecuta la tarea check en 0,09 s
-  ([captura](capturas/make.png)).
+- Make: las tareas se definen en un Makefile. Ya estaba instalado en el sistema
+  ([captura](capturas/make-instalado.png)), así que no hay tiempo de instalación, y ejecuta
+  la tarea check en 0,09 s ([captura](capturas/make.png)).
 - just: las tareas se definen en un justfile. Se instala en 1,96 s
   ([captura](capturas/just.png)) y ejecuta la tarea check en 0,12 s
   ([captura](capturas/just1.png)).
