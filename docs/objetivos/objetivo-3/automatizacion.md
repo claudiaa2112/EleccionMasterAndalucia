@@ -19,6 +19,12 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - Hatch: sigue el estándar pyproject.toml. Se instala en 4,51 s
   ([captura](capturas/hatch.png)).
 
+### Elección
+
+Las cuatro siguen el estándar pyproject.toml, así que decide lo que tardan en instalarse.
+uv es la más rápida, con 3,35 s, frente a los 4,51 s de Hatch, los 22,60 s de PDM y los
+34,40 s de Poetry. Por eso elijo uv.
+
 ## Gestor de tareas
 
 ### Criterios
@@ -43,3 +49,9 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - Hatch: las tareas se definen dentro de pyproject.toml. Se instala en 4,51 s
   ([captura](capturas/hatch.png)) y ejecuta la tarea check en 0,48 s
   ([captura](capturas/hatch1.png)).
+
+### Elección
+
+Make es el que menos tarda en los dos criterios: ya estaba instalado, así que no añade
+tiempo de instalación, y ejecuta la tarea check en 0,09 s, frente a los 0,12 s de just,
+los 0,31 s de poethepoet, los 0,48 s de Hatch y los 1,28 s de PDM. Por eso elijo Make.
