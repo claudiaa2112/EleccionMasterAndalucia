@@ -12,7 +12,7 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 
 ### Opciones
 
-- uv: sigue el estándar pyproject.toml. Se instala en 5,40 s ([captura](capturas/uv.png)).
+- uv: sigue el estándar pyproject.toml. Se instala en 3,35 s ([captura](capturas/uv.png)).
 - Poetry: sigue el estándar pyproject.toml. Se instala en 17,52 s
   ([captura](capturas/poetry.png)).
 - PDM: sigue el estándar pyproject.toml. Se instala en 19,56 s ([captura](capturas/pdm.png)).
