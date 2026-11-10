@@ -41,6 +41,22 @@ contenidos del portal de la Junta de Andalucía, del que forma parte el DUA, se 
 reutilizar con licencia Creative Commons Reconocimiento 3.0, indicando que la información se
 ha obtenido del Portal de la Junta de Andalucía.
 
+## Cómo preparar el proyecto y comprobar el código
+
+Hace falta tener [uv](https://docs.astral.sh/uv/getting-started/installation/), que
+instala Python 3.14 si no está y las dependencias del proyecto, y Make. Desde la carpeta
+del proyecto:
+
+```bash
+make install   # instala Python 3.14 si hace falta y las dependencias del proyecto
+make check     # comprueba que la sintaxis del código es correcta
+```
+
+make check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
+sintaxis, indicando el fichero y la línea, sin escribir nada en disco. No revisa el estilo
+ni los tipos.
+
 ## Documentación de los objetivos
 - [Objetivo 0: tarjeta del juego de rol y configuración del repositorio](docs/objetivos/objetivo-0/objetivo-0.md)
 - Objetivo 1: [personas](docs/objetivos/objetivo-1/personas.md), [user journeys](docs/objetivos/objetivo-1/user-journeys.md), [historias de usuario](docs/objetivos/objetivo-1/historias-usuario.md) y [milestones](docs/objetivos/objetivo-1/milestones.md)
+- [Objetivo 3: elección de las herramientas para automatizar tareas](docs/objetivos/objetivo-3/automatizacion.md)
