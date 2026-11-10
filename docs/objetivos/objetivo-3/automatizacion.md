@@ -35,8 +35,8 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
   ([captura](capturas/just.png)) y ejecuta la tarea check en 0,12 s
   ([captura](capturas/just1.png)).
 - poethepoet: las tareas se definen dentro de pyproject.toml, y funciona con cualquier
-  gestor de dependencias, no solo con Poetry. Se instala en 2,93 s y ejecuta la tarea check
-  en 0,43 s ([captura](capturas/poethepoet.png)).
+  gestor de dependencias, no solo con Poetry. Se instala en 2,88 s y ejecuta la tarea check
+  en 0,31 s ([captura](capturas/poethepoet.png)).
 - PDM: las tareas se definen dentro de pyproject.toml. Se instala en 22,60 s
   ([captura](capturas/pdm.png)) y ejecuta la tarea check en 1,28 s
   ([captura](capturas/pdm1.png)).
