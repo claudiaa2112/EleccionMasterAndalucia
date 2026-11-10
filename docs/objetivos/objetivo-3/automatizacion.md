@@ -16,7 +16,7 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - Poetry: sigue el estándar pyproject.toml. Se instala en 34,40 s
   ([captura](capturas/poetry.png)).
 - PDM: sigue el estándar pyproject.toml. Se instala en 22,60 s ([captura](capturas/pdm.png)).
-- Hatch: sigue el estándar pyproject.toml. Se instala en 25,08 s
+- Hatch: sigue el estándar pyproject.toml. Se instala en 4,51 s
   ([captura](capturas/hatch.png)).
 
 ## Gestor de tareas
@@ -39,3 +39,6 @@ Hacía falta una forma común de instalar las dependencias y ejecutar las tareas
 - PDM: las tareas se definen dentro de pyproject.toml. Se instala en 22,60 s
   ([captura](capturas/pdm.png)) y ejecuta la tarea check en 1,28 s
   ([captura](capturas/pdm1.png)).
+- Hatch: las tareas se definen dentro de pyproject.toml. Se instala en 4,51 s
+  ([captura](capturas/hatch.png)) y ejecuta la tarea check en 0,48 s
+  ([captura](capturas/hatch1.png)).
