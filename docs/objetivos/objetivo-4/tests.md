@@ -83,3 +83,6 @@ issues del milestone 1
   ([documentación](https://flexmock.readthedocs.io/)) y comprueba con qué datos se ha
   llamado al objeto sustituido con with\_args
   ([documentación](https://flexmock.readthedocs.io/en/latest/usage/call_count/)).
+- mockito 2.0.4: se instala en 0,89 s, como un solo paquete. Funciona sin ningún test
+  runner, y verify comprueba con qué datos se ha llamado al objeto sustituido: al fallar
+  muestra la llamada que se esperaba y la que se hizo ([captura](capturas/mockito.png)).
