@@ -3,8 +3,3 @@ name = "eleccion-master-andalucia"
 version = "0.3.0"
 requires-python = "==3.14.*"
 dependencies = []
-
-[dependency-groups]
-dev = [
-    "nose2>=0.16.0",
-]

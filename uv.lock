@@ -6,22 +6,3 @@ requires-python = "==3.14.*"
 name = "eleccion-master-andalucia"
 version = "0.3.0"
 source = { virtual = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "nose2" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [{ name = "nose2", specifier = ">=0.16.0" }]
-
-[[package]]
-name = "nose2"
-version = "0.16.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/51/b2/73553c0e19c4bfe174940de03c2e1814f407e3524628690800f2536bf7f7/nose2-0.16.0.tar.gz", hash = "sha256:19db5ad20e264501a8ee64e3e157a3766a5e744170e54ceecb4e5ca09b08655a", size = 172667, upload-time = "2026-03-02T00:49:52.122Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/60/3b/e93d177001ac3ba3cb2ebed7727442e1ee61990271f2bf39caef63798ead/nose2-0.16.0-py3-none-any.whl", hash = "sha256:a637c508b1fff5882c5f0f573226abe6f43b2f8005fef8896f57174d7d0e0c31", size = 213451, upload-time = "2026-03-02T00:49:50.609Z" },
-]

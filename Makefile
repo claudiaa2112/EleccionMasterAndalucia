@@ -5,4 +5,4 @@ check:
 	uv run python -c "import ast, pathlib; [ast.parse(f.read_text(), str(f)) for f in pathlib.Path('master').rglob('*.py')]"
 
 test:
-	PYTHONDONTWRITEBYTECODE=1 uv run python -m nose2 -s tests
+	PYTHONDONTWRITEBYTECODE=1 uv run python -m unittest discover -s tests
