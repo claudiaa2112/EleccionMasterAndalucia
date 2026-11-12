@@ -10,9 +10,9 @@ issues del milestone 1
   uno tiene que tener sus tests, incluidos los que comprueban que se rechazan los datos incorrectos (del #32 al
   #35).
 - El código solo usa lo que trae Python 3.14, sin dependencias externas.
-- Las tareas del proyecto se lanzan con PDM
+- Las dependencias se instalan con uv y las tareas se lanzan con Make
   ([justificación](../objetivo-3/automatizacion.md)), así que ejecutar los tests tiene que
-  ser una tarea más de PDM, como `check`.
+  ser una tarea más del Makefile, como `check`.
 - Lo que se elija se usará después en un contenedor, donde no se puede escribir en la
   carpeta del código, y en integración continua, donde cada vez se parte de cero, así que
   importa qué ficheros deja, cuánto tarda en instalarse y cuánto tarda en ejecutar los
@@ -64,7 +64,7 @@ Orden para ejecutar los tests:
 
 - Que termine con un código de error cuando algún test falla, para que la integración
   continua lo detecte.
-- Que se pueda lanzar como tarea de PDM.
+- Que se pueda lanzar como tarea del Makefile.
 
 Dobles de prueba:
 
@@ -135,7 +135,7 @@ Las medidas y las capturas las hice yo.
 - Los ficheros que deja son los que aparecen nuevos en la carpeta del proyecto después de
   ejecutar los tests.
 - Todas las opciones se ejecutan con una orden normal, así que todas se pueden lanzar como
-  tarea de PDM.
+  tarea del Makefile.
 - Los dobles de prueba no se pueden probar con el test del #32, porque esa validación no
   depende de nada externo: de ellos se mide la instalación y se comprueba que funcionan con
   Python 3.14, y el resto de criterios se toma de su documentación.
