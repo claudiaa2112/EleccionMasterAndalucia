@@ -44,6 +44,17 @@ issues del milestone 1
 - Lo que tarda en instalarse.
 - Lo que tarda en ejecutar un test.
 
+### Opciones
+
+- unittest: viene con Python, así que no hay que instalarlo. Repite un test con varios
+  casos con subTest
+  ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests))
+  y prepara los datos compartidos en setUp
+  ([documentación](https://docs.python.org/3/library/unittest.html#unittest.TestCase.setUp)).
+  Ejecuta un test en 0,32 s y deja \_\_pycache\_\_ en master y en tests
+  ([captura](capturas/unittest.png)), que se evita con PYTHONDONTWRITEBYTECODE=1
+  ([documentación](https://docs.python.org/3/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE)).
+
 ## Dobles de prueba
 
 ### Criterios
