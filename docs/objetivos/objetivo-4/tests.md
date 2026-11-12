@@ -29,6 +29,10 @@ issues del milestone 1
   obtenido ni el esperado ([captura](capturas/assert.png)); los muestra si se ejecuta con
   pytest ([documentación](https://docs.pytest.org/en/stable/how-to/assert.html)). No tiene
   forma propia de comprobar que se lanza un error.
+- assertpy 2.36.0: se instala en 1,13 s. Al fallar muestra el valor obtenido y el esperado,
+  y comprueba que se lanza un error con raises(...).when_called_with(...)
+  ([captura](capturas/assertpy.png)), que también permite comprobar su mensaje
+  ([documentación](https://assertpy.github.io/assertpy/guides/errors/#expected-exceptions)).
 
 ## Test runner
 
