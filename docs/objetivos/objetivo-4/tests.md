@@ -75,6 +75,15 @@ los métodos assert de unittest.
   Ejecuta un test en 0,49 s y solo deja \_\_pycache\_\_ en master y en tests
   ([captura](capturas/nose2.png)), que se evita como en unittest.
 
+### Elección
+
+Los tres permiten repetir un test con varios casos y preparar los datos compartidos.
+unittest es el que menos tarda en los dos criterios que se miden: viene con Python, así que
+no hay que instalarlo, frente a los 0,80 s de nose2 y los 2,20 s de pytest, y ejecuta un
+test en 0,32 s, frente a los 0,49 s de nose2 y los 1,45 s de pytest. Además, como nose2,
+solo deja \_\_pycache\_\_, mientras que pytest deja también .pytest\_cache. Por eso elijo
+unittest.
+
 ## Dobles de prueba
 
 ### Criterios
