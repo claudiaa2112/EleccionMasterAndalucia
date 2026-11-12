@@ -20,6 +20,12 @@ issues del milestone 1
 - Que permita comprobar que se lanza un error y con qué mensaje.
 - Lo que tarda en instalarse.
 
+### Opciones
+
+- Métodos assert de unittest: vienen con Python, así que no hay que instalarlos.
+  assertEqual muestra el valor obtenido y el esperado, y assertRaisesRegex comprueba que se
+  lanza un error y con qué mensaje ([captura](capturas/unittest-assert.png)).
+
 ## Test runner
 
 ### Criterios
