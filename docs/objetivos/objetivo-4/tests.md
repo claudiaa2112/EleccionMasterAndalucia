@@ -94,6 +94,9 @@ unittest.
 
 ### Opciones
 
+- unittest.mock: viene con Python, así que no hay que instalarlo. Funciona con cualquier
+  test runner y comprueba con qué datos se ha llamado al objeto sustituido con
+  assert\_called\_with ([documentación](https://docs.python.org/3/library/unittest.mock.html)).
 - flexmock 0.14.0: se instala en 1,01 s, como un solo paquete
   ([captura](capturas/flexmock.png)). Se integra con unittest y con pytest
   ([documentación](https://flexmock.readthedocs.io/)) y comprueba con qué datos se ha
