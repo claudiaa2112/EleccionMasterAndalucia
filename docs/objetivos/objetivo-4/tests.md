@@ -62,6 +62,11 @@ issues del milestone 1
   ([captura](capturas/pytest.png)); \_\_pycache\_\_ se evita como en unittest y
   .pytest\_cache con -p no:cacheprovider
   ([documentación](https://docs.pytest.org/en/stable/how-to/plugins.html#deactivating-unregistering-a-plugin-by-name)).
+- nose2 0.16.0: se instala en 0,80 s, como un solo paquete. Ejecuta los tests escritos con
+  unittest, así que prepara los datos compartidos en setUp como él, y repite un test con
+  varios casos con params ([documentación](https://docs.nose2.io/en/latest/params.html)).
+  Ejecuta un test en 0,49 s y solo deja \_\_pycache\_\_ en master y en tests
+  ([captura](capturas/nose2.png)), que se evita como en unittest.
 
 ## Dobles de prueba
 
