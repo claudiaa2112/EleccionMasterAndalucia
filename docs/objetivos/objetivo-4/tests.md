@@ -105,3 +105,9 @@ unittest.
 - mockito 2.0.4: se instala en 0,89 s, como un solo paquete. Funciona sin ningún test
   runner, y verify comprueba con qué datos se ha llamado al objeto sustituido: al fallar
   muestra la llamada que se esperaba y la que se hizo ([captura](capturas/mockito.png)).
+
+### Elección
+
+Las tres funcionan con unittest y comprueban con qué datos se ha llamado al objeto
+sustituido. unittest.mock viene con Python, así que no hay que instalarlo, frente a los
+0,89 s de mockito y los 1,01 s de flexmock. Por eso elijo unittest.mock.
