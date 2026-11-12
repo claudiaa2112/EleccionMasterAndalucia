@@ -25,6 +25,10 @@ issues del milestone 1
 - Métodos assert de unittest: vienen con Python, así que no hay que instalarlos.
   assertEqual muestra el valor obtenido y el esperado, y assertRaisesRegex comprueba que se
   lanza un error y con qué mensaje ([captura](capturas/unittest-assert.png)).
+- assert de Python: viene con Python. Al fallar solo dice AssertionError, sin el valor
+  obtenido ni el esperado ([captura](capturas/assert.png)); los muestra si se ejecuta con
+  pytest ([documentación](https://docs.pytest.org/en/stable/how-to/assert.html)). No tiene
+  forma propia de comprobar que se lanza un error.
 
 ## Test runner
 
