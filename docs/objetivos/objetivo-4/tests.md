@@ -54,6 +54,14 @@ issues del milestone 1
   Ejecuta un test en 0,32 s y deja \_\_pycache\_\_ en master y en tests
   ([captura](capturas/unittest.png)), que se evita con PYTHONDONTWRITEBYTECODE=1
   ([documentación](https://docs.python.org/3/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE)).
+- pytest 9.2.0: se instala en 2,20 s, con 5 paquetes. Repite un test con varios casos con
+  parametrize ([documentación](https://docs.pytest.org/en/stable/how-to/parametrize.html))
+  y prepara los datos compartidos con fixtures
+  ([documentación](https://docs.pytest.org/en/stable/how-to/fixtures.html)). Ejecuta un
+  test en 1,45 s y deja \_\_pycache\_\_ en master y en tests y la carpeta .pytest\_cache
+  ([captura](capturas/pytest.png)); \_\_pycache\_\_ se evita como en unittest y
+  .pytest\_cache con -p no:cacheprovider
+  ([documentación](https://docs.pytest.org/en/stable/how-to/plugins.html#deactivating-unregistering-a-plugin-by-name)).
 
 ## Dobles de prueba
 
