@@ -41,33 +41,18 @@ contenidos del portal de la Junta de Andalucía, del que forma parte el DUA, se 
 reutilizar con licencia Creative Commons Reconocimiento 3.0, indicando que la información se
 ha obtenido del Portal de la Junta de Andalucía.
 
-## La clase Master
-
-La clase Master, en [master/master.py](master/master.py), reúne lo que el DUA publica sobre
-un máster y que hace falta para saber si tengo opciones de entrar:
-
-- con qué prioridad admite cada titulación y si esa prioridad depende de cumplir un
-  requisito adicional, junto con el texto de esos requisitos;
-- cuánto pesa la nota media en la puntuación; el resto de criterios (currículum,
-  experiencia, idiomas...) depende de la comisión, porque el DUA no publica cuánto vale
-  cada uno;
-- la nota de corte de la última adjudicación.
-
-En el servicio web que se desplegará más adelante, cuando alguien indique su titulación y
-su nota media, se comparará con cada máster para decirle si entra seguro, si
-depende de la valoración de la comisión o si no entra ni con la máxima puntuación.
-
 ## Cómo preparar el proyecto y comprobar el código
 
-Hace falta tener Python 3.14 y [PDM](https://pdm-project.org/latest/#installation).
-Desde la carpeta del proyecto:
+Hace falta tener [uv](https://docs.astral.sh/uv/getting-started/installation/), que
+instala Python 3.14 si no está y las dependencias del proyecto, y Make. Desde la carpeta
+del proyecto:
 
 ```bash
-pdm install   # crea el entorno del proyecto e instala lo que necesita
-pdm check     # comprueba que la sintaxis del código es correcta
+make install   # instala Python 3.14 si hace falta y las dependencias del proyecto
+make check     # comprueba que la sintaxis del código es correcta
 ```
 
-pdm check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
+make check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
 sintaxis, indicando el fichero y la línea, sin escribir nada en disco. No revisa el estilo
 ni los tipos.
 
