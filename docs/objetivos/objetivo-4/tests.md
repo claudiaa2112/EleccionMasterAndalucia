@@ -34,6 +34,13 @@ issues del milestone 1
   ([captura](capturas/assertpy.png)), que también permite comprobar su mensaje
   ([documentación](https://assertpy.github.io/assertpy/guides/errors/#expected-exceptions)).
 
+### Elección
+
+Los métodos assert de unittest y assertpy cumplen los dos primeros criterios, pero los de
+unittest vienen con Python y no hay que instalarlos, frente a los 1,13 s de assertpy. El
+assert de Python, por sí solo, no muestra el valor obtenido y el esperado. Por eso elijo
+los métodos assert de unittest.
+
 ## Test runner
 
 ### Criterios
