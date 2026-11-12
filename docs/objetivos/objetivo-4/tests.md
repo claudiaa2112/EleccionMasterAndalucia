@@ -75,3 +75,11 @@ issues del milestone 1
 - Que se puedan usar con el test runner elegido.
 - Que permitan comprobar con qué datos se ha llamado al objeto sustituido.
 - Lo que tarda en instalarse.
+
+### Opciones
+
+- flexmock 0.14.0: se instala en 1,01 s, como un solo paquete
+  ([captura](capturas/flexmock.png)). Se integra con unittest y con pytest
+  ([documentación](https://flexmock.readthedocs.io/)) y comprueba con qué datos se ha
+  llamado al objeto sustituido con with\_args
+  ([documentación](https://flexmock.readthedocs.io/en/latest/usage/call_count/)).
