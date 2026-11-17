@@ -20,6 +20,9 @@ class Master:
     requisitos_adicionales: Mapping[str, str]
     corte: CorteNumerico | EstadoCorte
 
+    def admite(self, titulacion: str) -> bool:
+        return titulacion in self.accesos
+
     def puntuacion_minima(self, nota_media: Decimal) -> Decimal:
         return self.ponderacion_nota_media * nota_media / PESO_MAXIMO_NOTA_MEDIA
 

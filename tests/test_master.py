@@ -3,6 +3,9 @@ from decimal import Decimal
 
 from ejemplos import crear_master
 
+from master.master import Acceso
+from master.prioridad_carreras import PrioridadCarrera
+
 NOTA_MEDIA = Decimal("7.061")
 
 
@@ -16,3 +19,15 @@ class TestPuntuaciones(unittest.TestCase):
         for peso, maxima in ((100, "7.061"), (60, "8.2366"), (0, "10")):
             with self.subTest(peso=peso):
                 self.assertEqual(crear_master(peso=peso).puntuacion_maxima(NOTA_MEDIA), Decimal(maxima))
+
+
+TITULACION = "GRADO EN INGENIERÍA INFORMÁTICA"
+
+
+class TestAdmision(unittest.TestCase):
+    def test_admite_una_titulacion_de_su_catalogo(self):
+        master = crear_master(accesos={TITULACION: Acceso(PrioridadCarrera.RESTO, False)})
+        self.assertTrue(master.admite(TITULACION))
+
+    def test_no_admite_una_titulacion_que_no_esta_en_su_catalogo(self):
+        self.assertFalse(crear_master().admite(TITULACION))
