@@ -9,9 +9,6 @@ class EstadoCorte(Enum):
     TODOS_ADMITIDOS = "TODOS_ADMITIDOS"
     SIN_ADJUDICACION = "SIN_ADJUDICACION"
 
-    def posibilidad(self, prioridad: PrioridadCarrera, minima: Decimal, maxima: Decimal) -> Posibilidad:
-        return POSIBILIDAD_POR_ESTADO[self]
-
 
 POSIBILIDAD_POR_ESTADO = {
     EstadoCorte.TODOS_ADMITIDOS: Posibilidad.ENTRA_SEGURO,

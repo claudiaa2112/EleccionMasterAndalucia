@@ -2,7 +2,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
 
-from .corte import CorteNumerico, EstadoCorte
+from .corte import POSIBILIDAD_POR_ESTADO, CorteNumerico, EstadoCorte
 from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
 
@@ -25,6 +25,8 @@ class Master:
         return titulacion in self.accesos
 
     def posibilidad(self, titulacion: str, nota_media: Decimal) -> Posibilidad:
+        if isinstance(self.corte, EstadoCorte):
+            return POSIBILIDAD_POR_ESTADO[self.corte]
         return self.corte.posibilidad(self.accesos[titulacion].prioridad,
                                       self.puntuacion_minima(nota_media), self.puntuacion_maxima(nota_media))
 

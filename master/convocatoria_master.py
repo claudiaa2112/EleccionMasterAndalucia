@@ -22,6 +22,11 @@ def es_corte_valido(master: Master) -> bool:
     return not isinstance(master.corte, CorteNumerico) or 0 <= master.corte.puntuacion <= PUNTUACION_MAXIMA
 
 
+def comprobar_nota_media(nota_media: Decimal) -> None:
+    if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
+        raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
+
+
 @dataclass(eq=False)
 class ConvocatoriaMaster:
     identificador: str
@@ -36,7 +41,6 @@ class ConvocatoriaMaster:
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
-        if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
-            raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
+        comprobar_nota_media(nota_media)
         return {codigo: master.posibilidad(titulacion, nota_media)
                 for codigo, master in self.masters.items() if master.admite(titulacion)}
