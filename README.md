@@ -41,7 +41,17 @@ contenidos del portal de la Junta de Andalucía, del que forma parte el DUA, se 
 reutilizar con licencia Creative Commons Reconocimiento 3.0, indicando que la información se
 ha obtenido del Portal de la Junta de Andalucía.
 
-## Cómo preparar el proyecto y comprobar el código
+## Qué responde
+
+La clase ConvocatoriaMaster, en [master/convocatoria_master.py](master/convocatoria_master.py),
+reúne los másteres de una convocatoria por su código. Su método posibilidades recibe una
+titulación y una nota media y dice, para cada máster que admite esa titulación, si se
+entraría seguro, si depende de cómo valore la comisión el resto de méritos, si no se
+entraría ni con la máxima valoración o si no se puede saber porque el máster no se
+adjudicó. En el servicio web que se desplegará más adelante, será lo que responda cuando
+alguien indique su titulación y su nota media.
+
+## Cómo preparar el proyecto, comprobar el código y ejecutar los tests
 
 Hace falta tener [uv](https://docs.astral.sh/uv/getting-started/installation/), que
 instala Python 3.14 si no está y las dependencias del proyecto, y Make. Desde la carpeta
@@ -50,6 +60,7 @@ del proyecto:
 ```bash
 make install   # instala Python 3.14 si hace falta y las dependencias del proyecto
 make check     # comprueba que la sintaxis del código es correcta
+make test      # ejecuta los tests
 ```
 
 make check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
