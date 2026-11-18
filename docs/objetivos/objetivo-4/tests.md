@@ -21,16 +21,16 @@ issues del milestone 1
 
 ### Opciones
 
-- Métodos assert de unittest: assertEqual muestra el valor obtenido y el esperado, y
-  assertRaisesRegex comprueba que se lanza un error y con qué mensaje
-  ([captura](capturas/unittest-assert.png)).
-- assert de Python: al fallar solo dice AssertionError, sin el valor obtenido ni el
-  esperado ([captura](capturas/assert.png)); los muestra si se ejecuta con pytest
+- Métodos assert de unittest: assertEqual muestra el valor obtenido y el esperado
+  ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)),
+  y assertRaisesRegex comprueba que se lanza un error y con qué mensaje
+  ([documentación](https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertRaisesRegex)).
+- assert de Python: al fallar solo lanza AssertionError, sin el valor obtenido ni el
+  esperado ([documentación](https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement)); los muestra si se ejecuta con pytest
   ([documentación](https://docs.pytest.org/en/stable/how-to/assert.html)). No tiene forma
   propia de comprobar que se lanza un error.
 - assertpy 2.36.0: al fallar muestra el valor obtenido y el esperado, y comprueba que se
-  lanza un error con raises(...).when_called_with(...) ([captura](capturas/assertpy.png)),
-  que también permite comprobar su mensaje
+  lanza un error con raises(...).when_called_with(...), que también permite comprobar su mensaje
   ([documentación](https://assertpy.github.io/assertpy/guides/errors/#expected-exceptions)).
 
 ### Elección
@@ -91,7 +91,7 @@ eso elijo python -m unittest. Como se ejecuta con uv run, que por defecto crea e
 .venv dentro del proyecto, el Makefile configura UV_PROJECT_ENVIRONMENT para no escribir en
 la carpeta del código ([documentación](https://docs.astral.sh/uv/concepts/projects/config/)).
 
-## Dobles de prueba
+## Mocks
 
 ### Criterios
 
@@ -103,13 +103,12 @@ la carpeta del código ([documentación](https://docs.astral.sh/uv/concepts/proj
 - unittest.mock: funciona con cualquier test runner y comprueba con qué datos se ha llamado
   al objeto sustituido con assert\_called\_with
   ([documentación](https://docs.python.org/3/library/unittest.mock.html)).
-- flexmock 0.14.0: funciona con Python 3.14 ([captura](capturas/flexmock.png)), se integra
-  con unittest y con pytest ([documentación](https://flexmock.readthedocs.io/)) y comprueba
+- flexmock 0.14.0: se integra con unittest y con pytest ([documentación](https://flexmock.readthedocs.io/)) y comprueba
   con qué datos se ha llamado al objeto sustituido con with\_args
   ([documentación](https://flexmock.readthedocs.io/en/latest/usage/call_count/)).
-- mockito 2.0.4: funciona sin ningún test runner, y verify comprueba con qué datos se ha
-  llamado al objeto sustituido: al fallar muestra la llamada que se esperaba y la que se
-  hizo ([captura](capturas/mockito.png)).
+- mockito 2.0.4: no depende de ningún test runner, y verify comprueba con qué datos se ha
+  llamado al objeto sustituido
+  ([documentación](https://mockito-python.readthedocs.io/en/latest/walk-through.html)).
 
 ### Elección
 
