@@ -1,7 +1,31 @@
 from collections.abc import Mapping
 from dataclasses import dataclass
+from decimal import Decimal
 
-from .master import Master
+from .corte import CorteNumerico
+from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Master
+from .posibilidad import Posibilidad
+
+CIFRAS_CODIGO_MASTER = 6
+NOTA_MEDIA_MINIMA = 5
+
+
+def es_codigo_valido(codigo: str) -> bool:
+    return len(codigo) == CIFRAS_CODIGO_MASTER and codigo.isdigit()
+
+
+def es_peso_valido(master: Master) -> bool:
+    return 0 <= master.ponderacion_nota_media <= PESO_MAXIMO_NOTA_MEDIA
+
+
+def es_corte_valido(master: Master) -> bool:
+    return not isinstance(master.corte, CorteNumerico) or 0 <= master.corte.puntuacion <= PUNTUACION_MAXIMA
+
+
+def comprobar_nota_media(nota_media: Decimal) -> None:
+    if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
+        raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
+
 
 @dataclass(eq=False)
 class ConvocatoriaMaster:
@@ -9,12 +33,14 @@ class ConvocatoriaMaster:
     masters: Mapping[str, Master]
 
     def __post_init__(self) -> None:
-        if not isinstance(self.identificador, str) or not self.identificador.strip():
-            raise ValueError("El identificador de la convocatoria de máster debe ser texto no vacío")
-        if not isinstance(self.masters, Mapping):
-            raise ValueError("Los másteres deben estar indexados por código.")
-        for codigo, master in self.masters.items():
-            if not isinstance(codigo, str) or not codigo.isdigit() or len(codigo) != 6:
-                raise ValueError("El código del máster debe contener seis cifras.")
-            if not isinstance(master, Master):
-                raise ValueError("La convocatoria de máster solo puede contener másteres válidos.")
+        if not all(map(es_codigo_valido, self.masters)):
+            raise ValueError(f"El código del máster debe tener {CIFRAS_CODIGO_MASTER} cifras.")
+        if not all(map(es_peso_valido, self.masters.values())):
+            raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
+        if not all(map(es_corte_valido, self.masters.values())):
+            raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
+
+    def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
+        comprobar_nota_media(nota_media)
+        return {codigo: master.posibilidad(titulacion, nota_media)
+                for codigo, master in self.masters.items() if master.admite(titulacion)}

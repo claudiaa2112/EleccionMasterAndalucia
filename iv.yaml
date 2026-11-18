@@ -3,3 +3,4 @@ entidad: master/master.py
 automatizar:
   fichero: Makefile
   orden: make
+test: tests/test_convocatoria_master.py
