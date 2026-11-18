@@ -40,12 +40,12 @@ por sí solo, no muestra el valor obtenido y el esperado. Elijo los métodos ass
 unittest porque son parte del test runner elegido, así que los tests no necesitan otra
 biblioteca para hacer las comprobaciones.
 
-## Test runner
+## Test runner o framework
 
 ### Criterios
 
-- Que permita repetir un mismo test con varios casos.
-- Que permita preparar una sola vez los datos que comparten varios tests.
+- Que permita agrupar los casos de un mismo test en subtests.
+- Que tenga fixtures o funciones que preparen los datos que comparten varios tests.
 
 ### Opciones
 
