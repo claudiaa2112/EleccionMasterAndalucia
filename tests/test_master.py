@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import crear_master
+from ejemplos import TITULACION, crear_master
 
 from master.corte import CorteNumerico
 from master.master import Acceso
@@ -21,9 +21,6 @@ class TestPuntuaciones(unittest.TestCase):
         for peso, maxima in ((100, "7.061"), (60, "8.2366"), (0, "10")):
             with self.subTest(peso=peso):
                 self.assertEqual(crear_master(peso=peso).puntuacion_maxima(NOTA_MEDIA), Decimal(maxima))
-
-
-TITULACION = "GRADO EN INGENIERÍA INFORMÁTICA"
 
 
 class TestAdmision(unittest.TestCase):

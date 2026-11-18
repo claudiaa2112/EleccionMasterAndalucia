@@ -1,10 +1,12 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import crear_master
+from ejemplos import TITULACION, crear_master
 
 from master.convocatoria_master import ConvocatoriaMaster
-from master.corte import CorteNumerico
+from master.corte import CorteNumerico, EstadoCorte
+from master.master import Acceso
+from master.posibilidad import Posibilidad
 from master.prioridad_carreras import PrioridadCarrera
 
 
@@ -43,3 +45,12 @@ class TestPuntuacionCorte(unittest.TestCase):
         for puntuacion in (Decimal("-0.01"), Decimal("10.01")):
             with self.subTest(puntuacion=puntuacion), self.assertRaisesRegex(ValueError, "entre 0 y 10"):
                 ConvocatoriaMaster("2026-2027", {"492700": crear_master(corte=CorteNumerico(PrioridadCarrera.RESTO, puntuacion))})
+
+
+class TestPosibilidades(unittest.TestCase):
+    def test_responde_solo_por_los_masteres_que_admiten_su_titulacion(self):
+        admite = crear_master(corte=EstadoCorte.TODOS_ADMITIDOS,
+                              accesos={TITULACION: Acceso(PrioridadCarrera.RESTO, False)})
+        convocatoria = ConvocatoriaMaster("2026-2027", {"492700": admite, "109908": crear_master()})
+        self.assertEqual(convocatoria.posibilidades(TITULACION, Decimal("7.061")),
+                         {"492700": Posibilidad.ENTRA_SEGURO})

@@ -1,8 +1,10 @@
 from collections.abc import Mapping
 from dataclasses import dataclass
+from decimal import Decimal
 
 from .corte import CorteNumerico
 from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Master
+from .posibilidad import Posibilidad
 
 CIFRAS_CODIGO_MASTER = 6
 
@@ -31,3 +33,7 @@ class ConvocatoriaMaster:
             raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
         if not all(map(es_corte_valido, self.masters.values())):
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
+
+    def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
+        return {codigo: master.posibilidad(titulacion, nota_media)
+                for codigo, master in self.masters.items() if master.admite(titulacion)}
