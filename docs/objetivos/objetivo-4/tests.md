@@ -87,9 +87,9 @@ en el apartado siguiente, python -m unittest, que solo ejecuta tests escritos co
 
 Los tres dejan solo ficheros que se pueden evitar, y python -m unittest es el que menos
 tarda en ejecutar un test: 0,32 s, frente a los 0,49 s de nose2 y los 1,45 s de pytest. Por
-eso elijo python -m unittest. Como se ejecuta con uv run, que crea el entorno .venv dentro
-del proyecto, hay que configurar UV_PROJECT_ENVIRONMENT para no escribir en la carpeta del
-código ([documentación](https://docs.astral.sh/uv/concepts/projects/config/)).
+eso elijo python -m unittest. Como se ejecuta con uv run, que por defecto crea el entorno
+.venv dentro del proyecto, el Makefile configura UV_PROJECT_ENVIRONMENT para no escribir en
+la carpeta del código ([documentación](https://docs.astral.sh/uv/concepts/projects/config/)).
 
 ## Dobles de prueba
 
