@@ -54,3 +54,13 @@ class TestPosibilidades(unittest.TestCase):
         convocatoria = ConvocatoriaMaster("2026-2027", {"492700": admite, "109908": crear_master()})
         self.assertEqual(convocatoria.posibilidades(TITULACION, Decimal("7.061")),
                          {"492700": Posibilidad.ENTRA_SEGURO})
+
+    def test_acepta_una_nota_media_en_los_limites(self):
+        for nota_media in (Decimal("5"), Decimal("10")):
+            with self.subTest(nota_media=nota_media):
+                self.assertEqual(ConvocatoriaMaster("2026-2027", {}).posibilidades(TITULACION, nota_media), {})
+
+    def test_rechaza_una_nota_media_fuera_de_5_a_10(self):
+        for nota_media in (Decimal("4.99"), Decimal("10.01")):
+            with self.subTest(nota_media=nota_media), self.assertRaisesRegex(ValueError, "entre 5 y 10"):
+                ConvocatoriaMaster("2026-2027", {}).posibilidades(TITULACION, nota_media)

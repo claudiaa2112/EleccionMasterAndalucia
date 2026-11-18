@@ -7,6 +7,7 @@ from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Master
 from .posibilidad import Posibilidad
 
 CIFRAS_CODIGO_MASTER = 6
+NOTA_MEDIA_MINIMA = 5
 
 
 def es_codigo_valido(codigo: str) -> bool:
@@ -35,5 +36,7 @@ class ConvocatoriaMaster:
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
+        if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
+            raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
         return {codigo: master.posibilidad(titulacion, nota_media)
                 for codigo, master in self.masters.items() if master.admite(titulacion)}
