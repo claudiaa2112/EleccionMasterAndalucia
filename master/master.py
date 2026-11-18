@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 
 from .corte import CorteNumerico, EstadoCorte
+from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
 
 PESO_MAXIMO_NOTA_MEDIA = 100
@@ -23,8 +24,9 @@ class Master:
     def admite(self, titulacion: str) -> bool:
         return titulacion in self.accesos
 
-    def entraron_todos(self) -> bool:
-        return self.corte is EstadoCorte.TODOS_ADMITIDOS
+    def posibilidad(self, titulacion: str, nota_media: Decimal) -> Posibilidad:
+        return self.corte.posibilidad(self.accesos[titulacion].prioridad,
+                                      self.puntuacion_minima(nota_media), self.puntuacion_maxima(nota_media))
 
     def puntuacion_minima(self, nota_media: Decimal) -> Decimal:
         return self.ponderacion_nota_media * nota_media / PESO_MAXIMO_NOTA_MEDIA

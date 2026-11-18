@@ -3,8 +3,9 @@ from decimal import Decimal
 
 from ejemplos import crear_master
 
-from master.corte import CorteNumerico, EstadoCorte
+from master.corte import CorteNumerico
 from master.master import Acceso
+from master.posibilidad import Posibilidad
 from master.prioridad_carreras import PrioridadCarrera
 
 NOTA_MEDIA = Decimal("7.061")
@@ -34,11 +35,8 @@ class TestAdmision(unittest.TestCase):
         self.assertFalse(crear_master().admite(TITULACION))
 
 
-class TestTodosAdmitidos(unittest.TestCase):
-    def test_entraron_todos_si_el_corte_es_todos_admitidos(self):
-        self.assertTrue(crear_master(corte=EstadoCorte.TODOS_ADMITIDOS).entraron_todos())
-
-    def test_no_entraron_todos_si_el_corte_es_otro(self):
-        for corte in (EstadoCorte.SIN_ADJUDICACION, CorteNumerico(PrioridadCarrera.RESTO, Decimal("5"))):
-            with self.subTest(corte=corte):
-                self.assertFalse(crear_master(corte=corte).entraron_todos())
+class TestPosibilidad(unittest.TestCase):
+    def test_junta_la_prioridad_del_catalogo_y_las_puntuaciones(self):
+        master = crear_master(peso=60, corte=CorteNumerico(PrioridadCarrera.RESTO, Decimal("5.37")),
+                              accesos={TITULACION: Acceso(PrioridadCarrera.RESTO, False)})
+        self.assertEqual(master.posibilidad(TITULACION, NOTA_MEDIA), Posibilidad.DEPENDE)
