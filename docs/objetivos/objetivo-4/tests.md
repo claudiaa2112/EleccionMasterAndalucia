@@ -90,28 +90,3 @@ tarda en ejecutar un test: 0,23 s, frente a los 0,51 s de nose2 y los 0,84 s de 
 eso elijo python -m unittest. Como se ejecuta con uv run, que por defecto crea el entorno
 .venv dentro del proyecto, el Makefile configura UV_PROJECT_ENVIRONMENT para no escribir en
 la carpeta del código ([documentación](https://docs.astral.sh/uv/concepts/projects/config/)).
-
-## Mocks
-
-### Criterios
-
-- Que se puedan usar con el test runner elegido.
-- Que permitan comprobar con qué datos se ha llamado al objeto sustituido.
-
-### Opciones
-
-- unittest.mock: funciona con cualquier test runner y comprueba con qué datos se ha llamado
-  al objeto sustituido con assert\_called\_with
-  ([documentación](https://docs.python.org/3/library/unittest.mock.html)).
-- flexmock 0.14.0: se integra con unittest y con pytest ([documentación](https://flexmock.readthedocs.io/)) y comprueba
-  con qué datos se ha llamado al objeto sustituido con with\_args
-  ([documentación](https://flexmock.readthedocs.io/en/latest/usage/call_count/)).
-- mockito 2.0.4: no depende de ningún test runner, y verify comprueba con qué datos se ha
-  llamado al objeto sustituido
-  ([documentación](https://mockito-python.readthedocs.io/en/latest/walk-through.html)).
-
-### Elección
-
-Las tres funcionan con unittest y comprueban con qué datos se ha llamado al objeto
-sustituido. Elijo unittest.mock porque es parte del test runner elegido, así que no hace
-falta otra biblioteca para sustituir objetos en los tests.
