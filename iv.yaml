@@ -1,5 +1,5 @@
 lenguaje: python
-entidad: master/master.py
+entidad: master/convocatoria_master.py
 automatizar:
   fichero: Makefile
   orden: make

@@ -15,8 +15,9 @@ Todos los datos los saco del portal del Distrito Único Andaluz (DUA), la web of
 Junta de Andalucía para acceder a los másteres de las universidades públicas andaluzas. La
 información aparece escrita directamente en cada página, ordenada en tablas, así que se
 puede leer y procesar sin herramientas especiales. Además, en todas las páginas cada máster
-aparece con el mismo código de seis cifras, y eso me permite juntar lo que dice cada una
-sobre un mismo máster.
+aparece con el mismo código, de seis cifras o, en los másteres de la Universidad
+Internacional de Andalucía, una A seguida de cinco cifras, y eso me permite juntar lo que
+dice cada una sobre un mismo máster.
 
 - Catálogo de másteres para mi grado: en el [buscador de másteres](https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/mo_catalogo_top.php),
   eligiendo mi titulación, Grado en Ingeniería Informática, sale la lista de másteres que la
@@ -44,12 +45,19 @@ ha obtenido del Portal de la Junta de Andalucía.
 ## Qué responde
 
 La clase ConvocatoriaMaster, en [master/convocatoria_master.py](master/convocatoria_master.py),
-reúne los másteres de una convocatoria por su código. Su método posibilidades recibe una
+se crea a partir de las tres páginas del DUA: del catálogo de una titulación saca la
+prioridad de esa titulación en cada máster, de las notas de corte el último admitido y de
+la ficha de cada máster cuánto pesa la nota media, y lo junta todo por el código del
+máster. Su método posibilidades recibe una
 titulación y una nota media y dice, para cada máster que admite esa titulación, si se
 entraría seguro, si depende de cómo valore la comisión el resto de méritos, si no se
 entraría ni con la máxima valoración o si no se puede saber porque el máster no se
 adjudicó. En el servicio web que se desplegará más adelante, será lo que responda cuando
 alguien indique su titulación y su nota media.
+
+Los tests usan recortes reales de las tres páginas, guardados en
+[tests/paginas_dua](tests/paginas_dua), con la indicación de que la información se ha
+obtenido del Portal de la Junta de Andalucía.
 
 ## Cómo preparar el proyecto, comprobar el código y ejecutar los tests
 
