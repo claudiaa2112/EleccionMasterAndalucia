@@ -13,6 +13,7 @@ CIFRAS_CODIGO_MASTER = 6
 NOTA_MEDIA_MINIMA = 5
 SIN_ADJUDICAR = "AÚN SIN ADJ."
 MARCA_TODOS_ADMITIDOS = "**"
+CRITERIO_NOTA_MEDIA = "NOTA MEDIA DEL EXPEDIENTE ACADEMICO"
 
 
 def es_codigo_valido(codigo: str) -> bool:
@@ -68,6 +69,11 @@ class ConvocatoriaMaster:
             else:
                 cortes[codigo] = CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", ".")))
         return cortes
+
+    @staticmethod
+    def peso_de_la_ficha(ficha: str) -> int:
+        pesos = html.fromstring(ficha).xpath(f"//tr[td[contains(., '{CRITERIO_NOTA_MEDIA}')]]/td[last()]/text()")
+        return int(pesos[0]) if pesos else 0
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
         comprobar_nota_media(nota_media)
