@@ -23,7 +23,6 @@ class Acceso:
 class Master:
     accesos: Mapping[str, Acceso]
     ponderacion_nota_media: int
-    requisitos_adicionales: Mapping[str, str]
     corte: CorteNumerico | EstadoCorte
 
     def admite(self, titulacion: str) -> bool:
