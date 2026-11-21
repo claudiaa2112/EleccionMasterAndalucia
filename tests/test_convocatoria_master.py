@@ -11,13 +11,15 @@ from master.prioridad_carreras import PrioridadCarrera
 
 
 class TestCodigoMaster(unittest.TestCase):
-    def test_acepta_un_codigo_de_seis_cifras(self):
-        convocatoria = ConvocatoriaMaster("2026-2027", {"492700": crear_master()})
-        self.assertIn("492700", convocatoria.masters)
+    def test_acepta_los_codigos_que_usa_el_dua(self):
+        for codigo in ("492700", "A06400"):
+            with self.subTest(codigo=codigo):
+                convocatoria = ConvocatoriaMaster("2026-2027", {codigo: crear_master()})
+                self.assertIn(codigo, convocatoria.masters)
 
-    def test_rechaza_un_codigo_que_no_tiene_seis_cifras(self):
-        for codigo in ("49270", "4927000", "49270A", ""):
-            with self.subTest(codigo=codigo), self.assertRaisesRegex(ValueError, "6 cifras"):
+    def test_rechaza_un_codigo_que_no_usa_el_dua(self):
+        for codigo in ("49270", "4927000", "49270A", "A0640", "B06400", ""):
+            with self.subTest(codigo=codigo), self.assertRaisesRegex(ValueError, "6 cifras, o una A y 5 cifras"):
                 ConvocatoriaMaster("2026-2027", {codigo: crear_master()})
 
 

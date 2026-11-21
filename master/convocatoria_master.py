@@ -1,3 +1,4 @@
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
@@ -9,28 +10,11 @@ from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, Master
 from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
 
-CIFRAS_CODIGO_MASTER = 6
+FORMA_CODIGO_MASTER = re.compile(r"\d{6}|A\d{5}")
 NOTA_MEDIA_MINIMA = 5
 SIN_ADJUDICAR = "AÚN SIN ADJ."
 MARCA_TODOS_ADMITIDOS = "**"
 CRITERIO_NOTA_MEDIA = "NOTA MEDIA DEL EXPEDIENTE ACADEMICO"
-
-
-def es_codigo_valido(codigo: str) -> bool:
-    return len(codigo) == CIFRAS_CODIGO_MASTER and codigo.isdigit()
-
-
-def es_peso_valido(master: Master) -> bool:
-    return 0 <= master.ponderacion_nota_media <= PESO_MAXIMO_NOTA_MEDIA
-
-
-def es_corte_valido(master: Master) -> bool:
-    return not isinstance(master.corte, CorteNumerico) or 0 <= master.corte.puntuacion <= PUNTUACION_MAXIMA
-
-
-def comprobar_nota_media(nota_media: Decimal) -> None:
-    if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
-        raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
 
 
 @dataclass(eq=False)
@@ -39,12 +23,29 @@ class ConvocatoriaMaster:
     masters: Mapping[str, Master]
 
     def __post_init__(self) -> None:
-        if not all(map(es_codigo_valido, self.masters)):
-            raise ValueError(f"El código del máster debe tener {CIFRAS_CODIGO_MASTER} cifras.")
-        if not all(map(es_peso_valido, self.masters.values())):
+        if not all(map(self.es_codigo_valido, self.masters)):
+            raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
+        if not all(map(self.es_peso_valido, self.masters.values())):
             raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
-        if not all(map(es_corte_valido, self.masters.values())):
+        if not all(map(self.es_corte_valido, self.masters.values())):
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
+
+    @staticmethod
+    def es_codigo_valido(codigo: str) -> bool:
+        return FORMA_CODIGO_MASTER.fullmatch(codigo) is not None
+
+    @staticmethod
+    def es_peso_valido(master: Master) -> bool:
+        return 0 <= master.ponderacion_nota_media <= PESO_MAXIMO_NOTA_MEDIA
+
+    @staticmethod
+    def es_corte_valido(master: Master) -> bool:
+        return not isinstance(master.corte, CorteNumerico) or 0 <= master.corte.puntuacion <= PUNTUACION_MAXIMA
+
+    @staticmethod
+    def comprobar_nota_media(nota_media: Decimal) -> None:
+        if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
+            raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
 
     @staticmethod
     def accesos_del_catalogo(catalogo: str) -> dict[str, Acceso]:
@@ -76,6 +77,6 @@ class ConvocatoriaMaster:
         return int(pesos[0]) if pesos else 0
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
-        comprobar_nota_media(nota_media)
+        self.comprobar_nota_media(nota_media)
         return {codigo: master.posibilidad(titulacion, nota_media)
                 for codigo, master in self.masters.items() if master.admite(titulacion)}
