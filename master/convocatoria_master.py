@@ -4,13 +4,15 @@ from decimal import Decimal
 
 from lxml import html
 
-from .corte import CorteNumerico
+from .corte import CorteNumerico, EstadoCorte
 from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, Master
 from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
 
 CIFRAS_CODIGO_MASTER = 6
 NOTA_MEDIA_MINIMA = 5
+SIN_ADJUDICAR = "AÚN SIN ADJ."
+MARCA_TODOS_ADMITIDOS = "**"
 
 
 def es_codigo_valido(codigo: str) -> bool:
@@ -52,6 +54,20 @@ class ConvocatoriaMaster:
             en_rojo = bool(fila.xpath("td[4]//*[contains(@class, 'text-danger')]"))
             accesos[codigo] = Acceso(prioridad, en_rojo)
         return accesos
+
+    @staticmethod
+    def cortes_de_las_notas(notas_corte: str) -> dict[str, CorteNumerico | EstadoCorte]:
+        cortes = {}
+        for fila in html.fromstring(notas_corte).xpath("//tr[td[@class='celda2']]"):
+            codigo = fila.xpath("string(td[1])").strip()
+            prioridad, puntuacion = " ".join(fila.xpath("string(td[4])").split()).split("-")
+            if prioridad == SIN_ADJUDICAR:
+                cortes[codigo] = EstadoCorte.SIN_ADJUDICACION
+            elif puntuacion.startswith(MARCA_TODOS_ADMITIDOS):
+                cortes[codigo] = EstadoCorte.TODOS_ADMITIDOS
+            else:
+                cortes[codigo] = CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", ".")))
+        return cortes
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
         comprobar_nota_media(nota_media)
