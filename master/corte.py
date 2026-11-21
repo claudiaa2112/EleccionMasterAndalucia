@@ -10,12 +10,6 @@ class EstadoCorte(Enum):
     SIN_ADJUDICACION = "SIN_ADJUDICACION"
 
 
-POSIBILIDAD_POR_ESTADO = {
-    EstadoCorte.TODOS_ADMITIDOS: Posibilidad.ENTRA_SEGURO,
-    EstadoCorte.SIN_ADJUDICACION: Posibilidad.NO_SE_SABE,
-}
-
-
 @dataclass(frozen=True)
 class CorteNumerico:
     prioridad: PrioridadCarrera
