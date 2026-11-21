@@ -1,26 +1,11 @@
 import unittest
 from decimal import Decimal
-from pathlib import Path
 
-from ejemplos import TITULACION
+from ejemplos import CODIGOS_CATALOGO, TITULACION, crear_convocatoria
 
-from master.convocatoria_master import ConvocatoriaMaster
 from master.corte import CorteNumerico
 from master.master import Acceso
 from master.prioridad_carreras import PrioridadCarrera
-
-PAGINAS_DUA = Path(__file__).parent / "paginas_dua"
-CODIGOS_CATALOGO = ["324208", "407908", "492700", "493003", "518302", "A06400", "807203"]
-
-
-def leer_pagina(nombre):
-    return (PAGINAS_DUA / nombre).read_text(encoding="utf-8")
-
-
-def crear_convocatoria():
-    fichas = {codigo: leer_pagina(f"fichas/ficha_{codigo}.html") for codigo in CODIGOS_CATALOGO}
-    return ConvocatoriaMaster.desde_las_paginas_del_dua("2026-2027", TITULACION, leer_pagina("catalogo.html"),
-                                                        leer_pagina("notas_corte.html"), fichas)
 
 
 class TestConvocatoriaDesdeLasPaginasDelDua(unittest.TestCase):

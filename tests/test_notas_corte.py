@@ -22,4 +22,4 @@ class TestUltimoAdmitidoEnLasNotasDeCorte(unittest.TestCase):
 
     def test_cada_master_de_las_notas_de_corte_aparece_una_sola_vez(self):
         cortes = ConvocatoriaMaster.cortes_de_las_notas(NOTAS_CORTE)
-        self.assertEqual(sorted(cortes), sorted(["324208", "407908", "492700", "493003", "518302", "A04601", "A06400", "807203"]))
+        self.assertEqual(sorted(cortes), sorted(["102902", "324208", "407908", "492700", "493003", "518302", "A04601", "A06400", "807203"]))
