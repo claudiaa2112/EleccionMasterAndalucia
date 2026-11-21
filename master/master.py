@@ -1,13 +1,19 @@
 from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
+from enum import Enum
 
-from .corte import CorteNumerico, EstadoCorte
+from .corte import CorteNumerico
 from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
 
 PESO_MAXIMO_NOTA_MEDIA = 100
 PUNTUACION_MAXIMA = 10
+
+class EstadoCorte(Enum):
+    TODOS_ADMITIDOS = "TODOS_ADMITIDOS"
+    SIN_ADJUDICACION = "SIN_ADJUDICACION"
+
 
 POSIBILIDAD_POR_ESTADO = {
     EstadoCorte.TODOS_ADMITIDOS: Posibilidad.ENTRA_SEGURO,

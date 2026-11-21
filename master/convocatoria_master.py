@@ -5,8 +5,8 @@ from decimal import Decimal
 
 from lxml import html
 
-from .corte import CorteNumerico, EstadoCorte
-from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, Master
+from .corte import CorteNumerico
+from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, EstadoCorte, Master
 from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
 
@@ -23,7 +23,7 @@ class ConvocatoriaMaster:
     masters: Mapping[str, Master]
 
     def __post_init__(self) -> None:
-        if not all(map(self.es_codigo_valido, self.masters)):
+        if not all(map(self.es_codigo_master_valido, self.masters)):
             raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
         if not all(map(self.es_peso_valido, self.masters.values())):
             raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
@@ -31,7 +31,7 @@ class ConvocatoriaMaster:
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
 
     @staticmethod
-    def es_codigo_valido(codigo: str) -> bool:
+    def es_codigo_master_valido(codigo: str) -> bool:
         return FORMA_CODIGO_MASTER.fullmatch(codigo) is not None
 
     @staticmethod

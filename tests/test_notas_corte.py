@@ -3,7 +3,8 @@ from decimal import Decimal
 from pathlib import Path
 
 from master.convocatoria_master import ConvocatoriaMaster
-from master.corte import CorteNumerico, EstadoCorte
+from master.corte import CorteNumerico
+from master.master import EstadoCorte
 from master.prioridad_carreras import PrioridadCarrera
 
 NOTAS_CORTE = (Path(__file__).parent / "paginas_dua" / "notas_corte.html").read_text(encoding="utf-8")
