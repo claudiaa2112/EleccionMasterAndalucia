@@ -2,9 +2,12 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
 
+from lxml import html
+
 from .corte import CorteNumerico
-from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Master
+from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, Master
 from .posibilidad import Posibilidad
+from .prioridad_carreras import PrioridadCarrera
 
 CIFRAS_CODIGO_MASTER = 6
 NOTA_MEDIA_MINIMA = 5
@@ -39,6 +42,16 @@ class ConvocatoriaMaster:
             raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
         if not all(map(es_corte_valido, self.masters.values())):
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
+
+    @staticmethod
+    def accesos_del_catalogo(catalogo: str) -> dict[str, Acceso]:
+        accesos = {}
+        for fila in html.fromstring(catalogo).xpath("//tr[count(td) > 3]"):
+            codigo = fila.xpath("string(td[1])").strip()
+            prioridad = PrioridadCarrera[fila.xpath("string(td[4])").strip()]
+            en_rojo = bool(fila.xpath("td[4]//*[contains(@class, 'text-danger')]"))
+            accesos[codigo] = Acceso(prioridad, en_rojo)
+        return accesos
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
         comprobar_nota_media(nota_media)
