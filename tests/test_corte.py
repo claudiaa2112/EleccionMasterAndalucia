@@ -18,7 +18,7 @@ class TestPosibilidadPorPuntuacion(unittest.TestCase):
                  ("9.83", "7.061", "7.061", Posibilidad.NO_ENTRA))
         for corte, minima, maxima, esperada in casos:
             with self.subTest(corte=corte, minima=minima):
-                posibilidad = crear_corte(corte).posibilidad_por_puntuacion(Decimal(minima), Decimal(maxima))
+                posibilidad = crear_corte(corte).posibilidad(PrioridadCarrera.RESTO, Decimal(minima), Decimal(maxima))
                 self.assertEqual(posibilidad, esperada)
 
 

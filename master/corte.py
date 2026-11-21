@@ -20,9 +20,6 @@ class CorteNumerico:
             return Posibilidad.ENTRA_SEGURO
         if self.prioridad.es_mayor_que(prioridad):
             return Posibilidad.NO_ENTRA
-        return self.posibilidad_por_puntuacion(minima, maxima)
-
-    def posibilidad_por_puntuacion(self, minima: Decimal, maxima: Decimal) -> Posibilidad:
         if minima >= self.puntuacion:
             return Posibilidad.ENTRA_SEGURO
         if maxima >= self.puntuacion:
