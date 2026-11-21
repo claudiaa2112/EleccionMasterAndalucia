@@ -44,7 +44,7 @@ class ConvocatoriaMaster:
 
     @staticmethod
     def comprobar_nota_media(nota_media: Decimal) -> None:
-        if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
+        if nota_media < NOTA_MEDIA_MINIMA or nota_media > PUNTUACION_MAXIMA:
             raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
 
     @staticmethod
