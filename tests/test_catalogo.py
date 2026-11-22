@@ -20,7 +20,7 @@ class TestPrioridadDeClaudiaEnElCatalogo(unittest.TestCase):
 
     def test_cada_master_del_catalogo_aparece_una_sola_vez(self):
         accesos = ConvocatoriaMaster.accesos_del_catalogo(CATALOGO)
-        self.assertEqual(sorted(accesos), sorted(["102902", "324208", "407908", "492700", "493003", "518302", "A06400", "807203"]))
+        self.assertEqual(sorted(accesos), sorted(["102902", "324208", "407908", "492700", "493003", "518302", "803141", "A06400", "807203"]))
 
     def test_rechaza_un_catalogo_con_un_master_repetido(self):
         with self.assertRaisesRegex(ValueError, "repetido en el catálogo"):

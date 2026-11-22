@@ -89,7 +89,7 @@ class ConvocatoriaMaster:
         cortes = cls.cortes_de_las_notas(notas_corte)
         masters = {codigo: Master(accesos={titulacion: acceso},
                                   ponderacion_nota_media=cls.peso_de_la_ficha(fichas[codigo]),
-                                  corte=cortes[codigo])
+                                  corte=cortes.get(codigo, EstadoCorte.SIN_ADJUDICACION))
                    for codigo, acceso in cls.accesos_del_catalogo(catalogo).items()}
         return cls(masters)
 

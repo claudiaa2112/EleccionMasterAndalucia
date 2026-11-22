@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import NOTA_MEDIA_CLAUDIA, TITULACION, crear_convocatoria, master_real
+from ejemplos import CODIGOS_CATALOGO, NOTA_MEDIA_CLAUDIA, TITULACION, crear_convocatoria, master_real
 
 from master.convocatoria_master import ConvocatoriaMaster
 from master.corte import CorteNumerico
@@ -52,7 +52,8 @@ class TestPosibilidades(unittest.TestCase):
         esperadas = {"102902": Posibilidad.DEPENDE, "324208": Posibilidad.NO_SE_SABE,
                      "407908": Posibilidad.NO_ENTRA, "492700": Posibilidad.ENTRA_SEGURO,
                      "493003": Posibilidad.ENTRA_SEGURO, "518302": Posibilidad.NO_ENTRA,
-                     "A06400": Posibilidad.ENTRA_SEGURO, "807203": Posibilidad.NO_ENTRA}
+                     "803141": Posibilidad.NO_SE_SABE, "807203": Posibilidad.NO_ENTRA,
+                     "A06400": Posibilidad.ENTRA_SEGURO}
         self.assertEqual(crear_convocatoria().posibilidades(TITULACION, NOTA_MEDIA_CLAUDIA), esperadas)
 
     def test_no_responde_por_masteres_que_no_admiten_su_titulacion(self):
@@ -61,7 +62,7 @@ class TestPosibilidades(unittest.TestCase):
     def test_acepta_una_nota_media_en_los_limites(self):
         for nota_media in (Decimal("5"), Decimal("10")):
             with self.subTest(nota_media=nota_media):
-                self.assertEqual(len(crear_convocatoria().posibilidades(TITULACION, nota_media)), 8)
+                self.assertEqual(len(crear_convocatoria().posibilidades(TITULACION, nota_media)), len(CODIGOS_CATALOGO))
 
     def test_rechaza_una_nota_media_fuera_de_5_a_10(self):
         for nota_media in (Decimal("4.99"), Decimal("10.01")):
