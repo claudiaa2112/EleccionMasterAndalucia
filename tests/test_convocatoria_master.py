@@ -18,7 +18,7 @@ class TestCodigoMaster(unittest.TestCase):
     def test_rechaza_un_codigo_que_no_usa_el_dua(self):
         for codigo in ("49270", "4927000", "49270A", "A0640", "B06400", ""):
             with self.subTest(codigo=codigo), self.assertRaisesRegex(ValueError, "6 cifras, o una A y 5 cifras"):
-                ConvocatoriaMaster("2026-2027", {codigo: master_real("492700")})
+                ConvocatoriaMaster({codigo: master_real("492700")})
 
 
 class TestPesoNotaMedia(unittest.TestCase):
@@ -30,7 +30,7 @@ class TestPesoNotaMedia(unittest.TestCase):
     def test_rechaza_un_peso_fuera_de_0_a_100(self):
         for peso in (-1, 101):
             with self.subTest(peso=peso), self.assertRaisesRegex(ValueError, "entre 0 y 100"):
-                ConvocatoriaMaster("2026-2027", {"492700": master_real("492700", ponderacion_nota_media=peso)})
+                ConvocatoriaMaster({"492700": master_real("492700", ponderacion_nota_media=peso)})
 
 
 class TestPuntuacionCorte(unittest.TestCase):
@@ -38,13 +38,13 @@ class TestPuntuacionCorte(unittest.TestCase):
         for puntuacion in (Decimal("0"), Decimal("10")):
             with self.subTest(puntuacion=puntuacion):
                 master = master_real("492700", corte=CorteNumerico(PrioridadCarrera.RESTO, puntuacion))
-                self.assertIn("492700", ConvocatoriaMaster("2026-2027", {"492700": master}).masters)
+                self.assertIn("492700", ConvocatoriaMaster({"492700": master}).masters)
 
     def test_rechaza_una_puntuacion_fuera_de_0_a_10(self):
         for puntuacion in (Decimal("-0.01"), Decimal("10.01")):
             with self.subTest(puntuacion=puntuacion), self.assertRaisesRegex(ValueError, "entre 0 y 10"):
                 master = master_real("492700", corte=CorteNumerico(PrioridadCarrera.RESTO, puntuacion))
-                ConvocatoriaMaster("2026-2027", {"492700": master})
+                ConvocatoriaMaster({"492700": master})
 
 
 class TestPosibilidades(unittest.TestCase):

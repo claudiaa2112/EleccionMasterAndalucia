@@ -16,7 +16,7 @@ def leer_pagina(nombre):
 
 def crear_convocatoria():
     fichas = {codigo: leer_pagina(f"fichas/ficha_{codigo}.html") for codigo in CODIGOS_CATALOGO}
-    return ConvocatoriaMaster.desde_las_paginas_del_dua("2026-2027", TITULACION, leer_pagina("catalogo.html"),
+    return ConvocatoriaMaster.desde_las_paginas_del_dua(TITULACION, leer_pagina("catalogo.html"),
                                                         leer_pagina("notas_corte.html"), fichas)
 
 

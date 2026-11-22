@@ -19,7 +19,6 @@ CRITERIO_NOTA_MEDIA = "NOTA MEDIA DEL EXPEDIENTE ACADEMICO"
 
 @dataclass(eq=False)
 class ConvocatoriaMaster:
-    identificador: str
     masters: Mapping[str, Master]
 
     def __post_init__(self) -> None:
@@ -77,14 +76,14 @@ class ConvocatoriaMaster:
         return int(pesos[0]) if pesos else 0
 
     @classmethod
-    def desde_las_paginas_del_dua(cls, identificador: str, titulacion: str, catalogo: str,
+    def desde_las_paginas_del_dua(cls, titulacion: str, catalogo: str,
                                   notas_corte: str, fichas: Mapping[str, str]) -> ConvocatoriaMaster:
         cortes = cls.cortes_de_las_notas(notas_corte)
         masters = {codigo: Master(accesos={titulacion: acceso},
                                   ponderacion_nota_media=cls.peso_de_la_ficha(fichas[codigo]),
                                   corte=cortes[codigo])
                    for codigo, acceso in cls.accesos_del_catalogo(catalogo).items()}
-        return cls(identificador, masters)
+        return cls(masters)
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
         self.comprobar_nota_media(nota_media)
