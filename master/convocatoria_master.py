@@ -3,7 +3,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
 
-from lxml import html
+from lxml.html import fromstring
 
 from .corte import CorteNumerico
 from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, EstadoCorte, Master
@@ -48,6 +48,10 @@ class ConvocatoriaMaster:
             raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
 
     @staticmethod
+    def buscar_en_la_pagina(pagina: str, xpath: str) -> list:
+        return fromstring(pagina).xpath(xpath)
+
+    @staticmethod
     def por_codigo[T](filas: list[tuple[str, T]], pagina: str) -> dict[str, T]:
         masters = dict(filas)
         if len(masters) < len(filas):
@@ -57,7 +61,7 @@ class ConvocatoriaMaster:
     @classmethod
     def accesos_del_catalogo(cls, catalogo: str) -> dict[str, Acceso]:
         accesos = []
-        for fila in html.fromstring(catalogo).xpath("//tr[count(td) > 3]"):
+        for fila in cls.buscar_en_la_pagina(catalogo, "//tr[count(td) > 3]"):
             codigo = fila.xpath("string(td[1])").strip()
             prioridad = PrioridadCarrera[fila.xpath("string(td[4])").strip()]
             en_rojo = bool(fila.xpath("td[4]//*[contains(@class, 'text-danger')]"))
@@ -67,7 +71,7 @@ class ConvocatoriaMaster:
     @classmethod
     def cortes_de_las_notas(cls, notas_corte: str) -> dict[str, CorteNumerico | EstadoCorte]:
         cortes = []
-        for fila in html.fromstring(notas_corte).xpath("//tr[td[@class='celda2']]"):
+        for fila in cls.buscar_en_la_pagina(notas_corte, "//tr[td[@class='celda2']]"):
             codigo = fila.xpath("string(td[1])").strip()
             prioridad, puntuacion = " ".join(fila.xpath("string(td[4])").split()).split("-")
             if prioridad == SIN_ADJUDICAR:
@@ -79,9 +83,9 @@ class ConvocatoriaMaster:
             cortes.append((codigo, corte))
         return cls.por_codigo(cortes, "las notas de corte")
 
-    @staticmethod
-    def peso_de_la_ficha(ficha: str) -> int:
-        pesos = html.fromstring(ficha).xpath(f"//tr[td[contains(., '{CRITERIO_NOTA_MEDIA}')]]/td[last()]/text()")
+    @classmethod
+    def peso_de_la_ficha(cls, ficha: str) -> int:
+        pesos = cls.buscar_en_la_pagina(ficha, f"//tr[td[contains(., '{CRITERIO_NOTA_MEDIA}')]]/td[last()]/text()")
         return int(pesos[0]) if pesos else PESO_SIN_NOTA_MEDIA
 
     @classmethod
