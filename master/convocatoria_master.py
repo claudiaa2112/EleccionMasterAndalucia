@@ -47,28 +47,36 @@ class ConvocatoriaMaster:
             raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
 
     @staticmethod
-    def accesos_del_catalogo(catalogo: str) -> dict[str, Acceso]:
-        accesos = {}
+    def por_codigo[T](filas: list[tuple[str, T]], pagina: str) -> dict[str, T]:
+        masters = dict(filas)
+        if len(masters) < len(filas):
+            raise ValueError(f"Hay un máster repetido en {pagina}.")
+        return masters
+
+    @classmethod
+    def accesos_del_catalogo(cls, catalogo: str) -> dict[str, Acceso]:
+        accesos = []
         for fila in html.fromstring(catalogo).xpath("//tr[count(td) > 3]"):
             codigo = fila.xpath("string(td[1])").strip()
             prioridad = PrioridadCarrera[fila.xpath("string(td[4])").strip()]
             en_rojo = bool(fila.xpath("td[4]//*[contains(@class, 'text-danger')]"))
-            accesos[codigo] = Acceso(prioridad, en_rojo)
-        return accesos
+            accesos.append((codigo, Acceso(prioridad, en_rojo)))
+        return cls.por_codigo(accesos, "el catálogo")
 
-    @staticmethod
-    def cortes_de_las_notas(notas_corte: str) -> dict[str, CorteNumerico | EstadoCorte]:
-        cortes = {}
+    @classmethod
+    def cortes_de_las_notas(cls, notas_corte: str) -> dict[str, CorteNumerico | EstadoCorte]:
+        cortes = []
         for fila in html.fromstring(notas_corte).xpath("//tr[td[@class='celda2']]"):
             codigo = fila.xpath("string(td[1])").strip()
             prioridad, puntuacion = " ".join(fila.xpath("string(td[4])").split()).split("-")
             if prioridad == SIN_ADJUDICAR:
-                cortes[codigo] = EstadoCorte.SIN_ADJUDICACION
+                corte = EstadoCorte.SIN_ADJUDICACION
             elif puntuacion.startswith(MARCA_TODOS_ADMITIDOS):
-                cortes[codigo] = EstadoCorte.TODOS_ADMITIDOS
+                corte = EstadoCorte.TODOS_ADMITIDOS
             else:
-                cortes[codigo] = CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", ".")))
-        return cortes
+                corte = CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", ".")))
+            cortes.append((codigo, corte))
+        return cls.por_codigo(cortes, "las notas de corte")
 
     @staticmethod
     def peso_de_la_ficha(ficha: str) -> int:
