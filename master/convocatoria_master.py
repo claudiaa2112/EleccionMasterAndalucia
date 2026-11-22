@@ -15,6 +15,7 @@ NOTA_MEDIA_MINIMA = 5
 SIN_ADJUDICAR = "AÚN SIN ADJ."
 MARCA_TODOS_ADMITIDOS = "**"
 CRITERIO_NOTA_MEDIA = "NOTA MEDIA DEL EXPEDIENTE ACADEMICO"
+PESO_SIN_NOTA_MEDIA = 0
 
 
 @dataclass(eq=False)
@@ -81,7 +82,7 @@ class ConvocatoriaMaster:
     @staticmethod
     def peso_de_la_ficha(ficha: str) -> int:
         pesos = html.fromstring(ficha).xpath(f"//tr[td[contains(., '{CRITERIO_NOTA_MEDIA}')]]/td[last()]/text()")
-        return int(pesos[0]) if pesos else 0
+        return int(pesos[0]) if pesos else PESO_SIN_NOTA_MEDIA
 
     @classmethod
     def desde_las_paginas_del_dua(cls, titulacion: str, catalogo: str,
