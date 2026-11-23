@@ -63,17 +63,14 @@ class TestPosibilidades(unittest.TestCase):
                      "493003": Posibilidad.ENTRA_SEGURO, "518302": Posibilidad.NO_ENTRA,
                      "803141": Posibilidad.NO_SE_SABE, "807203": Posibilidad.NO_ENTRA,
                      "A06400": Posibilidad.ENTRA_SEGURO}
-        self.assertEqual(crear_convocatoria().posibilidades(TITULACION, NOTA_MEDIA_CLAUDIA), esperadas)
-
-    def test_no_responde_por_masteres_que_no_admiten_su_titulacion(self):
-        self.assertEqual(crear_convocatoria().posibilidades("GRADO EN FÍSICA", NOTA_MEDIA_CLAUDIA), {})
+        self.assertEqual(crear_convocatoria().posibilidades(NOTA_MEDIA_CLAUDIA), esperadas)
 
     def test_acepta_una_nota_media_en_los_limites(self):
         for nota_media in (Decimal("5"), Decimal("10")):
             with self.subTest(nota_media=nota_media):
-                self.assertEqual(len(crear_convocatoria().posibilidades(TITULACION, nota_media)), len(CODIGOS_CATALOGO))
+                self.assertEqual(len(crear_convocatoria().posibilidades(nota_media)), len(CODIGOS_CATALOGO))
 
     def test_rechaza_una_nota_media_fuera_de_5_a_10(self):
         for nota_media in (Decimal("4.99"), Decimal("10.01")):
             with self.subTest(nota_media=nota_media), self.assertRaisesRegex(ValueError, "entre 5 y 10"):
-                crear_convocatoria().posibilidades(TITULACION, nota_media)
+                crear_convocatoria().posibilidades(nota_media)

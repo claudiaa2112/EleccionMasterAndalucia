@@ -49,7 +49,7 @@ se crea a partir de las tres páginas del DUA: del catálogo de una titulación 
 prioridad de esa titulación en cada máster, de las notas de corte el último admitido y de
 la ficha de cada máster cuánto pesa la nota media, y lo junta todo por el código del
 máster. Su método posibilidades recibe una
-titulación y una nota media y dice, para cada máster que admite esa titulación, si se
+nota media y dice, para cada máster del catálogo, si se
 entraría seguro, si depende de cómo valore la comisión el resto de méritos, si no se
 entraría ni con la máxima valoración o si no se puede saber porque el máster no se
 adjudicó. En el servicio web que se desplegará más adelante, será lo que responda cuando

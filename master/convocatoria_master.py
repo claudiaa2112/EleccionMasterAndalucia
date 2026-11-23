@@ -23,6 +23,7 @@ PESO_SIN_NOTA_MEDIA = 0
 
 @dataclass(eq=False)
 class ConvocatoriaMaster:
+    titulacion: str
     masters: Mapping[str, Master]
 
     @classmethod
@@ -118,9 +119,8 @@ class ConvocatoriaMaster:
                                   corte=cortes.get(codigo, EstadoCorte.SIN_ADJUDICACION))
                    for codigo, acceso in cls.accesos_del_catalogo(catalogo).items()}
         cls.comprobar_masters(masters)
-        return cls(masters)
+        return cls(titulacion, masters)
 
-    def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
+    def posibilidades(self, nota_media: Decimal) -> dict[str, Posibilidad]:
         self.comprobar_nota_media(nota_media)
-        return {codigo: master.posibilidad(titulacion, nota_media)
-                for codigo, master in self.masters.items() if master.admite(titulacion)}
+        return {codigo: master.posibilidad(self.titulacion, nota_media) for codigo, master in self.masters.items()}
