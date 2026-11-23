@@ -2,6 +2,4 @@
 name = "eleccion-master-andalucia"
 version = "0.3.0"
 requires-python = "==3.14.*"
-dependencies = [
-    "lxml>=6.1.3",
-]
+dependencies = []
