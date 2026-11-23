@@ -14,10 +14,14 @@ def leer_pagina(nombre):
     return (PAGINAS_DUA / nombre).read_text(encoding="utf-8")
 
 
-def crear_convocatoria():
-    fichas = {codigo: leer_pagina(f"fichas/ficha_{codigo}.html") for codigo in CODIGOS_CATALOGO}
-    return ConvocatoriaMaster.desde_las_paginas_del_dua(TITULACION, leer_pagina("catalogo.html"),
-                                                        leer_pagina("notas_corte.html"), fichas)
+def leer_fichas():
+    return {codigo: leer_pagina(f"fichas/ficha_{codigo}.html") for codigo in CODIGOS_CATALOGO}
+
+
+def crear_convocatoria(catalogo=None, notas_corte=None, fichas=None):
+    return ConvocatoriaMaster.desde_las_paginas_del_dua(TITULACION, catalogo or leer_pagina("catalogo.html"),
+                                                        notas_corte or leer_pagina("notas_corte.html"),
+                                                        fichas or leer_fichas())
 
 
 def master_real(codigo, **cambios):

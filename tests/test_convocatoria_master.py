@@ -1,13 +1,15 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import (CODIGOS_CATALOGO, NOTA_MEDIA_CLAUDIA, TITULACION, crear_convocatoria, leer_pagina,
-                      master_real)
+from ejemplos import CODIGOS_CATALOGO, NOTA_MEDIA_CLAUDIA, crear_convocatoria, leer_fichas, leer_pagina
 
-from master.convocatoria_master import ConvocatoriaMaster
-from master.corte import CorteNumerico
 from master.posibilidad import Posibilidad
-from master.prioridad_carreras import PrioridadCarrera
+
+CATALOGO = leer_pagina("catalogo.html")
+NOTAS_CORTE = leer_pagina("notas_corte.html")
+FICHA_492700 = leer_fichas()["492700"]
+PESO_492700 = '<td class="text-right">100</td>'
+CORTE_492700 = "<b>RESTO</b>-5,00"
 
 
 class TestCodigoMaster(unittest.TestCase):
@@ -19,15 +21,16 @@ class TestCodigoMaster(unittest.TestCase):
     def test_rechaza_un_codigo_que_no_usa_el_dua(self):
         for codigo in ("49270", "4927000", "49270A", "A0640", "B06400", ""):
             with self.subTest(codigo=codigo), self.assertRaisesRegex(ValueError, "6 cifras, o una A y 5 cifras"):
-                ConvocatoriaMaster.comprobar_masters({codigo: master_real("492700")})
+                catalogo = CATALOGO.replace("<td>492700</td>", f"<td>{codigo}</td>")
+                crear_convocatoria(catalogo=catalogo, fichas=leer_fichas() | {codigo: FICHA_492700})
 
 
 class TestFichaDelMaster(unittest.TestCase):
     def test_rechaza_un_master_del_catalogo_sin_ficha(self):
-        fichas = {codigo: leer_pagina(f"fichas/ficha_{codigo}.html") for codigo in CODIGOS_CATALOGO if codigo != "492700"}
+        fichas = leer_fichas()
+        del fichas["492700"]
         with self.assertRaisesRegex(ValueError, "Falta la ficha del máster 492700"):
-            ConvocatoriaMaster.desde_las_paginas_del_dua(TITULACION, leer_pagina("catalogo.html"),
-                                                         leer_pagina("notas_corte.html"), fichas)
+            crear_convocatoria(fichas=fichas)
 
 
 class TestPesoNotaMedia(unittest.TestCase):
@@ -37,23 +40,22 @@ class TestPesoNotaMedia(unittest.TestCase):
                 self.assertEqual(crear_convocatoria().masters[codigo].ponderacion_nota_media, peso)
 
     def test_rechaza_un_peso_fuera_de_0_a_100(self):
-        for peso in (-1, 101):
+        for peso in ("-1", "101"):
             with self.subTest(peso=peso), self.assertRaisesRegex(ValueError, "entre 0 y 100"):
-                ConvocatoriaMaster.comprobar_masters({"492700": master_real("492700", ponderacion_nota_media=peso)})
+                ficha = FICHA_492700.replace(PESO_492700, f'<td class="text-right">{peso}</td>')
+                crear_convocatoria(fichas=leer_fichas() | {"492700": ficha})
 
 
 class TestPuntuacionCorte(unittest.TestCase):
     def test_acepta_una_puntuacion_en_los_limites(self):
-        for puntuacion in (Decimal("0"), Decimal("10")):
+        for puntuacion in ("0,00", "10,00"):
             with self.subTest(puntuacion=puntuacion):
-                master = master_real("492700", corte=CorteNumerico(PrioridadCarrera.RESTO, puntuacion))
-                ConvocatoriaMaster.comprobar_masters({"492700": master})
+                notas_corte = NOTAS_CORTE.replace(CORTE_492700, f"<b>RESTO</b>-{puntuacion}")
+                self.assertIn("492700", crear_convocatoria(notas_corte=notas_corte).masters)
 
-    def test_rechaza_una_puntuacion_fuera_de_0_a_10(self):
-        for puntuacion in (Decimal("-0.01"), Decimal("10.01")):
-            with self.subTest(puntuacion=puntuacion), self.assertRaisesRegex(ValueError, "entre 0 y 10"):
-                master = master_real("492700", corte=CorteNumerico(PrioridadCarrera.RESTO, puntuacion))
-                ConvocatoriaMaster.comprobar_masters({"492700": master})
+    def test_rechaza_una_puntuacion_por_encima_de_10(self):
+        with self.assertRaisesRegex(ValueError, "entre 0 y 10"):
+            crear_convocatoria(notas_corte=NOTAS_CORTE.replace(CORTE_492700, "<b>RESTO</b>-10,01"))
 
 
 class TestPosibilidades(unittest.TestCase):

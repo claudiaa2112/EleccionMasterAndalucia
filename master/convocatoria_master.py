@@ -27,13 +27,14 @@ class ConvocatoriaMaster:
     masters: Mapping[str, Master]
 
     @classmethod
-    def comprobar_masters(cls, masters: Mapping[str, Master]) -> None:
+    def comprobar_masters(cls, masters: Mapping[str, Master]) -> Mapping[str, Master]:
         if not all(map(cls.es_codigo_master_valido, masters)):
             raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
         if not all(map(cls.es_peso_valido, masters.values())):
             raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
         if not all(map(cls.es_corte_valido, masters.values())):
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
+        return masters
 
     @staticmethod
     def es_codigo_master_valido(codigo: str) -> bool:
@@ -118,8 +119,7 @@ class ConvocatoriaMaster:
                                   ponderacion_nota_media=cls.peso_de_la_ficha(cls.ficha_del_master(fichas, codigo)),
                                   corte=cortes.get(codigo, EstadoCorte.SIN_ADJUDICACION))
                    for codigo, acceso in cls.accesos_del_catalogo(catalogo).items()}
-        cls.comprobar_masters(masters)
-        return cls(titulacion, masters)
+        return cls(titulacion, cls.comprobar_masters(masters))
 
     def posibilidades(self, nota_media: Decimal) -> dict[str, Posibilidad]:
         self.comprobar_nota_media(nota_media)
