@@ -52,8 +52,10 @@ máster. Su método posibilidades recibe una
 nota media y dice, para cada máster del catálogo, si se
 entraría seguro, si depende de cómo valore la comisión el resto de méritos, si no se
 entraría ni con la máxima valoración o si no se puede saber porque el máster no se
-adjudicó. En el servicio web que se desplegará más adelante, será lo que responda cuando
-alguien indique su titulación y su nota media.
+adjudicó. Su método con_requisito_adicional dice en qué másteres esa prioridad solo vale
+si se cumple un requisito adicional, que hay que mirar en la ficha. En el servicio web que
+se desplegará más adelante, será lo que responda cuando alguien indique su titulación y su
+nota media.
 
 Los tests usan recortes reales de las tres páginas, guardados en
 [tests/paginas_dua](tests/paginas_dua), con la indicación de que la información se ha

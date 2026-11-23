@@ -65,6 +65,9 @@ class TestPosibilidades(unittest.TestCase):
                      "A06400": Posibilidad.ENTRA_SEGURO}
         self.assertEqual(crear_convocatoria().posibilidades(NOTA_MEDIA_CLAUDIA), esperadas)
 
+    def test_claudia_sabe_en_que_masteres_su_prioridad_pide_un_requisito_adicional(self):
+        self.assertEqual(crear_convocatoria().con_requisito_adicional(), ["407908"])
+
     def test_acepta_una_nota_media_en_los_limites(self):
         for nota_media in (Decimal("5"), Decimal("10")):
             with self.subTest(nota_media=nota_media):

@@ -78,8 +78,8 @@ class ConvocatoriaMaster:
             if len(celdas) > 3:
                 codigo = cls.texto_de_la_celda(celdas[0])
                 prioridad = PrioridadCarrera[cls.texto_de_la_celda(celdas[3])]
-                en_rojo = "text-danger" in celdas[3]
-                accesos.append((codigo, Acceso(prioridad, en_rojo)))
+                con_requisito_adicional = "text-danger" in celdas[3]
+                accesos.append((codigo, Acceso(prioridad, con_requisito_adicional)))
         return cls.por_codigo(accesos, "el catálogo")
 
     @classmethod
@@ -124,3 +124,7 @@ class ConvocatoriaMaster:
     def posibilidades(self, nota_media: Decimal) -> dict[str, Posibilidad]:
         self.comprobar_nota_media(nota_media)
         return {codigo: master.posibilidad(self.titulacion, nota_media) for codigo, master in self.masters.items()}
+
+    def con_requisito_adicional(self) -> list[str]:
+        return [codigo for codigo, master in self.masters.items()
+                if master.accesos[self.titulacion].con_requisito_adicional]
