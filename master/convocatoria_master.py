@@ -22,12 +22,13 @@ PESO_SIN_NOTA_MEDIA = 0
 class ConvocatoriaMaster:
     masters: Mapping[str, Master]
 
-    def __post_init__(self) -> None:
-        if not all(map(self.es_codigo_master_valido, self.masters)):
+    @classmethod
+    def comprobar_masters(cls, masters: Mapping[str, Master]) -> None:
+        if not all(map(cls.es_codigo_master_valido, masters)):
             raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
-        if not all(map(self.es_peso_valido, self.masters.values())):
+        if not all(map(cls.es_peso_valido, masters.values())):
             raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
-        if not all(map(self.es_corte_valido, self.masters.values())):
+        if not all(map(cls.es_corte_valido, masters.values())):
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
 
     @staticmethod
@@ -96,6 +97,7 @@ class ConvocatoriaMaster:
                                   ponderacion_nota_media=cls.peso_de_la_ficha(fichas[codigo]),
                                   corte=cortes.get(codigo, EstadoCorte.SIN_ADJUDICACION))
                    for codigo, acceso in cls.accesos_del_catalogo(catalogo).items()}
+        cls.comprobar_masters(masters)
         return cls(masters)
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
