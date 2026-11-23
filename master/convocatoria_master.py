@@ -103,12 +103,18 @@ class ConvocatoriaMaster:
                  for fila in cls.filas_de_la_pagina(ficha) if CRITERIO_NOTA_MEDIA in fila]
         return int(pesos[0]) if pesos else PESO_SIN_NOTA_MEDIA
 
+    @staticmethod
+    def ficha_del_master(fichas: Mapping[str, str], codigo: str) -> str:
+        if codigo not in fichas:
+            raise ValueError(f"Falta la ficha del máster {codigo}.")
+        return fichas[codigo]
+
     @classmethod
     def desde_las_paginas_del_dua(cls, titulacion: str, catalogo: str,
                                   notas_corte: str, fichas: Mapping[str, str]) -> ConvocatoriaMaster:
         cortes = cls.cortes_de_las_notas(notas_corte)
         masters = {codigo: Master(accesos={titulacion: acceso},
-                                  ponderacion_nota_media=cls.peso_de_la_ficha(fichas[codigo]),
+                                  ponderacion_nota_media=cls.peso_de_la_ficha(cls.ficha_del_master(fichas, codigo)),
                                   corte=cortes.get(codigo, EstadoCorte.SIN_ADJUDICACION))
                    for codigo, acceso in cls.accesos_del_catalogo(catalogo).items()}
         cls.comprobar_masters(masters)

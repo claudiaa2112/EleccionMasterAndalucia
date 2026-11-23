@@ -1,7 +1,8 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import CODIGOS_CATALOGO, NOTA_MEDIA_CLAUDIA, TITULACION, crear_convocatoria, master_real
+from ejemplos import (CODIGOS_CATALOGO, NOTA_MEDIA_CLAUDIA, TITULACION, crear_convocatoria, leer_pagina,
+                      master_real)
 
 from master.convocatoria_master import ConvocatoriaMaster
 from master.corte import CorteNumerico
@@ -19,6 +20,14 @@ class TestCodigoMaster(unittest.TestCase):
         for codigo in ("49270", "4927000", "49270A", "A0640", "B06400", ""):
             with self.subTest(codigo=codigo), self.assertRaisesRegex(ValueError, "6 cifras, o una A y 5 cifras"):
                 ConvocatoriaMaster.comprobar_masters({codigo: master_real("492700")})
+
+
+class TestFichaDelMaster(unittest.TestCase):
+    def test_rechaza_un_master_del_catalogo_sin_ficha(self):
+        fichas = {codigo: leer_pagina(f"fichas/ficha_{codigo}.html") for codigo in CODIGOS_CATALOGO if codigo != "492700"}
+        with self.assertRaisesRegex(ValueError, "Falta la ficha del máster 492700"):
+            ConvocatoriaMaster.desde_las_paginas_del_dua(TITULACION, leer_pagina("catalogo.html"),
+                                                         leer_pagina("notas_corte.html"), fichas)
 
 
 class TestPesoNotaMedia(unittest.TestCase):
