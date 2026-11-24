@@ -3,17 +3,13 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
 
-from html import unescape
-
 from .corte import CorteNumerico
 from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, EstadoCorte, Master
 from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
+from .tablas_html import celdas_de_la_fila, filas_de_la_pagina, texto_de_la_celda
 
 FORMA_CODIGO_MASTER = re.compile(r"\d{6}|A\d{5}")
-INICIO_FILA = re.compile(r"<tr\b")
-CELDA = re.compile(r"<td\b[^>]*>(.*?)</td>", re.DOTALL)
-ETIQUETA = re.compile(r"<[^>]+>")
 NOTA_MEDIA_MINIMA = 5
 SIN_ADJUDICAR = "AÚN SIN ADJ."
 MARCA_TODOS_ADMITIDOS = "**"
@@ -54,18 +50,6 @@ class ConvocatoriaMaster:
             raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
 
     @staticmethod
-    def filas_de_la_pagina(pagina: str) -> list[str]:
-        return INICIO_FILA.split(pagina)[1:]
-
-    @staticmethod
-    def celdas_de_la_fila(fila: str) -> list[str]:
-        return CELDA.findall(fila)
-
-    @staticmethod
-    def texto_de_la_celda(celda: str) -> str:
-        return " ".join(unescape(ETIQUETA.sub("", celda)).split())
-
-    @staticmethod
     def por_codigo[T](filas: list[tuple[str, T]], pagina: str) -> dict[str, T]:
         masters = dict(filas)
         if len(masters) < len(filas):
@@ -75,10 +59,10 @@ class ConvocatoriaMaster:
     @classmethod
     def accesos_del_catalogo(cls, catalogo: str) -> dict[str, Acceso]:
         accesos = []
-        for celdas in map(cls.celdas_de_la_fila, cls.filas_de_la_pagina(catalogo)):
+        for celdas in map(celdas_de_la_fila, filas_de_la_pagina(catalogo)):
             if len(celdas) > 3:
-                codigo = cls.texto_de_la_celda(celdas[0])
-                prioridad = PrioridadCarrera[cls.texto_de_la_celda(celdas[3])]
+                codigo = texto_de_la_celda(celdas[0])
+                prioridad = PrioridadCarrera[texto_de_la_celda(celdas[3])]
                 con_requisito_adicional = "text-danger" in celdas[3]
                 accesos.append((codigo, Acceso(prioridad, con_requisito_adicional)))
         return cls.por_codigo(accesos, "el catálogo")
@@ -86,10 +70,10 @@ class ConvocatoriaMaster:
     @classmethod
     def cortes_de_las_notas(cls, notas_corte: str) -> dict[str, CorteNumerico | EstadoCorte]:
         cortes = []
-        for fila in filter(lambda fila: "celda2" in fila, cls.filas_de_la_pagina(notas_corte)):
-            celdas = cls.celdas_de_la_fila(fila)
-            codigo = cls.texto_de_la_celda(celdas[0])
-            prioridad, puntuacion = cls.texto_de_la_celda(celdas[3]).split("-")
+        for fila in filter(lambda fila: "celda2" in fila, filas_de_la_pagina(notas_corte)):
+            celdas = celdas_de_la_fila(fila)
+            codigo = texto_de_la_celda(celdas[0])
+            prioridad, puntuacion = texto_de_la_celda(celdas[3]).split("-")
             if prioridad == SIN_ADJUDICAR:
                 corte = EstadoCorte.SIN_ADJUDICACION
             elif puntuacion.startswith(MARCA_TODOS_ADMITIDOS):
@@ -101,8 +85,8 @@ class ConvocatoriaMaster:
 
     @classmethod
     def peso_de_la_ficha(cls, ficha: str) -> int:
-        pesos = [cls.texto_de_la_celda(cls.celdas_de_la_fila(fila)[-1])
-                 for fila in cls.filas_de_la_pagina(ficha) if CRITERIO_NOTA_MEDIA in fila]
+        pesos = [texto_de_la_celda(celdas_de_la_fila(fila)[-1])
+                 for fila in filas_de_la_pagina(ficha) if CRITERIO_NOTA_MEDIA in fila]
         return int(pesos[0]) if pesos else PESO_SIN_NOTA_MEDIA
 
     @staticmethod
