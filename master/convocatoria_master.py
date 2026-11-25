@@ -17,6 +17,7 @@ CRITERIO_NOTA_MEDIA = "NOTA MEDIA DEL EXPEDIENTE ACADEMICO"
 PESO_SIN_NOTA_MEDIA = 0
 PESO_MAXIMO_NOTA_MEDIA = 100
 PUNTUACION_MAXIMA = 10
+COLUMNA_PRIORIDAD = 3
 POSIBILIDAD_POR_ESTADO = {
     EstadoCorte.TODOS_ADMITIDOS: Posibilidad.ENTRA_SEGURO,
     EstadoCorte.SIN_ADJUDICACION: Posibilidad.NO_SE_SABE,
@@ -42,11 +43,11 @@ class ConvocatoriaMaster:
 
     def leer_catalogo(self, titulacion: str, catalogo: str, fichas: Mapping[str, str]) -> None:
         for celdas in map(celdas_de_la_fila, filas_de_la_pagina(catalogo)):
-            if len(celdas) > 3:
+            if len(celdas) > COLUMNA_PRIORIDAD:
                 codigo = texto_de_la_celda(celdas[0])
                 if not FORMA_CODIGO_MASTER.fullmatch(codigo):
                     raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
-                acceso = Acceso(PrioridadCarrera[texto_de_la_celda(celdas[3])], esta_en_rojo(celdas[3]))
+                acceso = Acceso(PrioridadCarrera[texto_de_la_celda(celdas[COLUMNA_PRIORIDAD])], esta_en_rojo(celdas[COLUMNA_PRIORIDAD]))
                 if codigo not in self.masters:
                     self.leer_ficha(codigo, fichas, {titulacion: acceso})
                 elif titulacion in self.masters[codigo].accesos:
@@ -57,14 +58,14 @@ class ConvocatoriaMaster:
 
     def leer_notas_corte(self, notas_corte: str) -> None:
         leidos = set()
-        for celdas in filter(lambda celdas: len(celdas) > 3, map(celdas_de_la_fila, filas_de_la_pagina(notas_corte))):
+        for celdas in filter(lambda celdas: len(celdas) > COLUMNA_PRIORIDAD, map(celdas_de_la_fila, filas_de_la_pagina(notas_corte))):
             codigo = texto_de_la_celda(celdas[0])
             if codigo not in self.masters:
                 continue
             if codigo in leidos:
                 raise ValueError("Hay un máster repetido en las notas de corte.")
             leidos.add(codigo)
-            prioridad, puntuacion = texto_de_la_celda(celdas[3]).split("-")
+            prioridad, puntuacion = texto_de_la_celda(celdas[COLUMNA_PRIORIDAD]).split("-")
             if prioridad != SIN_ADJUDICAR:
                 self.masters[codigo] = replace(self.masters[codigo], corte=(
                     EstadoCorte.TODOS_ADMITIDOS if puntuacion.startswith(MARCA_TODOS_ADMITIDOS)
