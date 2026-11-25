@@ -45,17 +45,18 @@ ha obtenido del Portal de la Junta de Andalucía.
 ## Qué responde
 
 La clase ConvocatoriaMaster, en [master/convocatoria_master.py](master/convocatoria_master.py),
-se crea a partir de las tres páginas del DUA: del catálogo de una titulación saca la
-prioridad de esa titulación en cada máster, de las notas de corte el último admitido y de
-la ficha de cada máster cuánto pesa la nota media, y lo junta todo por el código del
-máster. Su método posibilidades recibe una
-nota media y dice, para cada máster del catálogo, si se
-entraría seguro, si depende de cómo valore la comisión el resto de méritos, si no se
-entraría ni con la máxima valoración o si no se puede saber porque el máster no se
-adjudicó. Su método con_requisito_adicional dice en qué másteres esa prioridad solo vale
-si se cumple un requisito adicional, que hay que mirar en la ficha. En el servicio web que
-se desplegará más adelante, será lo que responda cuando alguien indique su titulación y su
-nota media.
+es la única fuente de verdad: se crea una sola vez con las fichas, los catálogos de las
+titulaciones y las notas de corte del DUA, y guarda cada máster una sola vez, por su código.
+Su lógica de negocio es sacar de cada página lo que dice de cada máster, juntarlo por el
+código rechazando los datos imposibles y compararlo con la nota media. Su método
+posibilidades recibe una titulación y una nota media y dice, para cada máster que admite esa
+titulación, si se entraría seguro, si depende de cómo valore la comisión el resto de
+méritos, si no se entraría ni con la máxima valoración o si no se puede saber porque el
+máster no se adjudicó. Su método con_requisito_adicional dice en cuáles esa prioridad solo
+vale si se cumple un requisito adicional, que hay que mirar en la ficha. Leer el HTML de las
+páginas no es lógica de negocio y está aparte, en [master/tablas_html.py](master/tablas_html.py).
+En el servicio web que se desplegará más adelante, será lo que responda cuando alguien
+indique su titulación y su nota media.
 
 Los tests usan recortes reales de las tres páginas, guardados en
 [tests/paginas_dua](tests/paginas_dua), con la indicación de que la información se ha
