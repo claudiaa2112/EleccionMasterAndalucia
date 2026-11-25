@@ -1,4 +1,3 @@
-from dataclasses import replace
 from decimal import Decimal
 from pathlib import Path
 
@@ -24,7 +23,3 @@ def crear_convocatoria(fichas=None, catalogo=None, notas_corte=None):
 
 
 CONVOCATORIA = crear_convocatoria()
-
-
-def master_real(codigo, **cambios):
-    return replace(CONVOCATORIA.masters[codigo], **cambios)

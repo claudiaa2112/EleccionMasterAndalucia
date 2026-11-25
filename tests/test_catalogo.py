@@ -18,7 +18,7 @@ class TestPrioridadDeClaudiaEnElCatalogo(unittest.TestCase):
                 self.assertEqual(CONVOCATORIA.masters[codigo].accesos[TITULACION], acceso)
 
     def test_cada_master_del_catalogo_aparece_una_sola_vez(self):
-        admiten = [codigo for codigo, master in CONVOCATORIA.masters.items() if master.admite(TITULACION)]
+        admiten = [codigo for codigo, master in CONVOCATORIA.masters.items() if TITULACION in master.accesos]
         self.assertEqual(sorted(admiten), sorted(CODIGOS_CATALOGO))
 
     def test_rechaza_un_catalogo_con_un_master_repetido(self):
