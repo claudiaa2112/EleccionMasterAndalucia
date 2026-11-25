@@ -80,8 +80,13 @@ class ConvocatoriaMaster:
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
         if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
             raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
-        return {codigo: self.posibilidad(codigo, titulacion, nota_media)
-                for codigo, master in self.masters.items() if titulacion in master.accesos}
+        return {codigo: self.posibilidad(codigo, titulacion, nota_media) for codigo in self.masters_que_admiten(titulacion)}
+
+    def masters_que_admiten(self, titulacion: str) -> dict[str, Master]:
+        masters = {codigo: master for codigo, master in self.masters.items() if titulacion in master.accesos}
+        if not masters:
+            raise ValueError(f"No hay catálogo de la titulación {titulacion}.")
+        return masters
 
     def posibilidad(self, codigo: str, titulacion: str, nota_media: Decimal) -> Posibilidad:
         master = self.masters[codigo]
@@ -106,5 +111,5 @@ class ConvocatoriaMaster:
         return self.puntuacion_minima(codigo, nota_media) + Decimal(peso_resto * PUNTUACION_MAXIMA) / PESO_MAXIMO_NOTA_MEDIA
 
     def con_requisito_adicional(self, titulacion: str) -> list[str]:
-        return [codigo for codigo, master in self.masters.items()
-                if titulacion in master.accesos and master.accesos[titulacion].con_requisito_adicional]
+        return [codigo for codigo, master in self.masters_que_admiten(titulacion).items()
+                if master.accesos[titulacion].con_requisito_adicional]

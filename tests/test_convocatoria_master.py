@@ -106,6 +106,10 @@ class TestPosibilidades(unittest.TestCase):
             with self.subTest(nota_media=nota_media):
                 self.assertEqual(len(CONVOCATORIA.posibilidades(TITULACION, nota_media)), len(CODIGOS_CATALOGO))
 
+    def test_rechaza_una_titulacion_sin_catalogo(self):
+        with self.assertRaisesRegex(ValueError, "No hay catálogo de la titulación GRADO EN INFORMÁTICA"):
+            CONVOCATORIA.posibilidades("GRADO EN INFORMÁTICA", NOTA_MEDIA_CLAUDIA)
+
     def test_rechaza_una_nota_media_fuera_de_5_a_10(self):
         for nota_media in (Decimal("4.99"), Decimal("10.01")):
             with self.subTest(nota_media=nota_media), self.assertRaisesRegex(ValueError, "entre 5 y 10"):
