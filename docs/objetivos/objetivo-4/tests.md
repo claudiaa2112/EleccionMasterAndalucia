@@ -65,28 +65,18 @@ en el apartado siguiente, python -m unittest, que solo ejecuta tests escritos co
 
 ## Orden para ejecutar los tests
 
-### Criterios
+### Criterio
 
-- Qué ficheros deja en la carpeta del código y si se puede evitar.
 - Lo que tarda en ejecutar un test.
 
 ### Opciones
 
-- python -m unittest: ejecuta un test en 0,23 s y deja \_\_pycache\_\_ en master y en tests
-  ([captura](capturas/unittest.png)), que se evita con PYTHONDONTWRITEBYTECODE=1
-  ([documentación](https://docs.python.org/3/using/cmdline.html#envvar-PYTHONDONTWRITEBYTECODE)).
-- nose2 0.16.0: ejecuta los tests escritos con unittest. Ejecuta un test en 0,51 s y solo
-  deja \_\_pycache\_\_ en master y en tests ([captura](capturas/nose2.png)), que se evita
-  igual.
-- pytest 9.2.0: ejecuta un test en 0,84 s y deja \_\_pycache\_\_ en master y en tests y la
-  carpeta .pytest\_cache ([captura](capturas/pytest.png)); .pytest\_cache se evita con
-  -p no:cacheprovider
-  ([documentación](https://docs.pytest.org/en/stable/how-to/plugins.html#deactivating-unregistering-a-plugin-by-name)).
+- python -m unittest: ejecuta un test en 0,23 s ([captura](capturas/unittest.png)).
+- nose2 0.16.0: ejecuta los tests escritos con unittest. Ejecuta un test en 0,51 s
+  ([captura](capturas/nose2.png)).
+- pytest 9.2.0: ejecuta un test en 0,84 s ([captura](capturas/pytest.png)).
 
 ### Elección
 
-Los tres dejan solo ficheros que se pueden evitar, y python -m unittest es el que menos
-tarda en ejecutar un test: 0,23 s, frente a los 0,51 s de nose2 y los 0,84 s de pytest. Por
-eso elijo python -m unittest. Como se ejecuta con uv run, que por defecto crea el entorno
-.venv dentro del proyecto, el Makefile configura UV_PROJECT_ENVIRONMENT para no escribir en
-la carpeta del código ([documentación](https://docs.astral.sh/uv/concepts/projects/config/)).
+python -m unittest es el que menos tarda en ejecutar un test: 0,23 s, frente a los 0,51 s
+de nose2 y los 0,84 s de pytest. Por eso elijo python -m unittest.
