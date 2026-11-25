@@ -49,13 +49,15 @@ class ConvocatoriaMaster:
 
     def leer_notas_corte(self, notas_corte: str) -> None:
         leidos = set()
-        for celdas in map(celdas_de_la_fila, filter(lambda fila: "celda2" in fila, filas_de_la_pagina(notas_corte))):
+        for celdas in filter(lambda celdas: len(celdas) > 3, map(celdas_de_la_fila, filas_de_la_pagina(notas_corte))):
             codigo = texto_de_la_celda(celdas[0])
+            if codigo not in self.masters:
+                continue
             if codigo in leidos:
                 raise ValueError("Hay un máster repetido en las notas de corte.")
             leidos.add(codigo)
             prioridad, puntuacion = texto_de_la_celda(celdas[3]).split("-")
-            if codigo in self.masters and prioridad != SIN_ADJUDICAR:
+            if prioridad != SIN_ADJUDICAR:
                 self.masters[codigo].corte = (
                     EstadoCorte.TODOS_ADMITIDOS if puntuacion.startswith(MARCA_TODOS_ADMITIDOS)
                     else CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", "."))))
