@@ -1,4 +1,3 @@
-from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
@@ -27,7 +26,7 @@ class Acceso:
 
 @dataclass(eq=False)
 class Master:
-    accesos: Mapping[str, Acceso]
+    accesos: dict[str, Acceso]
     ponderacion_nota_media: int
     corte: CorteNumerico | EstadoCorte
 

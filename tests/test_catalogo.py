@@ -1,11 +1,11 @@
 import unittest
-from pathlib import Path
 
-from master.convocatoria_master import ConvocatoriaMaster
+from ejemplos import CODIGOS_CATALOGO, CONVOCATORIA, TITULACION, crear_convocatoria, leer_pagina
+
 from master.master import Acceso
 from master.prioridad_carreras import PrioridadCarrera
 
-CATALOGO = (Path(__file__).parent / "paginas_dua" / "catalogo.html").read_text(encoding="utf-8")
+CATALOGO = leer_pagina("catalogo.html")
 
 
 class TestPrioridadDeClaudiaEnElCatalogo(unittest.TestCase):
@@ -13,15 +13,14 @@ class TestPrioridadDeClaudiaEnElCatalogo(unittest.TestCase):
         casos = (("492700", Acceso(PrioridadCarrera.ALTA, False)),
                  ("407908", Acceso(PrioridadCarrera.MEDIA, True)),
                  ("A06400", Acceso(PrioridadCarrera.ALTA, False)))
-        accesos = ConvocatoriaMaster.accesos_del_catalogo(CATALOGO)
         for codigo, acceso in casos:
             with self.subTest(codigo=codigo):
-                self.assertEqual(accesos[codigo], acceso)
+                self.assertEqual(CONVOCATORIA.masters[codigo].accesos[TITULACION], acceso)
 
     def test_cada_master_del_catalogo_aparece_una_sola_vez(self):
-        accesos = ConvocatoriaMaster.accesos_del_catalogo(CATALOGO)
-        self.assertEqual(sorted(accesos), sorted(["102902", "324208", "407908", "492700", "493003", "518302", "803141", "A06400", "807203"]))
+        admiten = [codigo for codigo, master in CONVOCATORIA.masters.items() if master.admite(TITULACION)]
+        self.assertEqual(sorted(admiten), sorted(CODIGOS_CATALOGO))
 
     def test_rechaza_un_catalogo_con_un_master_repetido(self):
         with self.assertRaisesRegex(ValueError, "repetido en el catálogo"):
-            ConvocatoriaMaster.accesos_del_catalogo(CATALOGO + CATALOGO)
+            crear_convocatoria(catalogo=CATALOGO + CATALOGO)

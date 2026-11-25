@@ -18,11 +18,13 @@ def leer_fichas():
     return {codigo: leer_pagina(f"fichas/ficha_{codigo}.html") for codigo in CODIGOS_CATALOGO}
 
 
-def crear_convocatoria(catalogo=None, notas_corte=None, fichas=None):
-    return ConvocatoriaMaster.desde_las_paginas_del_dua(TITULACION, catalogo or leer_pagina("catalogo.html"),
-                                                        notas_corte or leer_pagina("notas_corte.html"),
-                                                        fichas or leer_fichas())
+def crear_convocatoria(fichas=None, catalogo=None, notas_corte=None):
+    return ConvocatoriaMaster(fichas or leer_fichas(), {TITULACION: catalogo or leer_pagina("catalogo.html")},
+                              notas_corte or leer_pagina("notas_corte.html"))
+
+
+CONVOCATORIA = crear_convocatoria()
 
 
 def master_real(codigo, **cambios):
-    return replace(crear_convocatoria().masters[codigo], **cambios)
+    return replace(CONVOCATORIA.masters[codigo], **cambios)
