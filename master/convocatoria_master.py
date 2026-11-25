@@ -6,7 +6,7 @@ from .corte import CorteNumerico
 from .master import PESO_MAXIMO_NOTA_MEDIA, PUNTUACION_MAXIMA, Acceso, EstadoCorte, Master
 from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
-from .tablas_html import celdas_de_la_fila, filas_de_la_pagina, texto_de_la_celda
+from .tablas_html import celdas_de_la_fila, esta_en_rojo, filas_de_la_pagina, texto_de_la_celda
 
 FORMA_CODIGO_MASTER = re.compile(r"\d{6}|A\d{5}")
 NOTA_MEDIA_MINIMA = 5
@@ -45,7 +45,7 @@ class ConvocatoriaMaster:
                 if titulacion in master.accesos:
                     raise ValueError(f"Hay un máster repetido en el catálogo de {titulacion}.")
                 master.accesos[titulacion] = Acceso(PrioridadCarrera[texto_de_la_celda(celdas[3])],
-                                                    "text-danger" in celdas[3])
+                                                    esta_en_rojo(celdas[3]))
 
     def leer_notas_corte(self, notas_corte: str) -> None:
         leidos = set()
