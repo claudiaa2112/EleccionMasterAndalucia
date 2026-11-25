@@ -51,24 +51,27 @@ elijo los métodos assert de unittest.
 
 ### Criterios
 
-- Que permita agrupar los casos de un mismo test en subtests.
-- Que tenga fixtures o funciones que preparen los datos que comparten varios tests.
+- Cómo se lee el mismo test de la HU001 escrito con cada uno: el que comprueba que la
+  prioridad decide antes que la puntuación, con los másteres 492700 y 407908.
+- Lo que se tarda en ejecutar todos los tests del proyecto (mediana de 7 ejecuciones).
 
 ### Opciones
 
-- unittest: repite un test con varios casos con subTest
-  ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests))
-  y prepara los datos compartidos en setUp
-  ([documentación](https://docs.python.org/3/library/unittest.html#unittest.TestCase.setUp)).
-- pytest 9.2.0: repite un test con varios casos con parametrize
-  ([documentación](https://docs.pytest.org/en/stable/how-to/parametrize.html)) y prepara
-  los datos compartidos con fixtures
-  ([documentación](https://docs.pytest.org/en/stable/how-to/fixtures.html)).
+- unittest: el test va dentro de una clase, y los casos, la llamada a la convocatoria y lo
+  que se espera se leen seguidos, con subTest para cada caso
+  ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)).
+  Los 26 tests del proyecto tardan 0,22 s con python -m unittest.
+- pytest 9.2.0: el test es una función sin clase y con assert, y los casos van en un
+  decorador parametrize encima de ella, separados de lo que se comprueba
+  ([documentación](https://docs.pytest.org/en/stable/how-to/parametrize.html)). Los tests
+  escritos con pytest solo los ejecuta pytest, que tarda 1,83 s con los 26 tests del
+  proyecto.
 
 ### Elección
 
-Los dos cumplen los dos criterios. Elijo unittest porque es el que ejecuta la orden elegida
-en el apartado siguiente, python -m unittest, que solo ejecuta tests escritos con unittest.
+Los dos se leen bien: pytest se ahorra la clase y self, y unittest deja los casos junto a lo
+que se comprueba. Lo que los distingue es el tiempo, 0,22 s frente a 1,83 s. Por eso elijo
+unittest.
 
 ## Orden para ejecutar los tests
 
