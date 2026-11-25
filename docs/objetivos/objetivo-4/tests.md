@@ -16,29 +16,36 @@ issues del milestone 1
 
 ### Criterios
 
-- Que, cuando un test falla, muestre el valor obtenido y el esperado.
-- Que permita comprobar que se lanza un error y con qué mensaje.
+- Qué dice cuando falla el test de la HU001 que da la posibilidad en cada máster: si señala
+  en qué máster la posibilidad no es la esperada.
+- Cómo se escribe un test de rechazo, como el de una nota media fuera de 5 a 10: si la
+  llamada se puede escribir tal como se hace a la convocatoria.
 
 ### Opciones
 
-- Métodos assert de unittest: assertEqual muestra el valor obtenido y el esperado
-  ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)),
-  y assertRaisesRegex comprueba que se lanza un error y con qué mensaje
+Para medir el primer criterio, en el test de posibilidades se espera a propósito que en el
+492700 la posibilidad sea DEPENDE en vez de ENTRA_SEGURO.
+
+- Métodos assert de unittest: assertEqual enseña todos los másteres y marca la línea del
+  492700 con lo obtenido y lo esperado
+  ([documentación](https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertEqual)).
+  El rechazo se escribe con assertRaisesRegex alrededor de la llamada, tal cual
   ([documentación](https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertRaisesRegex)).
-- assert de Python: al fallar solo lanza AssertionError, sin el valor obtenido ni el
-  esperado ([documentación](https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement)); los muestra si se ejecuta con pytest
+- assert de Python: ejecutado con python -m unittest solo dice AssertionError, sin señalar
+  el máster ([documentación](https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement));
+  solo lo señala si se ejecuta con pytest
   ([documentación](https://docs.pytest.org/en/stable/how-to/assert.html)). No tiene forma
   propia de comprobar que se lanza un error.
-- assertpy 2.36.0: al fallar muestra el valor obtenido y el esperado, y comprueba que se
-  lanza un error con raises(...).when_called_with(...), que también permite comprobar su mensaje
+- assertpy 2.36.1: dice que esperaba DEPENDE en el 492700 y obtuvo ENTRA_SEGURO, sin enseñar
+  el resto de másteres. El rechazo se escribe con raises(...).when_called_with(...), que
+  separa el método de sus argumentos
   ([documentación](https://assertpy.github.io/assertpy/guides/errors/#expected-exceptions)).
 
 ### Elección
 
-Los métodos assert de unittest y assertpy cumplen los dos criterios; el assert de Python,
-por sí solo, no muestra el valor obtenido y el esperado. Elijo los métodos assert de
-unittest porque son parte del test runner elegido, así que los tests no necesitan otra
-biblioteca para hacer las comprobaciones.
+Los métodos assert de unittest y assertpy señalan el máster que falla, pero con assertpy el
+test de rechazo ya no se escribe como la llamada que se hace a la convocatoria. Por eso
+elijo los métodos assert de unittest.
 
 ## Test runner o framework
 
