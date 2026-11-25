@@ -13,16 +13,15 @@ CORTE_492700 = "<b>RESTO</b>-5,00"
 
 
 class TestCodigoMaster(unittest.TestCase):
-    def test_acepta_los_codigos_que_usa_el_dua(self):
+    def test_acepta_los_codigos_del_catalogo_con_las_dos_formas_que_usa_el_dua(self):
         for codigo in ("492700", "A06400"):
             with self.subTest(codigo=codigo):
-                self.assertIn(codigo, CONVOCATORIA.masters)
+                self.assertTrue(CONVOCATORIA.masters[codigo].admite(TITULACION))
 
     def test_rechaza_un_codigo_que_no_usa_el_dua(self):
         for codigo in ("49270", "4927000", "49270A", "A0640", "B06400", ""):
             with self.subTest(codigo=codigo), self.assertRaisesRegex(ValueError, "6 cifras, o una A y 5 cifras"):
-                catalogo = CATALOGO.replace("<td>492700</td>", f"<td>{codigo}</td>")
-                crear_convocatoria(catalogo=catalogo, fichas=leer_fichas() | {codigo: FICHA_492700})
+                crear_convocatoria(catalogo=CATALOGO.replace("<td>492700</td>", f"<td>{codigo}</td>"))
 
 
 class TestFichaDelMaster(unittest.TestCase):

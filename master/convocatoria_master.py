@@ -19,29 +19,29 @@ PESO_SIN_NOTA_MEDIA = 0
 class ConvocatoriaMaster:
     def __init__(self, fichas: Mapping[str, str], catalogos: Mapping[str, str], notas_corte: str):
         self.masters: dict[str, Master] = {}
-        for codigo, ficha in fichas.items():
-            self.leer_ficha(codigo, ficha)
         for titulacion, catalogo in catalogos.items():
-            self.leer_catalogo(titulacion, catalogo)
+            self.leer_catalogo(titulacion, catalogo, fichas)
         self.leer_notas_corte(notas_corte)
         self.rechazar_datos_imposibles()
 
-    def leer_ficha(self, codigo: str, ficha: str) -> None:
+    def leer_ficha(self, codigo: str, fichas: Mapping[str, str]) -> None:
+        if codigo not in fichas:
+            raise ValueError(f"Falta la ficha del máster {codigo}.")
         pesos = [texto_de_la_celda(celdas_de_la_fila(fila)[-1])
-                 for fila in filas_de_la_pagina(ficha) if CRITERIO_NOTA_MEDIA in fila]
+                 for fila in filas_de_la_pagina(fichas[codigo]) if CRITERIO_NOTA_MEDIA in fila]
         self.masters[codigo] = Master(accesos={},
                                       ponderacion_nota_media=int(pesos[0]) if pesos else PESO_SIN_NOTA_MEDIA,
                                       corte=EstadoCorte.SIN_ADJUDICACION)
 
-    def master_con_ficha(self, codigo: str) -> Master:
-        if codigo not in self.masters:
-            raise ValueError(f"Falta la ficha del máster {codigo}.")
-        return self.masters[codigo]
-
-    def leer_catalogo(self, titulacion: str, catalogo: str) -> None:
+    def leer_catalogo(self, titulacion: str, catalogo: str, fichas: Mapping[str, str]) -> None:
         for celdas in map(celdas_de_la_fila, filas_de_la_pagina(catalogo)):
             if len(celdas) > 3:
-                master = self.master_con_ficha(texto_de_la_celda(celdas[0]))
+                codigo = texto_de_la_celda(celdas[0])
+                if not FORMA_CODIGO_MASTER.fullmatch(codigo):
+                    raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
+                if codigo not in self.masters:
+                    self.leer_ficha(codigo, fichas)
+                master = self.masters[codigo]
                 if titulacion in master.accesos:
                     raise ValueError(f"Hay un máster repetido en el catálogo de {titulacion}.")
                 master.accesos[titulacion] = Acceso(PrioridadCarrera[texto_de_la_celda(celdas[3])],
@@ -63,8 +63,6 @@ class ConvocatoriaMaster:
                     else CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", "."))))
 
     def rechazar_datos_imposibles(self) -> None:
-        if not all(FORMA_CODIGO_MASTER.fullmatch(codigo) for codigo in self.masters):
-            raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
         if not all(0 <= master.ponderacion_nota_media <= PESO_MAXIMO_NOTA_MEDIA for master in self.masters.values()):
             raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
         if not all(0 <= master.corte.puntuacion <= PUNTUACION_MAXIMA
