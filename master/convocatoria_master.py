@@ -9,6 +9,7 @@ from .posibilidad import Posibilidad
 from .prioridad_carreras import PrioridadCarrera
 from .tablas_html import celdas_de_la_fila, esta_en_rojo, filas_de_la_pagina, texto_de_la_celda
 
+CodigoMaster = str
 FORMA_CODIGO_MASTER = re.compile(r"\d{6}|A\d{5}")
 NOTA_MEDIA_MINIMA = 5
 SIN_ADJUDICAR = "AÚN SIN ADJ."
@@ -26,7 +27,7 @@ POSIBILIDAD_POR_ESTADO = {
 
 class ConvocatoriaMaster:
     def __init__(self, fichas: Mapping[str, str], catalogos: Mapping[str, str], notas_corte: str):
-        self.masters: dict[str, Master] = {}
+        self.masters: dict[CodigoMaster, Master] = {}
         for titulacion, catalogo in catalogos.items():
             self.leer_catalogo(titulacion, catalogo, fichas)
         self.leer_notas_corte(notas_corte)
@@ -78,18 +79,18 @@ class ConvocatoriaMaster:
                    for master in self.masters.values() if isinstance(master.corte, CorteNumerico)):
             raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
 
-    def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[str, Posibilidad]:
-        if not NOTA_MEDIA_MINIMA <= nota_media <= PUNTUACION_MAXIMA:
-            raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
+    def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[CodigoMaster, Posibilidad]:
         return {codigo: self.posibilidad(codigo, titulacion, nota_media) for codigo in self.masters_que_admiten(titulacion)}
 
-    def masters_que_admiten(self, titulacion: str) -> dict[str, Master]:
+    def masters_que_admiten(self, titulacion: str) -> dict[CodigoMaster, Master]:
         masters = {codigo: master for codigo, master in self.masters.items() if titulacion in master.accesos}
         if not masters:
             raise ValueError(f"No hay catálogo de la titulación {titulacion}.")
         return masters
 
-    def posibilidad(self, codigo: str, titulacion: str, nota_media: Decimal) -> Posibilidad:
+    def posibilidad(self, codigo: CodigoMaster, titulacion: str, nota_media: Decimal) -> Posibilidad:
+        if nota_media < NOTA_MEDIA_MINIMA or nota_media > PUNTUACION_MAXIMA:
+            raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
         master = self.masters[codigo]
         if isinstance(master.corte, EstadoCorte):
             return POSIBILIDAD_POR_ESTADO[master.corte]
@@ -111,6 +112,6 @@ class ConvocatoriaMaster:
         peso_resto = PESO_MAXIMO_NOTA_MEDIA - self.masters[codigo].ponderacion_nota_media
         return self.puntuacion_minima(codigo, nota_media) + Decimal(peso_resto * PUNTUACION_MAXIMA) / PESO_MAXIMO_NOTA_MEDIA
 
-    def con_requisito_adicional(self, titulacion: str) -> list[str]:
+    def con_requisito_adicional(self, titulacion: str) -> list[CodigoMaster]:
         return [codigo for codigo, master in self.masters_que_admiten(titulacion).items()
                 if master.accesos[titulacion].con_requisito_adicional]
