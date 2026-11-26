@@ -18,7 +18,10 @@ MARCA_TODOS_ADMITIDOS = "**"
 CRITERIO_NOTA_MEDIA = "NOTA MEDIA DEL EXPEDIENTE ACADEMICO"
 PESO_SIN_NOTA_MEDIA = 0
 PESO_MAXIMO_NOTA_MEDIA = 100
+PUNTUACION_MINIMA = 0
 PUNTUACION_MAXIMA = 10
+COLUMNA_CODIGO = 0
+COLUMNA_BAREMO = 1
 COLUMNA_PRIORIDAD = 3
 POSIBILIDAD_POR_ESTADO = {
     EstadoCorte.TODOS_ADMITIDOS: Posibilidad.ENTRA_SEGURO,
@@ -37,16 +40,16 @@ class ConvocatoriaMaster:
     def leer_ficha(self, codigo: str, fichas: Mapping[str, str], accesos: Mapping[str, Acceso]) -> None:
         if codigo not in fichas:
             raise ValueError(f"Falta la ficha del máster {codigo}.")
-        pesos = [texto_de_la_celda(celdas_de_la_fila(fila)[-1])
-                 for fila in filas_de_la_pagina(fichas[codigo]) if CRITERIO_NOTA_MEDIA in fila]
+        peso = next((texto_de_la_celda(celdas_de_la_fila(fila)[COLUMNA_BAREMO])
+                     for fila in filas_de_la_pagina(fichas[codigo]) if CRITERIO_NOTA_MEDIA in fila), PESO_SIN_NOTA_MEDIA)
         self.masters[codigo] = Master(accesos=MappingProxyType(accesos),
-                                      ponderacion_nota_media=int(pesos[0]) if pesos else PESO_SIN_NOTA_MEDIA,
+                                      ponderacion_nota_media=int(peso),
                                       corte=EstadoCorte.SIN_ADJUDICACION)
 
     def leer_catalogo(self, titulacion: str, catalogo: str, fichas: Mapping[str, str]) -> None:
         for celdas in map(celdas_de_la_fila, filas_de_la_pagina(catalogo)):
             if len(celdas) > COLUMNA_PRIORIDAD:
-                codigo = texto_de_la_celda(celdas[0])
+                codigo = texto_de_la_celda(celdas[COLUMNA_CODIGO])
                 if not FORMA_CODIGO_MASTER.fullmatch(codigo):
                     raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
                 acceso = Acceso(PrioridadCarrera[texto_de_la_celda(celdas[COLUMNA_PRIORIDAD])], esta_en_rojo(celdas[COLUMNA_PRIORIDAD]))
@@ -61,7 +64,7 @@ class ConvocatoriaMaster:
     def leer_notas_corte(self, notas_corte: str) -> None:
         leidos = set()
         for celdas in filter(lambda celdas: len(celdas) > COLUMNA_PRIORIDAD, map(celdas_de_la_fila, filas_de_la_pagina(notas_corte))):
-            codigo = texto_de_la_celda(celdas[0])
+            codigo = texto_de_la_celda(celdas[COLUMNA_CODIGO])
             if codigo not in self.masters:
                 continue
             if codigo in leidos:
@@ -74,11 +77,11 @@ class ConvocatoriaMaster:
                     else CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", ".")))))
 
     def rechazar_datos_imposibles(self) -> None:
-        if not all(0 <= master.ponderacion_nota_media <= PESO_MAXIMO_NOTA_MEDIA for master in self.masters.values()):
-            raise ValueError(f"El peso de la nota media debe estar entre 0 y {PESO_MAXIMO_NOTA_MEDIA}.")
-        if not all(0 <= master.corte.puntuacion <= PUNTUACION_MAXIMA
+        if not all(PESO_SIN_NOTA_MEDIA <= master.ponderacion_nota_media <= PESO_MAXIMO_NOTA_MEDIA for master in self.masters.values()):
+            raise ValueError(f"El peso de la nota media debe estar entre {PESO_SIN_NOTA_MEDIA} y {PESO_MAXIMO_NOTA_MEDIA}.")
+        if not all(PUNTUACION_MINIMA <= master.corte.puntuacion <= PUNTUACION_MAXIMA
                    for master in self.masters.values() if isinstance(master.corte, CorteNumerico)):
-            raise ValueError(f"La puntuación del último admitido debe estar entre 0 y {PUNTUACION_MAXIMA}.")
+            raise ValueError(f"La puntuación del último admitido debe estar entre {PUNTUACION_MINIMA} y {PUNTUACION_MAXIMA}.")
 
     def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[CodigoMaster, Posibilidad]:
         return {codigo: self.posibilidad(codigo, titulacion, nota_media) for codigo in self.masters_que_admiten(titulacion)}

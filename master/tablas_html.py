@@ -7,7 +7,8 @@ ETIQUETA = re.compile(r"<[^>]+>")
 
 
 def filas_de_la_pagina(pagina: str) -> list[str]:
-    return INICIO_FILA.split(pagina)[1:]
+    antes_de_la_primera_fila, *filas = INICIO_FILA.split(pagina)
+    return filas
 
 
 def celdas_de_la_fila(fila: str) -> list[str]:

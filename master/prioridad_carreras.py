@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import Enum, auto
 
 class PrioridadCarrera(Enum):
-    RESTO = 1
-    BAJA = 2
-    MEDIA = 3
-    ALTA = 4
+    RESTO = auto()
+    BAJA = auto()
+    MEDIA = auto()
+    ALTA = auto()
