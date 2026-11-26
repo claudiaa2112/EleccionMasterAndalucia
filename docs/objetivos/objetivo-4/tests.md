@@ -60,33 +60,33 @@ elijo los métodos assert de unittest.
 - unittest: el test va dentro de una clase, y los casos, la llamada a la convocatoria y lo
   que se espera se leen seguidos, con subTest para cada caso
   ([documentación](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)).
-  Los 26 tests del proyecto tardan 0,22 s con python -m unittest.
+  Los 27 tests del proyecto tardan 0,21 s con python -m unittest.
 - pytest 9.2.0: el test es una función sin clase y con assert, y los casos van en un
   decorador parametrize encima de ella, separados de lo que se comprueba
   ([documentación](https://docs.pytest.org/en/stable/how-to/parametrize.html)). Los tests
-  escritos con pytest solo los ejecuta pytest, que tarda 1,83 s con los 26 tests del
+  escritos con pytest solo los ejecuta pytest, que tarda 1,35 s con los 27 tests del
   proyecto.
 
 ### Elección
 
 Los dos se leen bien: pytest se ahorra la clase y self, y unittest deja los casos junto a lo
-que se comprueba. Lo que los distingue es el tiempo, 0,22 s frente a 1,83 s. Por eso elijo
+que se comprueba. Lo que los distingue es el tiempo, 0,21 s frente a 1,35 s. Por eso elijo
 unittest.
 
 ## Orden para ejecutar los tests
 
 ### Criterio
 
-- Lo que tarda en ejecutar un test.
+- Lo que tarda en ejecutar todos los tests del proyecto (mediana de 7 ejecuciones).
 
 ### Opciones
 
-- python -m unittest: ejecuta un test en 0,23 s ([captura](capturas/unittest.png)).
-- nose2 0.16.0: ejecuta los tests escritos con unittest. Ejecuta un test en 0,51 s
+- python -m unittest: ejecuta los 27 tests en 0,21 s ([captura](capturas/unittest.png)).
+- nose2 0.16.0: ejecuta los tests escritos con unittest. Ejecuta los 27 tests en 0,40 s
   ([captura](capturas/nose2.png)).
-- pytest 9.2.0: ejecuta un test en 0,84 s ([captura](capturas/pytest.png)).
+- pytest 9.2.0: ejecuta los 27 tests en 1,35 s ([captura](capturas/pytest.png)).
 
 ### Elección
 
-python -m unittest es el que menos tarda en ejecutar un test: 0,23 s, frente a los 0,51 s
-de nose2 y los 0,84 s de pytest. Por eso elijo python -m unittest.
+python -m unittest es el que menos tarda en ejecutar los tests del proyecto: 0,21 s, frente
+a los 0,40 s de nose2 y los 1,35 s de pytest. Por eso elijo python -m unittest.
