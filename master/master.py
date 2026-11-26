@@ -1,4 +1,4 @@
-from collections.abc import Mapping
+from types import MappingProxyType
 from dataclasses import dataclass
 from enum import Enum
 
@@ -16,6 +16,6 @@ class Acceso:
 
 @dataclass(frozen=True)
 class Master:
-    accesos: Mapping[str, Acceso]
+    accesos: MappingProxyType[str, Acceso]
     ponderacion_nota_media: int
     corte: CorteNumerico | EstadoCorte

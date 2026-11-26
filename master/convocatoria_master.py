@@ -2,6 +2,7 @@ import re
 from collections.abc import Mapping
 from dataclasses import replace
 from decimal import Decimal
+from types import MappingProxyType
 
 from .corte import CorteNumerico
 from .master import Acceso, EstadoCorte, Master
@@ -38,7 +39,7 @@ class ConvocatoriaMaster:
             raise ValueError(f"Falta la ficha del máster {codigo}.")
         pesos = [texto_de_la_celda(celdas_de_la_fila(fila)[-1])
                  for fila in filas_de_la_pagina(fichas[codigo]) if CRITERIO_NOTA_MEDIA in fila]
-        self.masters[codigo] = Master(accesos=accesos,
+        self.masters[codigo] = Master(accesos=MappingProxyType(accesos),
                                       ponderacion_nota_media=int(pesos[0]) if pesos else PESO_SIN_NOTA_MEDIA,
                                       corte=EstadoCorte.SIN_ADJUDICACION)
 
@@ -55,7 +56,7 @@ class ConvocatoriaMaster:
                     raise ValueError(f"Hay un máster repetido en el catálogo de {titulacion}.")
                 else:
                     self.masters[codigo] = replace(self.masters[codigo],
-                                                   accesos={**self.masters[codigo].accesos, titulacion: acceso})
+                                                   accesos=MappingProxyType({**self.masters[codigo].accesos, titulacion: acceso}))
 
     def leer_notas_corte(self, notas_corte: str) -> None:
         leidos = set()

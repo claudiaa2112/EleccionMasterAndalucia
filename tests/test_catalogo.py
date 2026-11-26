@@ -21,6 +21,10 @@ class TestPrioridadDeClaudiaEnElCatalogo(unittest.TestCase):
         admiten = [codigo for codigo, master in CONVOCATORIA.masters.items() if TITULACION in master.accesos]
         self.assertEqual(sorted(admiten), sorted(CODIGOS_CATALOGO))
 
+    def test_no_se_puede_cambiar_la_prioridad_de_un_master(self):
+        with self.assertRaises(TypeError):
+            CONVOCATORIA.masters["492700"].accesos[TITULACION] = Acceso(PrioridadCarrera.RESTO, False)
+
     def test_rechaza_un_catalogo_con_un_master_repetido(self):
         with self.assertRaisesRegex(ValueError, "repetido en el catálogo"):
             crear_convocatoria(catalogo=CATALOGO + CATALOGO)
