@@ -1,13 +1,11 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import CONVOCATORIA, crear_convocatoria, leer_pagina
+from datos_del_dua import CONVOCATORIA, NOTAS_CORTE, crear_convocatoria
 
 from master.corte import CorteNumerico
 from master.master import EstadoCorte
 from master.prioridad_carreras import PrioridadCarrera
-
-NOTAS_CORTE = leer_pagina("notas_corte.html")
 
 
 class TestUltimoAdmitidoEnLasNotasDeCorte(unittest.TestCase):

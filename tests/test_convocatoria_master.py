@@ -1,13 +1,11 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import CODIGOS_CATALOGO, CONVOCATORIA, NOTA_MEDIA_CLAUDIA, TITULACION, crear_convocatoria, leer_fichas, leer_pagina
+from datos_del_dua import CATALOGO, CODIGOS_CATALOGO, CONVOCATORIA, FICHAS, NOTA_MEDIA_CLAUDIA, NOTAS_CORTE, TITULACION, crear_convocatoria
 
 from master.posibilidad import Posibilidad
 
-CATALOGO = leer_pagina("catalogo.html")
-NOTAS_CORTE = leer_pagina("notas_corte.html")
-FICHA_492700 = leer_fichas()["492700"]
+FICHA_492700 = FICHAS["492700"]
 PESO_492700 = '<td class="text-right">100</td>'
 CORTE_492700 = "<b>RESTO</b>-5,00"
 CORTE_102902 = "<b>RESTO</b>-5,37"
@@ -27,8 +25,7 @@ class TestCodigoMaster(unittest.TestCase):
 
 class TestFichaDelMaster(unittest.TestCase):
     def test_rechaza_un_master_del_catalogo_sin_ficha(self):
-        fichas = leer_fichas()
-        del fichas["492700"]
+        fichas = {codigo: ficha for codigo, ficha in FICHAS.items() if codigo != "492700"}
         with self.assertRaisesRegex(ValueError, "Falta la ficha del máster 492700"):
             crear_convocatoria(fichas=fichas)
 
@@ -43,7 +40,7 @@ class TestPesoNotaMedia(unittest.TestCase):
         for peso in ("-1", "101"):
             with self.subTest(peso=peso), self.assertRaisesRegex(ValueError, "entre 0 y 100"):
                 ficha = FICHA_492700.replace(PESO_492700, f'<td class="text-right">{peso}</td>')
-                crear_convocatoria(fichas=leer_fichas() | {"492700": ficha})
+                crear_convocatoria(fichas=FICHAS | {"492700": ficha})
 
 
 class TestPuntuacionCorte(unittest.TestCase):

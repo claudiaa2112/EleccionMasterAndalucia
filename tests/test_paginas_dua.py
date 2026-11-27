@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from ejemplos import CODIGOS_CATALOGO, CONVOCATORIA, TITULACION
+from datos_del_dua import CODIGOS_CATALOGO, CONVOCATORIA, TITULACION
 
 from master.corte import CorteNumerico
 from master.master import Acceso

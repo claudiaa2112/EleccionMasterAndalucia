@@ -1,11 +1,9 @@
 import unittest
 
-from ejemplos import CODIGOS_CATALOGO, CONVOCATORIA, TITULACION, crear_convocatoria, leer_pagina
+from datos_del_dua import CATALOGO, CODIGOS_CATALOGO, CONVOCATORIA, TITULACION, crear_convocatoria
 
 from master.master import Acceso
 from master.prioridad_carreras import PrioridadCarrera
-
-CATALOGO = leer_pagina("catalogo.html")
 
 
 class TestPrioridadDeClaudiaEnElCatalogo(unittest.TestCase):

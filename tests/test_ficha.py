@@ -1,6 +1,6 @@
 import unittest
 
-from ejemplos import CONVOCATORIA
+from datos_del_dua import CONVOCATORIA
 
 
 class TestPesoDeLaNotaMediaEnLaFicha(unittest.TestCase):
