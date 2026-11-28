@@ -1,20 +1,121 @@
+import re
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import replace
+from decimal import Decimal
+from types import MappingProxyType
 
-from .master import Master
+from .corte import CorteNumerico
+from .master import Acceso, EstadoCorte, Master
+from .posibilidad import Posibilidad
+from .prioridad_carreras import PrioridadCarrera
+from .tablas_html import celdas_de_la_fila, esta_en_rojo, filas_de_la_pagina, texto_de_la_celda
 
-@dataclass(eq=False)
+CodigoMaster = str
+FORMA_CODIGO_MASTER = re.compile(r"\d{6}|A\d{5}")
+NOTA_MEDIA_MINIMA = 5
+SIN_ADJUDICAR = "AÚN SIN ADJ."
+MARCA_TODOS_ADMITIDOS = "**"
+CRITERIO_NOTA_MEDIA = "NOTA MEDIA DEL EXPEDIENTE ACADEMICO"
+PESO_SIN_NOTA_MEDIA = 0
+PESO_MAXIMO_NOTA_MEDIA = 100
+PUNTUACION_MINIMA = 0
+PUNTUACION_MAXIMA = 10
+COLUMNA_CODIGO = 0
+COLUMNA_BAREMO = 1
+COLUMNA_PRIORIDAD = 3
+POSIBILIDAD_POR_ESTADO = {
+    EstadoCorte.TODOS_ADMITIDOS: Posibilidad.ENTRA_SEGURO,
+    EstadoCorte.SIN_ADJUDICACION: Posibilidad.NO_SE_SABE,
+}
+
+
 class ConvocatoriaMaster:
-    identificador: str
-    masters: Mapping[str, Master]
+    def __init__(self, fichas: Mapping[str, str], catalogos: Mapping[str, str], notas_corte: str):
+        self.masters: dict[CodigoMaster, Master] = {}
+        for titulacion, catalogo in catalogos.items():
+            self.leer_catalogo(titulacion, catalogo, fichas)
+        self.leer_notas_corte(notas_corte)
+        self.rechazar_datos_imposibles()
 
-    def __post_init__(self) -> None:
-        if not isinstance(self.identificador, str) or not self.identificador.strip():
-            raise ValueError("El identificador de la convocatoria de máster debe ser texto no vacío")
-        if not isinstance(self.masters, Mapping):
-            raise ValueError("Los másteres deben estar indexados por código.")
-        for codigo, master in self.masters.items():
-            if not isinstance(codigo, str) or not codigo.isdigit() or len(codigo) != 6:
-                raise ValueError("El código del máster debe contener seis cifras.")
-            if not isinstance(master, Master):
-                raise ValueError("La convocatoria de máster solo puede contener másteres válidos.")
+    def leer_ficha(self, codigo: str, fichas: Mapping[str, str], accesos: Mapping[str, Acceso]) -> None:
+        if codigo not in fichas:
+            raise ValueError(f"Falta la ficha del máster {codigo}.")
+        peso = next((texto_de_la_celda(celdas_de_la_fila(fila)[COLUMNA_BAREMO])
+                     for fila in filas_de_la_pagina(fichas[codigo]) if CRITERIO_NOTA_MEDIA in fila), PESO_SIN_NOTA_MEDIA)
+        self.masters[codigo] = Master(accesos=MappingProxyType(accesos),
+                                      ponderacion_nota_media=int(peso),
+                                      corte=EstadoCorte.SIN_ADJUDICACION)
+
+    def leer_catalogo(self, titulacion: str, catalogo: str, fichas: Mapping[str, str]) -> None:
+        for celdas in map(celdas_de_la_fila, filas_de_la_pagina(catalogo)):
+            if len(celdas) > COLUMNA_PRIORIDAD:
+                codigo = texto_de_la_celda(celdas[COLUMNA_CODIGO])
+                if not FORMA_CODIGO_MASTER.fullmatch(codigo):
+                    raise ValueError("El código del máster debe tener 6 cifras, o una A y 5 cifras.")
+                acceso = Acceso(PrioridadCarrera[texto_de_la_celda(celdas[COLUMNA_PRIORIDAD])], esta_en_rojo(celdas[COLUMNA_PRIORIDAD]))
+                if codigo not in self.masters:
+                    self.leer_ficha(codigo, fichas, {titulacion: acceso})
+                elif titulacion in self.masters[codigo].accesos:
+                    raise ValueError(f"Hay un máster repetido en el catálogo de {titulacion}.")
+                else:
+                    self.masters[codigo] = replace(self.masters[codigo],
+                                                   accesos=MappingProxyType({**self.masters[codigo].accesos, titulacion: acceso}))
+
+    def leer_notas_corte(self, notas_corte: str) -> None:
+        leidos = set()
+        for celdas in filter(lambda celdas: len(celdas) > COLUMNA_PRIORIDAD, map(celdas_de_la_fila, filas_de_la_pagina(notas_corte))):
+            codigo = texto_de_la_celda(celdas[COLUMNA_CODIGO])
+            if codigo not in self.masters:
+                continue
+            if codigo in leidos:
+                raise ValueError("Hay un máster repetido en las notas de corte.")
+            leidos.add(codigo)
+            prioridad, puntuacion = texto_de_la_celda(celdas[COLUMNA_PRIORIDAD]).split("-")
+            if prioridad != SIN_ADJUDICAR:
+                self.masters[codigo] = replace(self.masters[codigo], corte=(
+                    EstadoCorte.TODOS_ADMITIDOS if puntuacion.startswith(MARCA_TODOS_ADMITIDOS)
+                    else CorteNumerico(PrioridadCarrera[prioridad], Decimal(puntuacion.replace(",", ".")))))
+
+    def rechazar_datos_imposibles(self) -> None:
+        if not all(PESO_SIN_NOTA_MEDIA <= master.ponderacion_nota_media <= PESO_MAXIMO_NOTA_MEDIA for master in self.masters.values()):
+            raise ValueError(f"El peso de la nota media debe estar entre {PESO_SIN_NOTA_MEDIA} y {PESO_MAXIMO_NOTA_MEDIA}.")
+        if not all(PUNTUACION_MINIMA <= master.corte.puntuacion <= PUNTUACION_MAXIMA
+                   for master in self.masters.values() if isinstance(master.corte, CorteNumerico)):
+            raise ValueError(f"La puntuación del último admitido debe estar entre {PUNTUACION_MINIMA} y {PUNTUACION_MAXIMA}.")
+
+    def posibilidades(self, titulacion: str, nota_media: Decimal) -> dict[CodigoMaster, Posibilidad]:
+        return {codigo: self.posibilidad(codigo, titulacion, nota_media) for codigo in self.masters_que_admiten(titulacion)}
+
+    def masters_que_admiten(self, titulacion: str) -> dict[CodigoMaster, Master]:
+        masters = {codigo: master for codigo, master in self.masters.items() if titulacion in master.accesos}
+        if not masters:
+            raise ValueError(f"No hay catálogo de la titulación {titulacion}.")
+        return masters
+
+    def posibilidad(self, codigo: CodigoMaster, titulacion: str, nota_media: Decimal) -> Posibilidad:
+        if nota_media < NOTA_MEDIA_MINIMA or nota_media > PUNTUACION_MAXIMA:
+            raise ValueError(f"La nota media debe estar entre {NOTA_MEDIA_MINIMA} y {PUNTUACION_MAXIMA}.")
+        master = self.masters[codigo]
+        if isinstance(master.corte, EstadoCorte):
+            return POSIBILIDAD_POR_ESTADO[master.corte]
+        prioridad = master.accesos[titulacion].prioridad.value
+        if prioridad > master.corte.prioridad.value:
+            return Posibilidad.ENTRA_SEGURO
+        if prioridad < master.corte.prioridad.value:
+            return Posibilidad.NO_ENTRA
+        if self.puntuacion_minima(codigo, nota_media) >= master.corte.puntuacion:
+            return Posibilidad.ENTRA_SEGURO
+        if self.puntuacion_maxima(codigo, nota_media) >= master.corte.puntuacion:
+            return Posibilidad.DEPENDE
+        return Posibilidad.NO_ENTRA
+
+    def puntuacion_minima(self, codigo: str, nota_media: Decimal) -> Decimal:
+        return self.masters[codigo].ponderacion_nota_media * nota_media / PESO_MAXIMO_NOTA_MEDIA
+
+    def puntuacion_maxima(self, codigo: str, nota_media: Decimal) -> Decimal:
+        peso_resto = PESO_MAXIMO_NOTA_MEDIA - self.masters[codigo].ponderacion_nota_media
+        return self.puntuacion_minima(codigo, nota_media) + Decimal(peso_resto * PUNTUACION_MAXIMA) / PESO_MAXIMO_NOTA_MEDIA
+
+    def con_requisito_adicional(self, titulacion: str) -> list[CodigoMaster]:
+        return [codigo for codigo, master in self.masters_que_admiten(titulacion).items()
+                if master.accesos[titulacion].con_requisito_adicional]

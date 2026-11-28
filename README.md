@@ -15,8 +15,9 @@ Todos los datos los saco del portal del Distrito Único Andaluz (DUA), la web of
 Junta de Andalucía para acceder a los másteres de las universidades públicas andaluzas. La
 información aparece escrita directamente en cada página, ordenada en tablas, así que se
 puede leer y procesar sin herramientas especiales. Además, en todas las páginas cada máster
-aparece con el mismo código de seis cifras, y eso me permite juntar lo que dice cada una
-sobre un mismo máster.
+aparece con el mismo código, de seis cifras o, en los másteres de la Universidad
+Internacional de Andalucía, una A seguida de cinco cifras, y eso me permite juntar lo que
+dice cada una sobre un mismo máster.
 
 - Catálogo de másteres para mi grado: en el [buscador de másteres](https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/sguit/mo_catalogo_top.php),
   eligiendo mi titulación, Grado en Ingeniería Informática, sale la lista de másteres que la
@@ -41,7 +42,27 @@ contenidos del portal de la Junta de Andalucía, del que forma parte el DUA, se 
 reutilizar con licencia Creative Commons Reconocimiento 3.0, indicando que la información se
 ha obtenido del Portal de la Junta de Andalucía.
 
-## Cómo preparar el proyecto y comprobar el código
+## Qué responde
+
+La clase ConvocatoriaMaster, en [master/convocatoria_master.py](master/convocatoria_master.py),
+es la única fuente de verdad: se crea una sola vez con las fichas, los catálogos de las
+titulaciones y las notas de corte del DUA, y guarda cada máster una sola vez, por su código.
+Su lógica de negocio es sacar de cada página lo que dice de cada máster, juntarlo por el
+código rechazando los datos imposibles y compararlo con la nota media. Su método
+posibilidades recibe una titulación y una nota media y dice, para cada máster que admite esa
+titulación, si se entraría seguro, si depende de cómo valore la comisión el resto de
+méritos, si no se entraría ni con la máxima valoración o si no se puede saber porque el
+máster no se adjudicó. Su método con_requisito_adicional dice en cuáles esa prioridad solo
+vale si se cumple un requisito adicional, que hay que mirar en la ficha. Leer el HTML de las
+páginas no es lógica de negocio y está aparte, en [master/tablas_html.py](master/tablas_html.py).
+En el servicio web que se desplegará más adelante, será lo que responda cuando alguien
+indique su titulación y su nota media.
+
+Los tests usan recortes reales de las tres páginas, guardados en
+[tests/paginas_dua](tests/paginas_dua), con la indicación de que la información se ha
+obtenido del Portal de la Junta de Andalucía.
+
+## Cómo preparar el proyecto, comprobar el código y ejecutar los tests
 
 Hace falta tener [uv](https://docs.astral.sh/uv/getting-started/installation/), que
 instala Python 3.14 si no está y las dependencias del proyecto, y Make. Desde la carpeta
@@ -50,6 +71,7 @@ del proyecto:
 ```bash
 make install   # instala Python 3.14 si hace falta y las dependencias del proyecto
 make check     # comprueba que la sintaxis del código es correcta
+make test      # ejecuta los tests
 ```
 
 make check lee todos los ficheros de la carpeta master y avisa si alguno tiene un error de
@@ -60,3 +82,4 @@ ni los tipos.
 - [Objetivo 0: tarjeta del juego de rol y configuración del repositorio](docs/objetivos/objetivo-0/objetivo-0.md)
 - Objetivo 1: [personas](docs/objetivos/objetivo-1/personas.md), [user journeys](docs/objetivos/objetivo-1/user-journeys.md), [historias de usuario](docs/objetivos/objetivo-1/historias-usuario.md) y [milestones](docs/objetivos/objetivo-1/milestones.md)
 - [Objetivo 3: elección de las herramientas para automatizar tareas](docs/objetivos/objetivo-3/automatizacion.md)
+- [Objetivo 4: elección de las herramientas para los tests](docs/objetivos/objetivo-4/tests.md)
