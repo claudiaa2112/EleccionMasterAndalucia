@@ -16,7 +16,7 @@ def celdas_de_la_fila(fila: str) -> list[str]:
 
 
 def texto_de_la_celda(celda: str) -> str:
-    return " ".join(unescape(ETIQUETA.sub("", celda)).split())
+    return unescape(ETIQUETA.sub("", celda))
 
 
 def esta_en_rojo(celda: str) -> bool:
